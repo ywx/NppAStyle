@@ -1,0 +1,245 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+#include "NppAStyleVersion.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Neutral resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_NEU)
+#ifdef _WIN32
+LANGUAGE LANG_NEUTRAL, SUBLANG_NEUTRAL
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    DLG_OPTIONS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 285
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 215
+    END
+
+    DLG_ABOUT, DIALOG
+    BEGIN
+        RIGHTMARGIN, 187
+        BOTTOMMARGIN, 113
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_NPPASTYLE_OPTION_DLG DIALOGEX 0, 0, 430, 290
+STYLE DS_SETFONT | WS_POPUP | WS_CAPTION | WS_SYSMENU | DS_MODALFRAME
+CAPTION "NppAStyle Options"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    GROUPBOX        "Preview",IDC_GRP_PREVIEW,7,7,298,220
+    CONTROL         "",IDC_TXT_PREVIEW,"Scintilla",WS_CHILD | WS_VISIBLE | WS_BORDER,13,19,286,202
+    GROUPBOX        "Tab Settings",IDC_GRP_TAB_SETTING,7,230,298,30
+    CONTROL         "Same As Npp Current View",IDC_CHK_SameAsNppCurView,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,15,245,100,10
+    CONTROL         "Replace Tab with Spaces",IDC_CHK_UseSpace,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,125,245,95,10
+    LTEXT           "Tab Size:",IDC_LBL_TAB_SIZE,230,245,35,8
+    COMBOBOX        IDC_CBB_TABSIZE,265,243,25,12,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+
+    LTEXT           "AStyle Bracket Style :",IDC_LBL_BRACKET_STYLE,318,7,100,8
+    COMBOBOX        IDC_CBB_BRACKET_STYLE,318,19,100,12,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "AStyle Option Set :",IDC_LBL_ASTYLE_OPTION_SET,318,35,100,8
+    COMBOBOX        IDC_CBB_ASTYLE_OPTION_SET,318,47,100,12,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    GROUPBOX        "Bracket Modify Options",IDC_GRP_Bracket_Modify,313,62,110,65
+    CONTROL         "AttachNamespace",IDC_CHK_AttachNamespace,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,74,75,10
+    CONTROL         "AttachClass",IDC_CHK_AttachClass,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,86,70,10
+    CONTROL         "AttachInline",IDC_CHK_AttachInline,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,98,70,10
+    CONTROL         "AttachExternC",IDC_CHK_AttachExternC,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,110,70,10
+    GROUPBOX        "Indentation Options",IDC_GRP_Indentation,313,62,110,165
+    CONTROL         "ClassIndent",IDC_CHK_ClassIndent,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,74,90,10
+    CONTROL         "ModifierIndent",IDC_CHK_ModifierIndent,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,86,90,10
+    CONTROL         "SwitchIndent",IDC_CHK_SwitchIndent,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,98,90,10
+    CONTROL         "CaseIndent",IDC_CHK_CaseIndent,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,110,90,10
+    CONTROL         "NamespaceIndent",IDC_CHK_NamespaceIndent,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,122,90,10
+    CONTROL         "LabelIndent",IDC_CHK_LabelIndent,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,134,90,10
+    CONTROL         "IndentPreprocBlock",IDC_CHK_IndentPreprocBlock,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,146,90,10
+    CONTROL         "IndentPreprocConditional",IDC_CHK_IndentPreprocConditional,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,158,93,10
+    CONTROL         "IndentPreprocDefine",IDC_CHK_IndentPreprocDefine,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,170,90,10
+    CONTROL         "IndentCol1Comments",IDC_CHK_IndentCol1Comments,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,182,90,10
+    LTEXT           "Min Conditional Indent :",IDC_LBL_Min_Conditional_Indent,320,196,90,10
+    COMBOBOX        IDC_CBB_MinConditional,320,208,50,12,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    GROUPBOX        "Padding Options",IDC_GRP_Padding,313,62,110,195
+    CONTROL         "PadOperators",IDC_CHK_PadOperators,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,74,70,10
+    CONTROL         "PadParensOutside",IDC_CHK_PadParensOutside,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,86,72,10
+    CONTROL         "PadFirstParen",IDC_CHK_PadFirstParen,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,98,70,10
+    CONTROL         "PadParensInside",IDC_CHK_PadParensInside,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,110,70,10
+    CONTROL         "PadHeader",IDC_CHK_PadHeader,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,122,70,10
+    CONTROL         "UnPadParens",IDC_CHK_UnPadParens,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,134,70,10
+    CONTROL         "DeleteEmptyLines",IDC_CHK_DeleteEmptyLines,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,146,72,10
+    CONTROL         "EmptyLineFill",IDC_CHK_EmptyLineFill,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,158,70,10
+    LTEXT           "Pointer Align :",IDC_LBL_PtrAlign,320,170,70,10
+    COMBOBOX        IDC_CBB_PtrAlign,320,182,50,12,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Reference Align :",IDC_LBL_RefAlign,320,197,70,10
+    COMBOBOX        IDC_CBB_RefAlign,320,209,70,12,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    GROUPBOX        "Formatting Options",IDC_GRP_Formatting,313,62,110,160
+    CONTROL         "BreakBlocks",IDC_CHK_BreakBlocks,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,74,100,10
+    CONTROL         "BreakClosingHeaderBlocks",IDC_CHK_BreakClosingHeaderBlocks,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,86,100,10
+    CONTROL         "BreakElseIfs",IDC_CHK_BreakElseIfs,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,98,100,10
+    CONTROL         "AddBrackets",IDC_CHK_AddBrackets,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,110,100,10
+    CONTROL         "AddOneLineBrackets",IDC_CHK_AddOneLineBrackets,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,122,100,10
+    CONTROL         "RemoveBrackets",IDC_CHK_RemoveBrackets,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,134,100,10
+    CONTROL         "BreakOneLineBlocks",IDC_CHK_BreakOneLineBlocks,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,146,100,10
+    CONTROL         "BreakOneLineStatements",IDC_CHK_BreakOneLineStatements,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,158,100,10
+    CONTROL         "BreakClosingHeaderBrackets",IDC_CHK_BreakClosingHeaderBrackets,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,170,100,10
+//    CONTROL         "ConvertTabs",IDC_CHK_ConvertTabs,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,18,100,10
+    CONTROL         "CloseTemplates",IDC_CHK_CloseTemplates,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,182,100,10
+    CONTROL         "StripCommentPrefix",IDC_CHK_StripCommentPrefix,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,194,100,10
+    CONTROL         "BreakLineAfterLogical",IDC_CHK_BreakLineAfterLogical,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,206,100,10
+    GROUPBOX        "Objective-C Options",IDC_GRP_Objective_C,313,62,110,50
+    CONTROL         "AlignMethodColon",IDC_CHK_AlignMethodColon,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,74,100,10
+    CONTROL         "PadMethodPrefix",IDC_CHK_PadMethodPrefix,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,86,100,10
+    CONTROL         "UnPadMethodPrefix",IDC_CHK_UnPadMethodPrefix,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,98,100,10
+    LTEXT           "ObjC Colon Padding :",IDC_LBL_ObjCColonPad,320,224,70,10
+    COMBOBOX        IDC_CBB_ObjCColonPad,320,236,70,12,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+
+    DEFPUSHBUTTON   "OK",IDOK,230,270,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,300,270,50,14
+    PUSHBUTTON      "Import",IDC_BTN_INI_IMPORT,80,270,50,14
+    PUSHBUTTON      "Export",IDC_BTN_INI_EXPORT,150,270,50,14
+END
+
+IDD_ABOUT_DLG DIALOGEX 0, 0, 200, 120
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_BORDER | WS_CAPTION | WS_SYSMENU
+CAPTION "About NppAStyle"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    PUSHBUTTON      "OK",IDOK,75,100,50,14
+    GROUPBOX        NPPASTYLE_FULLNAME_STRING,IDC_STATIC,7,10,185,85,BS_CENTER
+    LTEXT           "Author:",IDC_LBL_AUTHOR,15,25,35,8
+    LTEXT           NPPASTYLE_AUTHOR_STRING,IDC_LBL_AUTHOR_NPPASTYLE,55,25,50,8
+    LTEXT           "Version:",IDC_LBL_VERSION,15,37,35,8
+    LTEXT           NPPASTYLE_VERSION_STRING,IDC_LBL_VERSION_NPPASTYLE,55,37,50,8
+    LTEXT           NPPASTYLE_VERSION_RELEASEDATE,IDC_LBL_RELEASE_DATE,105,37,60,8
+    LTEXT           "Licence:",IDC_LBL_LICENCE,15,49,35,8
+    LTEXT           NPPASTYLE_VERSION_ASTYLE,IDC_LBL_VERSION_ASTYLE,105,49,70,8
+    LTEXT           "GPL 3",IDC_LBL_LICENCE_NPPASTYLE,55,49,50,8
+    LTEXT           "Website:",IDC_LBL_WEBSITE,15,61,30,8
+    LTEXT           "https://github.com/ywx/NppAStyle",IDC_LBL_WEBSITE_NPPASTYLE,55,61,120,8
+    LTEXT           "Thanks to developers of Artistic Style, Scintilla\nand Notepad++",IDC_LBL_THANKS,15,73,170,20
+END
+
+IDD_README_DLG DIALOGEX 0, 0, 400, 250
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_BORDER | WS_CAPTION | WS_SYSMENU
+CAPTION "NppAStyle ReadMe"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    PUSHBUTTON      "OK",IDOK,175,230,50,14
+    CONTROL         "",IDC_TXT_README,"Scintilla",WS_CHILD | WS_VISIBLE | WS_BORDER,7,7,386,210
+END
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION NPPASTYLE_VERSION_DIGITALVALUE
+ PRODUCTVERSION NPPASTYLE_VERSION_DIGITALVALUE
+ FILEFLAGSMASK 0x17L
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x2L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "080404b0"
+        BEGIN
+            VALUE "Comments", NPPASTYLE_FULLNAME_STRING
+            VALUE "CompanyName", NPPASTYLE_AUTHOR_STRING
+            VALUE "FileDescription", NPPASTYLE_FULLNAME_STRING
+            VALUE "FileVersion", NPPASTYLE_VERSION_STRING
+            VALUE "InternalName", NPPASTYLE_NAME_STRING
+            VALUE "LegalCopyright", "Copyright (C) 2015" ", " NPPASTYLE_AUTHOR_STRING
+            VALUE "OriginalFilename", NPPASTYLE_NAME_STRING ".dll"
+            VALUE "ProductName", NPPASTYLE_NAME_STRING
+            VALUE "ProductVersion", NPPASTYLE_VERSION_STRING
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x804, 1200
+    END
+END
+
+#endif    // Neutral resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// READMEDATA
+//
+
+txt_Readme              READMEDATA DISCARDABLE     "..\\readme.txt"
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
