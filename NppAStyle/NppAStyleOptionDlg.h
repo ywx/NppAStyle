@@ -15,22 +15,13 @@
 
 struct NppAStyleOption;
 
-#define TAB_PAGE_COUNT 2
-
 class NppAStyleOptionDlg : public StaticDialog
 {
 	enum enumIndexOptionSet { indexBracketModifyOptions, indexIndentationOptions, indexPaddingOptions, indexFormattingOptions, indexObjectiveCOptions, indexOptionSet_Len };
 
 public:
 	NppAStyleOptionDlg() : StaticDialog(), astyleOption( NULL ), m_astyleOption( NULL ), m_indexOptionSet( 0 ) {};
-	~NppAStyleOptionDlg()
-	{
-		if( isCreated() )
-		{
-			if( m_astyleOption != NULL )
-				delete m_astyleOption;
-		}
-	}
+	~NppAStyleOptionDlg();
 
 	void init( HINSTANCE hInst, NppData nppData, NppAStyleOption *pAstyleOption )
 	{

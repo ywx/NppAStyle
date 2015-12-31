@@ -31,6 +31,15 @@ static int Value2Index( const int value )
 }
 
 
+NppAStyleOptionDlg::~NppAStyleOptionDlg()
+{
+	if( isCreated() )
+	{
+		if( m_astyleOption != NULL )
+			delete m_astyleOption;
+	}
+}
+
 void NppAStyleOptionDlg::initDlgComboList()
 {
 	HWND hWndComboBox = GetDlgItem( IDC_CBB_TABSIZE );

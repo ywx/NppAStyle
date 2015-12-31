@@ -83,9 +83,13 @@ void pluginInit( HANDLE hModule )
 }
 
 
+//Clean up your plugin commands allocation (if any)
+void commandMenuCleanUp();
+
 // Here you can do the clean up, save the parameters (if any) for the next session
 void pluginCleanUp()
 {
+	commandMenuCleanUp();
 }
 
 
