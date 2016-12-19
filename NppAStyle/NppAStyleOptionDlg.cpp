@@ -338,7 +338,6 @@ void NppAStyleOptionDlg::showDlgOptionControl()
 	showDlgControlRange( IDC_GRP_Padding, IDC_CHK_EmptyLineFill, isShow, isEnable );
 	showDlgControlRange( IDC_LBL_PtrAlign, IDC_CBB_PtrAlign, isShow, isEnable );
 	showDlgControlRange( IDC_LBL_RefAlign, IDC_CBB_RefAlign, isShow, isEnable );
-	showDlgControlRange( IDC_LBL_ObjCColonPad, IDC_CBB_ObjCColonPad, isShow, isEnable );
 
 	// Formatting Options
 	isShow = ( indexFormattingOptions == m_indexOptionSet );
@@ -347,6 +346,7 @@ void NppAStyleOptionDlg::showDlgOptionControl()
 	// Objective-C Options
 	isShow = ( indexObjectiveCOptions == m_indexOptionSet );
 	showDlgControlRange( IDC_GRP_Objective_C, IDC_CHK_UnPadMethodPrefix, isShow, isEnable );
+	showDlgControlRange( IDC_LBL_ObjCColonPad, IDC_CBB_ObjCColonPad, isShow, isEnable );
 }
 
 
