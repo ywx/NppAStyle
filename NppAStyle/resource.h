@@ -55,6 +55,12 @@
 // Min Conditional Indent
 #define IDC_LBL_Min_Conditional_Indent  (IDD_ASTYLE_OPTION_DLG + 30)
 #define IDC_CBB_MinConditional          (IDD_ASTYLE_OPTION_DLG + 31)
+// Max in Statement Indent
+#define IDC_LBL_MaxInStatementIndent    (IDD_ASTYLE_OPTION_DLG + 32)
+#define IDC_CBB_MaxInStatementIndent    (IDD_ASTYLE_OPTION_DLG + 33)
+// Max Code Length
+#define IDC_LBL_MaxCodeLength           (IDD_ASTYLE_OPTION_DLG + 34)
+#define IDC_CBB_MaxCodeLength           (IDD_ASTYLE_OPTION_DLG + 35)
 // Padding Options
 #define IDC_GRP_Padding                 (IDD_ASTYLE_OPTION_DLG + 40)
 #define IDC_CHK_PadOperators            (IDD_ASTYLE_OPTION_DLG + 41)

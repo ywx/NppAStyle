@@ -56,7 +56,7 @@ struct NppAStyleOption
 	bool shouldIndentPreprocDefine;
 	bool shouldIndentCol1Comments;
 	int  minConditionalOption;
-	//int  maxInStatementIndent;
+	int  maxInStatementIndent;
 	// Padding Options
 	bool shouldPadOperators;
 	bool shouldPadParensOutside;
@@ -79,7 +79,7 @@ struct NppAStyleOption
 	//bool shouldConvertTabs;
 	bool shouldCloseTemplates;
 	bool shouldStripCommentPrefix;
-	//size_t maxCodeLength;
+	size_t maxCodeLength;
 	bool shouldBreakLineAfterLogical;
 	// Objective-C Options
 	bool shouldAlignMethodColon;

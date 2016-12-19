@@ -10,6 +10,7 @@
 #include "PluginDefinition.h"
 #include <stdio.h>
 #include <CommCtrl.h>
+#include <string>
 #include "NppAStyleOption.h"
 #include "NppAStyleOptionDlg.h"
 #include "resource.h"
@@ -97,6 +98,29 @@ void NppAStyleOptionDlg::initDlgComboList()
 	for( int i = 0; i < 5 ; ++i )
 	{
 		_tcscpy( strLabel, listObjCColonPad[i] );
+		::SendMessage( hWndComboBox, ( UINT ) CB_ADDSTRING, 0, ( LPARAM ) strLabel );
+	}
+
+	hWndComboBox = GetDlgItem( IDC_CBB_MaxInStatementIndent );
+	for( int i = 40; i < 121 ; i += 10 )
+	{
+		// wsprintf( strLabel, TEXT("%d"), i0 );
+		_itot( i, strLabel, 10 );
+		::SendMessage( hWndComboBox, ( UINT ) CB_ADDSTRING, 0, ( LPARAM ) strLabel );
+	}
+
+	hWndComboBox = GetDlgItem( IDC_CBB_MaxCodeLength );
+	for( int i = 40; i < 201 ; i += 10 )
+	{
+		if( i == 40 )
+		{
+			_tcscpy( strLabel, TEXT( "Do not change" ) );
+		}
+		else
+		{
+			// wsprintf( strLabel, TEXT("%d"), i );
+			_itot( i, strLabel, 10 );
+		}
 		::SendMessage( hWndComboBox, ( UINT ) CB_ADDSTRING, 0, ( LPARAM ) strLabel );
 	}
 }
@@ -305,6 +329,11 @@ void NppAStyleOptionDlg::initDlgOptionControl()
 	SendDlgItemMessage( IDC_CBB_PtrAlign, CB_SETCURSEL, ( WPARAM ) m_astyleOption->pointerAlignment, 0 );
 	SendDlgItemMessage( IDC_CBB_RefAlign, CB_SETCURSEL, ( WPARAM ) m_astyleOption->referenceAlignment, 0 );
 	SendDlgItemMessage( IDC_CBB_ObjCColonPad, CB_SETCURSEL, ( WPARAM ) m_astyleOption->objCColonPadMode, 0 );
+	int index = ( m_astyleOption->maxInStatementIndent - 40 ) / 10;
+	SendDlgItemMessage( IDC_CBB_MaxInStatementIndent, CB_SETCURSEL, ( WPARAM ) index, 0 );
+	index = ( m_astyleOption->maxCodeLength < 50 || m_astyleOption->maxCodeLength > 200 ) ? (int)40 : (int)m_astyleOption->maxCodeLength;
+	index = ( index - 40 ) / 10;
+	SendDlgItemMessage( IDC_CBB_MaxCodeLength, CB_SETCURSEL, ( WPARAM ) index, 0 );
 }
 
 void NppAStyleOptionDlg::showDlgControlRange( const UINT idStart, const UINT idEnd, const bool isShow, const bool isEnable )
@@ -332,6 +361,7 @@ void NppAStyleOptionDlg::showDlgOptionControl()
 	isShow = ( indexIndentationOptions == m_indexOptionSet );
 	showDlgControlRange( IDC_GRP_Indentation, IDC_CHK_IndentCol1Comments, isShow, isEnable );
 	showDlgControlRange( IDC_LBL_Min_Conditional_Indent, IDC_CBB_MinConditional, isShow, isEnable );
+	showDlgControlRange( IDC_LBL_MaxInStatementIndent, IDC_CBB_MaxInStatementIndent, isShow, isEnable );
 
 	// Padding Options
 	isShow = ( indexPaddingOptions == m_indexOptionSet );
@@ -342,6 +372,7 @@ void NppAStyleOptionDlg::showDlgOptionControl()
 	// Formatting Options
 	isShow = ( indexFormattingOptions == m_indexOptionSet );
 	showDlgControlRange( IDC_GRP_Formatting, IDC_CHK_BreakLineAfterLogical, isShow, isEnable );
+	showDlgControlRange( IDC_LBL_MaxCodeLength, IDC_CBB_MaxCodeLength, isShow, isEnable );
 
 	// Objective-C Options
 	isShow = ( indexObjectiveCOptions == m_indexOptionSet );
@@ -695,6 +726,17 @@ BOOL CALLBACK NppAStyleOptionDlg::DlgOptionProc( UINT Message, WPARAM wParam, LP
 						case IDC_CBB_MinConditional:
 						{
 							m_astyleOption->minConditionalOption = ItemIndex;
+							isUpdatePreview = true;
+						}
+							break;
+						case IDC_CBB_MaxInStatementIndent:
+						{
+							m_astyleOption->maxInStatementIndent = 10 * ItemIndex + 40 ;
+							isUpdatePreview = true;
+						}
+						case IDC_CBB_MaxCodeLength:
+						{
+							m_astyleOption->maxCodeLength = ( ItemIndex == 0 || ItemIndex == -1 ) ? std::string::npos : (size_t)( 10 * ItemIndex + 40 ) ;
 							isUpdatePreview = true;
 						}
 							break;

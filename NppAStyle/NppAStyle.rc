@@ -99,7 +99,7 @@ BEGIN
     CONTROL         "Attach class",IDC_CHK_AttachClass,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,86,70,10
     CONTROL         "Attach inline",IDC_CHK_AttachInline,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,98,70,10
     CONTROL         "Attach extern C",IDC_CHK_AttachExternC,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,110,70,10
-    GROUPBOX        "Indentation Options",IDC_GRP_Indentation,313,62,120,165
+    GROUPBOX        "Indentation Options",IDC_GRP_Indentation,313,62,120,195
     CONTROL         "Indent class blocks",IDC_CHK_ClassIndent,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,74,90,10
     CONTROL         "Indent access modifiers",IDC_CHK_ModifierIndent,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,86,100,10
     CONTROL         "Indent switch blocks",IDC_CHK_SwitchIndent,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,98,90,10
@@ -112,6 +112,8 @@ BEGIN
     CONTROL         "Indent colon one comments",IDC_CHK_IndentCol1Comments,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,182,100,10
     LTEXT           "Minimum Conditional Indent :",IDC_LBL_Min_Conditional_Indent,320,196,100,10
     COMBOBOX        IDC_CBB_MinConditional,320,208,50,12,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Maximum in-statement Indent :",IDC_LBL_MaxInStatementIndent,320,224,100,10
+    COMBOBOX        IDC_CBB_MaxInStatementIndent,320,236,50,12,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
     GROUPBOX        "Padding Options",IDC_GRP_Padding,313,62,120,165
     CONTROL         "Pad operators",IDC_CHK_PadOperators,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,74,70,10
     CONTROL         "Pad parens outside",IDC_CHK_PadParensOutside,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,86,90,10
@@ -125,7 +127,7 @@ BEGIN
     COMBOBOX        IDC_CBB_PtrAlign,320,182,50,12,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
     LTEXT           "Align reference :",IDC_LBL_RefAlign,320,197,70,10
     COMBOBOX        IDC_CBB_RefAlign,320,209,70,12,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
-    GROUPBOX        "Formatting Options",IDC_GRP_Formatting,313,62,120,160
+    GROUPBOX        "Formatting Options",IDC_GRP_Formatting,313,62,120,195
     CONTROL         "Break all blocks",IDC_CHK_BreakBlocks,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,74,100,10
     CONTROL         "Break closing header blocks",IDC_CHK_BreakClosingHeaderBlocks,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,86,110,10
     CONTROL         "Break else/if statements",IDC_CHK_BreakElseIfs,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,98,110,10
@@ -139,6 +141,8 @@ BEGIN
     CONTROL         "Close templates",IDC_CHK_CloseTemplates,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,182,100,10
     CONTROL         "Strip comment prefix",IDC_CHK_StripCommentPrefix,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,194,100,10
     CONTROL         "Break line after logical",IDC_CHK_BreakLineAfterLogical,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,206,110,10
+    LTEXT           "Maximum Code Line Length :",IDC_LBL_MaxCodeLength,320,224,110,10
+    COMBOBOX        IDC_CBB_MaxCodeLength,320,236,70,12,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
     GROUPBOX        "Objective-C Options",IDC_GRP_Objective_C,313,62,120,80
     CONTROL         "Align method colons",IDC_CHK_AlignMethodColon,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,74,100,10
     CONTROL         "Pad method prefix",IDC_CHK_PadMethodPrefix,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,86,100,10

@@ -154,6 +154,12 @@ Indentation Options:
     One Half - indent at least one-half an additional indent.
     The default value is 2, two additional indents.
 
+    max-instatement-indent
+    Indent a maximal # spaces in a continuous statement,
+    relative to the previous line.
+    The valid values are 40 thru 120.
+    The default value is 40.
+
 Padding Options:
 ----------------
     break blocks
@@ -229,6 +235,13 @@ Formatting Options:
     indent the comment text one indent.
 
     break after logical
+    If the line contains logical conditionals they will be placed
+    first on the new line. The option break-after-logical will
+    cause the logical conditional to be placed last on the previous line.
+
+    max-code-length
+    max-code-length=# will break the line if it exceeds more than
+    # characters. The valid values are 50 thru 200.
     If the line contains logical conditionals they will be placed
     first on the new line. The option break-after-logical will
     cause the logical conditional to be placed last on the previous line.

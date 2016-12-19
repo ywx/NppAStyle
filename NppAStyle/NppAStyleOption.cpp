@@ -104,7 +104,7 @@ void NppAStyleOption::reset()
 	shouldIndentPreprocDefine = false;
 	shouldIndentCol1Comments = false;
 	minConditionalOption = astyle::MINCOND_TWO;
-	//maxInStatementIndent = 40;
+	maxInStatementIndent = 40;
 	// Padding Options
 	shouldPadOperators = false;
 	shouldPadParensOutside = false;
@@ -127,7 +127,7 @@ void NppAStyleOption::reset()
 	//shouldConvertTabs = false;
 	shouldCloseTemplates = false;
 	shouldStripCommentPrefix = false;
-	//maxCodeLength = std::string::npos;
+	maxCodeLength = std::string::npos;
 	shouldBreakLineAfterLogical = false;
 	// Objective-C Options
 	shouldAlignMethodColon = false;
@@ -169,7 +169,7 @@ void NppAStyleOption::setFormatterOption( astyle::ASFormatter &formatter ) const
 	formatter.setPreprocDefineIndent( shouldIndentPreprocDefine );
 	formatter.setIndentCol1CommentsMode( shouldIndentCol1Comments );
 	formatter.setMinConditionalIndentOption( minConditionalOption );
-	//formatter.setMaxInStatementIndentLength( maxInStatementIndent );
+	formatter.setMaxInStatementIndentLength( maxInStatementIndent );
 	// Padding Options
 	formatter.setOperatorPaddingMode( shouldPadOperators );
 	formatter.setParensOutsidePaddingMode( shouldPadParensOutside );
@@ -192,7 +192,7 @@ void NppAStyleOption::setFormatterOption( astyle::ASFormatter &formatter ) const
 	//formatter.setTabSpaceConversionMode( shouldConvertTabs );
 	formatter.setCloseTemplatesMode( shouldCloseTemplates );
 	formatter.setStripCommentPrefix( shouldStripCommentPrefix );
-	//formatter.setMaxCodeLength( maxCodeLength ); // <= 200
+	formatter.setMaxCodeLength( maxCodeLength ); // <= 200
 	formatter.setBreakAfterMode( shouldBreakLineAfterLogical );
 	// Objective-C Options
 	formatter.setAlignMethodColon( shouldAlignMethodColon );
@@ -245,8 +245,8 @@ void NppAStyleOption::loadConfigInfo( const TCHAR strFilePath[] )
 	shouldIndentCol1Comments = 0 != ::GetPrivateProfileInt( keySectionName, keyIndentCol1Comments, shouldIndentCol1Comments, iniFilePath );
 	minConditionalOption = ::GetPrivateProfileInt( keySectionName, keyMinConditionalOption, minConditionalOption, iniFilePath );
 	minConditionalOption  = ( minConditionalOption < astyle::MINCOND_ZERO || minConditionalOption > astyle::MINCOND_ONEHALF ) ? astyle::MINCOND_TWO : minConditionalOption;
-	//maxInStatementIndent = ::GetPrivateProfileInt( keySectionName, keyMaxInStatementIndent, maxInStatementIndent, iniFilePath );
-	//maxInStatementIndent  = ( maxInStatementIndent < 40 || maxInStatementIndent > 120 ) ? 40 : maxInStatementIndent;
+	maxInStatementIndent = ::GetPrivateProfileInt( keySectionName, keyMaxInStatementIndent, maxInStatementIndent, iniFilePath );
+	maxInStatementIndent  = ( maxInStatementIndent < 40 || maxInStatementIndent > 120 ) ? 40 : maxInStatementIndent;
 	// Padding Options
 	shouldPadOperators = 0 != ::GetPrivateProfileInt( keySectionName, keyPadOperators, shouldPadOperators, iniFilePath );
 	shouldPadParensOutside = 0 != ::GetPrivateProfileInt( keySectionName, keyPadParensOutside, shouldPadParensOutside, iniFilePath );
@@ -269,8 +269,8 @@ void NppAStyleOption::loadConfigInfo( const TCHAR strFilePath[] )
 	//shouldConvertTabs = 0 != ::GetPrivateProfileInt( keySectionName, keyConvertTabs, shouldConvertTabs, iniFilePath );
 	shouldCloseTemplates = 0 != ::GetPrivateProfileInt( keySectionName, keyCloseTemplates, shouldCloseTemplates, iniFilePath );
 	shouldStripCommentPrefix = 0 != ::GetPrivateProfileInt( keySectionName, keyStripCommentPrefix, shouldStripCommentPrefix, iniFilePath );
-	//maxCodeLength = ::GetPrivateProfileInt( keySectionName, keyMaxCodeLength, maxCodeLength, iniFilePath );
-	//maxCodeLength = ( maxCodeLength < 50 || maxCodeLength > 200 ) ? std::string::npos : maxCodeLength;
+	maxCodeLength = ::GetPrivateProfileInt( keySectionName, keyMaxCodeLength, maxCodeLength, iniFilePath );
+	maxCodeLength = ( maxCodeLength < 50 || maxCodeLength > 200 ) ? std::string::npos : maxCodeLength;
 	shouldBreakLineAfterLogical = 0 != ::GetPrivateProfileInt( keySectionName, keyBreakLineAfterLogical, shouldBreakLineAfterLogical, iniFilePath );
 	// Objective-C Options
 	shouldAlignMethodColon = 0 != ::GetPrivateProfileInt( keySectionName, keyAlignMethodColon, shouldAlignMethodColon, iniFilePath );
@@ -328,8 +328,8 @@ void NppAStyleOption::saveConfigInfo( const TCHAR strFilePath[] ) const
 	::WritePrivateProfileString( keySectionName, keyIndentCol1Comments, bool2TEXT( shouldIndentCol1Comments ), iniFilePath );
 	_itot( minConditionalOption, buffer, 10 );
 	::WritePrivateProfileString( keySectionName, keyMinConditionalOption, buffer, iniFilePath );
-	//_itot( maxInStatementIndent, buffer, 10 );
-	//::WritePrivateProfileString( keySectionName, keyMaxInStatementIndent, buffer, iniFilePath );
+	_itot( maxInStatementIndent, buffer, 10 );
+	::WritePrivateProfileString( keySectionName, keyMaxInStatementIndent, buffer, iniFilePath );
 	// Padding Options
 	::WritePrivateProfileString( keySectionName, keyPadOperators, bool2TEXT( shouldPadOperators ), iniFilePath );
 	::WritePrivateProfileString( keySectionName, keyPadParensOutside, bool2TEXT( shouldPadParensOutside ), iniFilePath );
@@ -352,8 +352,8 @@ void NppAStyleOption::saveConfigInfo( const TCHAR strFilePath[] ) const
 	//::WritePrivateProfileString( keySectionName, keyConvertTabs, bool2TEXT( shouldConvertTabs ), iniFilePath );
 	::WritePrivateProfileString( keySectionName, keyCloseTemplates, bool2TEXT( shouldCloseTemplates ), iniFilePath );
 	::WritePrivateProfileString( keySectionName, keyStripCommentPrefix, bool2TEXT( shouldStripCommentPrefix ), iniFilePath );
-	//_itot( maxCodeLength, buffer, 10 );
-	//::WritePrivateProfileString( keySectionName, keyMaxCodeLength, buffer, iniFilePath );
+	_itot( maxCodeLength, buffer, 10 );
+	::WritePrivateProfileString( keySectionName, keyMaxCodeLength, buffer, iniFilePath );
 	::WritePrivateProfileString( keySectionName, keyBreakLineAfterLogical, bool2TEXT( shouldBreakLineAfterLogical ), iniFilePath );
 	// Objective-C Options
 	::WritePrivateProfileString( keySectionName, keyAlignMethodColon, bool2TEXT( shouldAlignMethodColon ), iniFilePath );
