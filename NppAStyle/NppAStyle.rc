@@ -234,6 +234,7 @@ END
 //
 
 txt_Readme              READMEDATA DISCARDABLE     "..\\readme.txt"
+txt_Democode            READMEDATA DISCARDABLE     "democode.txt"
 
 
 

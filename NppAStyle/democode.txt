@@ -1,0 +1,252 @@
+/*
+* A sample source file for the code formatter preview
+*/
+#include <math.h>
+
+/*
+* Initializer list
+*/
+int array[]={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17};
+int digits[]=
+{0,1,2,3,4,5,6,7,8,9};
+int a=0,b=1,c=2,d=3;
+a=0,b=1,c=2,d=3;
+
+/*
+* Enumerator list
+*/
+enum Example{CANCELLED,RUNNING,WAITING,FINISHED};
+
+class Point{public:Point(double x,double y):
+x(x),y(y)
+{}
+double distance(const Point &other)const;
+int compareX(const Point &other)const;
+
+double x;
+double y;};
+
+double Point::distance(const Point &other) const{double dx=x-other.x;
+double dy=y-other.y;
+
+// return result
+return sqrt(dx*dx+dy*dy);}
+
+int Point::compareX(const Point &other)  const{if(x<other.x)
+{
+return -1;
+}
+else if(x>other.x)
+{
+return 1;
+}
+else
+return 0;}
+
+namespace FOO
+{
+int foo(int bar)
+{
+switch(bar)
+{
+case 0:
+++bar;
+break;
+case 1:
+{
+--bar;
+}
+break;
+default:
+{
+bar+=bar;
+break;
+}
+}
+// return result
+return bar;
+}
+} // end namespace FOO
+
+
+template<typename T1,typename T2> class map
+{
+};
+map<int,int>m;
+
+void foo() throw(E0,E1)
+{
+int a=-4+-9;
+b=a++/--number; c+=4;
+result=(a*(b+c+d)*(e+f));
+bool value=true&&false;
+bool value2=condition?true:false;
+char*s=((char*)object);
+
+int array[]={1,2,3};
+array[2]=0;
+int*parray=new int[3];
+delete[] parray;
+}
+
+void bar(int x,int y)throw()
+{
+label:for(int i=0;i<argc;i++)
+goto label;
+
+for(int i=0,j=argc;i<argc;i++,j--)
+{foo();z=x+y;}
+
+while(condition)
+{
+}
+
+do
+{
+}
+while(condition);
+
+try
+{
+number=Math::parseInt(value);
+}
+catch(Math::Exception e)
+{
+}
+}
+
+/*
+* If...else
+*/
+class Example:public FooClass,virtual protected BarClass
+{
+void bar()
+{
+try
+{
+}
+catch(...)
+{
+}
+}
+void foo2()
+{
+if(true)
+{
+return;
+}
+
+if(true)
+{
+return;
+}
+else if(false)
+{
+return;
+}
+else
+{
+return;
+}
+}
+void foo(int state)
+{
+if(true)return;
+
+if(true) return;
+else if(false)return;
+else return;
+}
+};
+
+
+/*
+* Arguments
+*/
+class Other
+{
+static void bar(int arg1,int arg2,int arg3,int arg4,int arg5,int arg6,int arg7,int arg8,int arg9)
+{
+}
+};
+void foo()
+{
+Other::bar(100,200,300,400,500,600,700,800,900);
+}
+
+/*
+* Exception specification
+*/
+class Example
+{
+int foo() throw(FirstException,SecondException,ThirdException)
+{
+return Other::doSomething();
+}
+};
+
+
+/*
+* Binary expressions
+*/
+int foo()
+{
+int sum=100+200+300+400+500+600+700+800;
+int product=1*2*3*4*5*6*7*8*9*10;
+bool val=true&&false&&true&&false&&true;
+return product/sum;
+}
+
+/*
+* Conditionals
+*/
+int compare(int argument,int argument2)
+{
+return argument>argument2?100000:200000;
+}
+
+/*
+* Assignments
+*/
+static char *string="text text text text";
+class Example
+{
+void foo()
+{
+for(int i=0;i<10;i++)
+{
+}
+const char*character_string;
+character_string="text text text text";
+}
+}
+
+
+/*
+* Stream output
+*/
+#include <iostream>
+#include<iomanip>
+
+using namespace std;
+
+void PrintDate(int year,int month,int day)
+{
+cout<<setfill('0')<<setw(4)<<year<<'/'<<setw(2)<<month<<'/'<<setw(2)<<day<<endl;
+}
+
+/*
+* Member access
+*/
+class TreeNode
+{
+public:
+TreeNode*getParent();
+TreeNode*getFirstChild();
+};
+
+TreeNode *firstUncle(TreeNode &node)
+{
+return node.getParent()->getParent()->getFirstChild();
+}
+

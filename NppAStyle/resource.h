@@ -3,6 +3,7 @@
 // Used by NppAStyle.rc
 //
 #define txt_Readme                      110
+#define txt_Democode                    111
 
 #define IDD_README_DLG                  1100
 #define IDC_TXT_README                  1101

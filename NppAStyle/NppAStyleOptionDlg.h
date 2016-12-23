@@ -27,22 +27,23 @@ public:
 	{
 		_nppData = nppData;
 		astyleOption = pAstyleOption;
+		m_textPreviewCode = 0;
 		Window::init( hInst, nppData._nppHandle );
 	};
 
 	void doDialog();
 
 	inline HWND GetDlgItem( const UINT id ) { return ::GetDlgItem( _hSelf, id ); }
-	inline LONG SendDlgItemMessage( const UINT id, UINT Msg, WPARAM wParam, LPARAM lParam )
+	inline INT_PTR SendDlgItemMessage( const UINT id, UINT Msg, WPARAM wParam, LPARAM lParam )
 	{
 		return ::SendDlgItemMessage( _hSelf, id, Msg, wParam, lParam );
 	}
 
 protected :
-	virtual BOOL CALLBACK run_dlgProc( UINT message, WPARAM wParam, LPARAM lParam );
+	virtual INT_PTR CALLBACK run_dlgProc( UINT message, WPARAM wParam, LPARAM lParam );
 	void optionImportExport( bool isImport );
 
-	BOOL CALLBACK DlgOptionProc( UINT Message, WPARAM wParam, LPARAM lParam );
+	INT_PTR CALLBACK DlgOptionProc( UINT Message, WPARAM wParam, LPARAM lParam );
 
 	void initDlgOptionControl();
 	void showDlgOptionControl();
@@ -59,7 +60,7 @@ private:
 
 	NppAStyleOption *astyleOption;
 	NppAStyleOption *m_astyleOption;
-	static const char *m_textPreviewCode;
+	const char *m_textPreviewCode;
 
 	int m_indexOptionSet;
 };

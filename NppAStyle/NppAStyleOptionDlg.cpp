@@ -132,7 +132,7 @@ void NppAStyleOptionDlg::updateDlgTabsetting()
 	if( m_astyleOption->isSameAsNppCurView )
 	{
 		HWND hWndNppCurrentScintilla = getNppCurrentScintilla();
-		m_astyleOption->iTabSize = ::SendMessage( hWndNppCurrentScintilla, SCI_GETTABWIDTH, 0, 0 );;
+		m_astyleOption->iTabSize = ::SendMessage( hWndNppCurrentScintilla, SCI_GETTABWIDTH, 0, 0 );
 		m_astyleOption->isUseSpace = 0 == ::SendMessage( hWndNppCurrentScintilla, SCI_GETUSETABS, 0, 0 );
 	}
 	SendDlgItemMessage( IDC_TXT_PREVIEW, SCI_SETTABWIDTH, (WPARAM) m_astyleOption->iTabSize, 0 );
@@ -143,8 +143,6 @@ void NppAStyleOptionDlg::updateDlgTabsetting()
 	::EnableWindow( GetDlgItem( IDC_CHK_UseSpace ), isEnable );
 	::EnableWindow( GetDlgItem( IDC_CBB_TABSIZE ), isEnable );
 }
-
-const char *NppAStyleOptionDlg::m_textPreviewCode = "/*\n * A sample source file for the code formatter preview\n */\n#include <math.h>\n\nint digits[] = {0,1,2,3,4,5,6,7,8,9};\n\nclass Point\n{\npublic:\nPoint(double x,double y):\nx(x), y(y)\n{\n}\ndouble distance(const Point& other) const;\nint compareX(const Point& other) const;\n\ndouble x;\ndouble y;\n};\n\ndouble Point::distance(const Point& other) const\n{\ndouble dx=x-other.x;\ndouble dy=y-other.y;\n\n// return result\nreturn sqrt(dx*dx+dy*dy);\n}\n\nint Point::compareX(const Point&other) const\n{\nif(x<other.x)\n{\nreturn -1;\n}else if(x>other.x)\n{\nreturn 1;\n}else\nreturn 0;\n}\n\nnamespace FOO\n{\nint foo(int bar)\n{\nswitch(bar)\n{\ncase 0:\n++bar;\nbreak;\ncase 1:\n{\n--bar;\n}\nbreak;\ndefault:\n{\nbar+=bar;\nbreak;\n}\n}\n  // return result\nreturn bar;\n}\n} // end namespace FOO";
 
 static void previewRunProcCallback( const char *in, const char *out, HWND hwin )
 {
@@ -163,9 +161,9 @@ void NppAStyleOptionDlg::updateDlgPreviewText()
 	}
 	else
 	{
-		unsigned int pos = SendMessage( hWndPreviewCtrl, SCI_GETCURRENTPOS, 0, 0 );
+		unsigned int pos = ::SendMessage( hWndPreviewCtrl, SCI_GETCURRENTPOS, 0, 0 );
 		::SendMessage( hWndPreviewCtrl, SCI_SETWRAPMODE, SC_WRAP_NONE, 0 );
-		UINT lw = ::SendMessage( hWndPreviewCtrl, SCI_TEXTWIDTH, STYLE_LINENUMBER, (LPARAM) "_99" );
+		LPARAM lw = ::SendMessage( hWndPreviewCtrl, SCI_TEXTWIDTH, STYLE_LINENUMBER, (LPARAM) "_999" );
 		::SendMessage( hWndPreviewCtrl, SCI_SETMARGINWIDTHN, 0, lw );
 		AStyleCode( m_textPreviewCode, * m_astyleOption, previewRunProcCallback, hWndPreviewCtrl );
 		SendMessage( hWndPreviewCtrl, SCI_GOTOPOS, pos, 0 );
@@ -259,6 +257,27 @@ void NppAStyleOptionDlg::initPreviewCtrl()
 	::SendMessage( hWndPreviewCtrl, SCI_STYLESETFORE, SCE_C_STRINGRAW, 0x001515A3 );
 	::SendMessage( hWndPreviewCtrl, SCI_STYLESETFORE, SCE_C_TRIPLEVERBATIM, 0x00000000 );
 	::SendMessage( hWndPreviewCtrl, SCI_STYLESETFORE, SCE_C_HASHQUOTEDSTRING, 0x00000000 );
+
+	HRSRC hRsrc = ::FindResource( _hInst , MAKEINTRESOURCE(txt_Democode), (LPCTSTR) TEXT("READMEDATA") );
+	if( 0 == hRsrc )
+	{
+		::MessageBox( NULL, TEXT("Error cannot Find \"txt_Democode\" Resource!!!"), TEXT("NppAStyle Message"), MB_ICONSTOP | MB_OK );
+		return;
+	}
+
+	HGLOBAL hGlobal = ::LoadResource( _hInst, hRsrc );
+	if( 0 == hGlobal )
+	{
+		::MessageBox( NULL, TEXT("Error cannot Load \"txt_Democode\" Resource!!!"), TEXT("NppAStyle Message"), MB_ICONSTOP | MB_OK );
+		return;
+	}
+
+	m_textPreviewCode = reinterpret_cast<const char *>( ::LockResource( hGlobal ) );
+	if( 0 == m_textPreviewCode )
+	{
+		::MessageBox( NULL, TEXT("Error cannot Lock \"txt_Democode\" Resource!!!"), TEXT("NppAStyle Message"), MB_ICONSTOP | MB_OK );
+		return;
+	}
 }
 
 
@@ -399,7 +418,7 @@ void NppAStyleOptionDlg::doDialog()
 }
 
 
-BOOL CALLBACK NppAStyleOptionDlg::DlgOptionProc( UINT Message, WPARAM wParam, LPARAM lParam )
+INT_PTR CALLBACK NppAStyleOptionDlg::DlgOptionProc( UINT Message, WPARAM wParam, LPARAM lParam )
 {
 	switch( Message )
 	{
@@ -821,7 +840,7 @@ void NppAStyleOptionDlg::optionImportExport( bool isImport )
 	}
 }
 
-BOOL CALLBACK NppAStyleOptionDlg::run_dlgProc( UINT Message, WPARAM wParam, LPARAM lParam )
+INT_PTR CALLBACK NppAStyleOptionDlg::run_dlgProc( UINT Message, WPARAM wParam, LPARAM lParam )
 {
 	switch( Message )
 	{
