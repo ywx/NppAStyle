@@ -331,8 +331,8 @@ void NppAStyleOptionDlg::initDlgOptionControl()
 	SendDlgItemMessage( IDC_CHK_AddBrackets, BM_SETCHECK, m_astyleOption->shouldAddBrackets, 0 );
 	SendDlgItemMessage( IDC_CHK_AddOneLineBrackets, BM_SETCHECK, m_astyleOption->shouldAddOneLineBrackets, 0 );
 	SendDlgItemMessage( IDC_CHK_RemoveBrackets, BM_SETCHECK, m_astyleOption->shouldRemoveBrackets, 0 );
-	SendDlgItemMessage( IDC_CHK_BreakOneLineBlocks, BM_SETCHECK, m_astyleOption->shouldBreakOneLineBlocks, 0 );
-	SendDlgItemMessage( IDC_CHK_BreakOneLineStatements, BM_SETCHECK, m_astyleOption->shouldBreakOneLineStatements, 0 );
+	SendDlgItemMessage( IDC_CHK_BreakOneLineBlocks, BM_SETCHECK, FALSE == m_astyleOption->shouldBreakOneLineBlocks, 0 );
+	SendDlgItemMessage( IDC_CHK_BreakOneLineStatements, BM_SETCHECK, FALSE == m_astyleOption->shouldBreakOneLineStatements, 0 );
 	SendDlgItemMessage( IDC_CHK_BreakClosingHeaderBrackets, BM_SETCHECK, m_astyleOption->shouldBreakClosingHeaderBrackets, 0 );
 	//SendDlgItemMessage( IDC_CHK_ConvertTabs, BM_SETCHECK, m_astyleOption->shouldConvertTabs, 0 )
 	SendDlgItemMessage( IDC_CHK_CloseTemplates, BM_SETCHECK, m_astyleOption->shouldCloseTemplates, 0 );
@@ -645,14 +645,14 @@ INT_PTR CALLBACK NppAStyleOptionDlg::DlgOptionProc( UINT Message, WPARAM wParam,
 
 					case IDC_CHK_BreakOneLineBlocks:
 						{
-							m_astyleOption->shouldBreakOneLineBlocks = BST_CHECKED == SendDlgItemMessage( IDC_CHK_BreakOneLineBlocks, BM_GETCHECK, 0, 0 );
+							m_astyleOption->shouldBreakOneLineBlocks = BST_CHECKED != SendDlgItemMessage( IDC_CHK_BreakOneLineBlocks, BM_GETCHECK, 0, 0 );
 							isUpdatePreview = true;
 						}
 						break;
 
 					case IDC_CHK_BreakOneLineStatements:
 						{
-							m_astyleOption->shouldBreakOneLineStatements = BST_CHECKED == SendDlgItemMessage( IDC_CHK_BreakOneLineStatements, BM_GETCHECK, 0, 0 );
+							m_astyleOption->shouldBreakOneLineStatements = BST_CHECKED != SendDlgItemMessage( IDC_CHK_BreakOneLineStatements, BM_GETCHECK, 0, 0 );
 							isUpdatePreview = true;
 						}
 						break;

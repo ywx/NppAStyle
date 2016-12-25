@@ -7,6 +7,12 @@
 *.depend
 *.layout
 *.bat
+# backup file
+*.orig
+*.origin
+*.backup
+*.bak
+*.old
 # .objs
 .objs/
 #-------------------------------------------------------------------------------
