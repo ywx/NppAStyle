@@ -54,14 +54,17 @@
 #define IDC_CHK_IndentPreprocDefine     (IDD_ASTYLE_OPTION_DLG + 19)
 #define IDC_CHK_IndentCol1Comments      (IDD_ASTYLE_OPTION_DLG + 20)
 // Min Conditional Indent
-#define IDC_LBL_Min_Conditional_Indent  (IDD_ASTYLE_OPTION_DLG + 30)
-#define IDC_CBB_MinConditional          (IDD_ASTYLE_OPTION_DLG + 31)
+#define IDC_LBL_MinConditionalIndent    (IDD_ASTYLE_OPTION_DLG + 30)
+#define IDC_CBB_MinConditionalIndent    (IDD_ASTYLE_OPTION_DLG + 31)
 // Max in Statement Indent
 #define IDC_LBL_MaxInStatementIndent    (IDD_ASTYLE_OPTION_DLG + 32)
 #define IDC_CBB_MaxInStatementIndent    (IDD_ASTYLE_OPTION_DLG + 33)
 // Max Code Length
 #define IDC_LBL_MaxCodeLength           (IDD_ASTYLE_OPTION_DLG + 34)
 #define IDC_CBB_MaxCodeLength           (IDD_ASTYLE_OPTION_DLG + 35)
+// Continuation Indent
+#define IDC_LBL_ContinuationIndent      (IDD_ASTYLE_OPTION_DLG + 36)
+#define IDC_CBB_ContinuationIndent      (IDD_ASTYLE_OPTION_DLG + 37)
 // Padding Options
 #define IDC_GRP_Padding                 (IDD_ASTYLE_OPTION_DLG + 40)
 #define IDC_CHK_PadOperators            (IDD_ASTYLE_OPTION_DLG + 41)
@@ -72,6 +75,7 @@
 #define IDC_CHK_UnPadParens             (IDD_ASTYLE_OPTION_DLG + 46)
 #define IDC_CHK_DeleteEmptyLines        (IDD_ASTYLE_OPTION_DLG + 47)
 #define IDC_CHK_EmptyLineFill           (IDD_ASTYLE_OPTION_DLG + 48)
+#define IDC_CHK_PadCommas               (IDD_ASTYLE_OPTION_DLG + 49)
 // Pointer Align
 #define IDC_LBL_PtrAlign                (IDD_ASTYLE_OPTION_DLG + 50)
 #define IDC_CBB_PtrAlign                (IDD_ASTYLE_OPTION_DLG + 51)
@@ -89,17 +93,22 @@
 #define IDC_CHK_BreakOneLineBlocks      (IDD_ASTYLE_OPTION_DLG + 77)
 #define IDC_CHK_BreakOneLineStatements  (IDD_ASTYLE_OPTION_DLG + 78)
 #define IDC_CHK_BreakClosingHeaderBrackets  (IDD_ASTYLE_OPTION_DLG + 79)
-#define IDC_CHK_ConvertTabs             (IDD_ASTYLE_OPTION_DLG + 80)
+#define IDC_CHK_BreakOneLineHeaders     (IDD_ASTYLE_OPTION_DLG + 80)
+//#define IDC_CHK_ConvertTabs             (IDD_ASTYLE_OPTION_DLG + 80)
 #define IDC_CHK_CloseTemplates          (IDD_ASTYLE_OPTION_DLG + 81)
 #define IDC_CHK_StripCommentPrefix      (IDD_ASTYLE_OPTION_DLG + 82)
 #define IDC_CHK_BreakLineAfterLogical   (IDD_ASTYLE_OPTION_DLG + 83)
 // Objective-C Options
 #define IDC_GRP_Objective_C             (IDD_ASTYLE_OPTION_DLG + 90)
-#define IDC_CHK_AlignMethodColon        (IDD_ASTYLE_OPTION_DLG + 91)
-#define IDC_CHK_PadMethodPrefix         (IDD_ASTYLE_OPTION_DLG + 92)
-#define IDC_CHK_UnPadMethodPrefix       (IDD_ASTYLE_OPTION_DLG + 93)
-#define IDC_LBL_ObjCColonPad            (IDD_ASTYLE_OPTION_DLG + 94)
-#define IDC_CBB_ObjCColonPad            (IDD_ASTYLE_OPTION_DLG + 95)
+#define IDC_CHK_ObjC_AlignMethodColon   (IDD_ASTYLE_OPTION_DLG + 91)
+#define IDC_CHK_ObjC_PadMethodPrefix    (IDD_ASTYLE_OPTION_DLG + 92)
+#define IDC_CHK_ObjC_UnPadMethodPrefix  (IDD_ASTYLE_OPTION_DLG + 93)
+#define IDC_CHK_ObjC_PadReturnType      (IDD_ASTYLE_OPTION_DLG + 94)
+#define IDC_CHK_ObjC_UnPadReturnType    (IDD_ASTYLE_OPTION_DLG + 95)
+#define IDC_CHK_ObjC_PadParamType       (IDD_ASTYLE_OPTION_DLG + 96)
+#define IDC_CHK_ObjC_UnPadParamType     (IDD_ASTYLE_OPTION_DLG + 97)
+#define IDC_LBL_ObjC_ColonPad           (IDD_ASTYLE_OPTION_DLG + 98)
+#define IDC_CBB_ObjC_ColonPad           (IDD_ASTYLE_OPTION_DLG + 99)
 
 #define IDD_NPPASTYLE_OPTION_DLG        1500
 #define IDC_BTN_INI_IMPORT              (IDD_NPPASTYLE_OPTION_DLG + 1)

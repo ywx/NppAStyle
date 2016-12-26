@@ -55,9 +55,11 @@ struct NppAStyleOption
 	bool shouldIndentPreprocConditional;
 	bool shouldIndentPreprocDefine;
 	bool shouldIndentCol1Comments;
+	int  continuationIndent;
 	int  minConditionalOption;
 	int  maxInStatementIndent;
 	// Padding Options
+	bool shouldPadCommas;
 	bool shouldPadOperators;
 	bool shouldPadParensOutside;
 	bool shouldPadFirstParen;
@@ -76,6 +78,7 @@ struct NppAStyleOption
 	bool shouldBreakOneLineBlocks;
 	bool shouldBreakOneLineStatements;
 	bool shouldBreakClosingHeaderBrackets;
+	bool shouldBreakOneLineHeaders;
 	//bool shouldConvertTabs;
 	bool shouldCloseTemplates;
 	bool shouldStripCommentPrefix;
@@ -85,6 +88,10 @@ struct NppAStyleOption
 	bool shouldAlignMethodColon;
 	bool shouldPadMethodPrefix;
 	bool shouldUnPadMethodPrefix;
+	bool shouldPadReturnType;
+	bool shouldUnPadReturnType;
+	bool shouldPadParamType;
+	bool shouldUnPadParamType;
 	int objCColonPadMode; // astyle::ObjCColonPad
 };
 

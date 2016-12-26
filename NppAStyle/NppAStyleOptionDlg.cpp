@@ -15,8 +15,6 @@
 #include "NppAStyleOptionDlg.h"
 #include "resource.h"
 
-#define FormattingStyleCount 15
-
 enum enumIndexTabSize { indexTabSize_2, indexTabSize_3, indexTabSize_4, indexTabSize_5, indexTabSize_6, indexTabSize_8, indexTabSize_10, indexTabSize_Len };
 static TCHAR listTabSize[indexTabSize_Len][4] = { TEXT( "2" ), TEXT( "3" ), TEXT( "4" ), TEXT( "5" ), TEXT( "6" ), TEXT( "8" ), TEXT( "10" ) };
 static int listTabSizeValue[indexTabSize_Len] = { 2, 3, 4, 5, 6, 8, 10 };
@@ -52,7 +50,8 @@ void NppAStyleOptionDlg::initDlgComboList()
 		::SendMessage( hWndComboBox, ( UINT ) CB_ADDSTRING, 0, ( LPARAM ) strLabel );
 	}
 
-	TCHAR *listBracketStyle[] = { TEXT( "None" ), TEXT( "Allman (ANSI)" ), TEXT( "Java" ), TEXT( "Kernighan & Ritchie (K&R)" ), TEXT( "Stroustrup" ), TEXT( "Whitesmith" ), TEXT( "VTK" ), TEXT( "Banner" ), TEXT( "GNU" ), TEXT( "Linux" ), TEXT( "Horstmann" ), TEXT( "One True Brace (1TBS)" ), TEXT( "Google" ), TEXT( "Pico" ), TEXT( "Lisp" ), 0 };
+	TCHAR *listBracketStyle[] = { TEXT( "None" ), TEXT( "Allman (ANSI)" ), TEXT( "Java" ), TEXT( "Kernighan & Ritchie (K&R)" ), TEXT( "Stroustrup" ), TEXT( "Whitesmith" ), TEXT( "VTK" ), TEXT( "Banner" ), TEXT( "GNU" ), TEXT( "Linux" ), TEXT( "Horstmann" ), TEXT( "One True Brace (1TBS)" ), TEXT( "Google" ), TEXT( "Mozilla" ), TEXT( "Pico" ), TEXT( "Lisp" ), 0 };
+#define FormattingStyleCount sizeof(listBracketStyle)/sizeof(TCHAR *)-1
 	hWndComboBox = GetDlgItem( IDC_CBB_BRACKET_STYLE );
 	for( int i = 0; i < FormattingStyleCount ; ++i )
 	{
@@ -73,7 +72,7 @@ void NppAStyleOptionDlg::initDlgComboList()
 	TCHAR *listRefAlign[] = { TEXT( "None" ), TEXT( "Type" ), TEXT( "Middle" ), TEXT( "Name" ), TEXT( "Same as Pointer" ), 0 };
 	TCHAR *listObjCColonPad[] = { TEXT( "No Change" ), TEXT( "None" ), TEXT( "All" ), TEXT( "After" ), TEXT( "Before" ), 0 };
 
-	hWndComboBox = GetDlgItem( IDC_CBB_MinConditional );
+	hWndComboBox = GetDlgItem( IDC_CBB_MinConditionalIndent );
 	for( int i = 0; i < 4 ; ++i )
 	{
 		_tcscpy( strLabel, listMinConditional[i] );
@@ -94,17 +93,25 @@ void NppAStyleOptionDlg::initDlgComboList()
 		::SendMessage( hWndComboBox, ( UINT ) CB_ADDSTRING, 0, ( LPARAM ) strLabel );
 	}
 
-	hWndComboBox = GetDlgItem( IDC_CBB_ObjCColonPad );
+	hWndComboBox = GetDlgItem( IDC_CBB_ObjC_ColonPad );
 	for( int i = 0; i < 5 ; ++i )
 	{
 		_tcscpy( strLabel, listObjCColonPad[i] );
 		::SendMessage( hWndComboBox, ( UINT ) CB_ADDSTRING, 0, ( LPARAM ) strLabel );
 	}
 
+	hWndComboBox = GetDlgItem( IDC_CBB_ContinuationIndent );
+	for( int i = 0; i < 5 ; ++i )
+	{
+		// wsprintf( strLabel, TEXT("%d"), i );
+		_itot( i, strLabel, 10 );
+		::SendMessage( hWndComboBox, ( UINT ) CB_ADDSTRING, 0, ( LPARAM ) strLabel );
+	}
+
 	hWndComboBox = GetDlgItem( IDC_CBB_MaxInStatementIndent );
 	for( int i = 40; i < 121 ; i += 10 )
 	{
-		// wsprintf( strLabel, TEXT("%d"), i0 );
+		// wsprintf( strLabel, TEXT("%d"), i );
 		_itot( i, strLabel, 10 );
 		::SendMessage( hWndComboBox, ( UINT ) CB_ADDSTRING, 0, ( LPARAM ) strLabel );
 	}
@@ -166,7 +173,7 @@ void NppAStyleOptionDlg::updateDlgPreviewText()
 		LPARAM lw = ::SendMessage( hWndPreviewCtrl, SCI_TEXTWIDTH, STYLE_LINENUMBER, (LPARAM) "_999" );
 		::SendMessage( hWndPreviewCtrl, SCI_SETMARGINWIDTHN, 0, lw );
 		AStyleCode( m_textPreviewCode, * m_astyleOption, previewRunProcCallback, hWndPreviewCtrl );
-		SendMessage( hWndPreviewCtrl, SCI_GOTOPOS, pos, 0 );
+		::SendMessage( hWndPreviewCtrl, SCI_GOTOPOS, pos, 0 );
 	}
 	::SendMessage( hWndPreviewCtrl, SCI_SETREADONLY, 1, 0 );
 }
@@ -309,6 +316,7 @@ void NppAStyleOptionDlg::initDlgOptionControl()
 	SendDlgItemMessage( IDC_CHK_SwitchIndent, BM_SETCHECK, m_astyleOption->shouldSwitchIndent, 0 );
 	SendDlgItemMessage( IDC_CHK_CaseIndent, BM_SETCHECK, m_astyleOption->shouldCaseIndent, 0 );
 	SendDlgItemMessage( IDC_CHK_NamespaceIndent, BM_SETCHECK, m_astyleOption->shouldNamespaceIndent, 0 );
+	SendDlgItemMessage( IDC_CBB_ContinuationIndent, CB_SETCURSEL, ( WPARAM ) m_astyleOption->continuationIndent, 0 );
 	SendDlgItemMessage( IDC_CHK_LabelIndent, BM_SETCHECK, m_astyleOption->shouldLabelIndent, 0 );
 	SendDlgItemMessage( IDC_CHK_IndentPreprocBlock, BM_SETCHECK, m_astyleOption->shouldIndentPreprocBlock, 0 );
 	SendDlgItemMessage( IDC_CHK_IndentPreprocConditional, BM_SETCHECK, m_astyleOption->shouldIndentPreprocConditional, 0 );
@@ -317,6 +325,7 @@ void NppAStyleOptionDlg::initDlgOptionControl()
 	//int  maxInStatementIndent;
 	// Padding Options
 	SendDlgItemMessage( IDC_CHK_PadOperators, BM_SETCHECK, m_astyleOption->shouldPadOperators, 0 );
+	SendDlgItemMessage( IDC_CHK_PadCommas, BM_SETCHECK, m_astyleOption->shouldPadCommas, 0 );
 	SendDlgItemMessage( IDC_CHK_PadParensOutside, BM_SETCHECK, m_astyleOption->shouldPadParensOutside, 0 );
 	SendDlgItemMessage( IDC_CHK_PadFirstParen, BM_SETCHECK, m_astyleOption->shouldPadFirstParen, 0 );
 	SendDlgItemMessage( IDC_CHK_PadParensInside, BM_SETCHECK, m_astyleOption->shouldPadParensInside, 0 );
@@ -334,20 +343,25 @@ void NppAStyleOptionDlg::initDlgOptionControl()
 	SendDlgItemMessage( IDC_CHK_BreakOneLineBlocks, BM_SETCHECK, FALSE == m_astyleOption->shouldBreakOneLineBlocks, 0 );
 	SendDlgItemMessage( IDC_CHK_BreakOneLineStatements, BM_SETCHECK, FALSE == m_astyleOption->shouldBreakOneLineStatements, 0 );
 	SendDlgItemMessage( IDC_CHK_BreakClosingHeaderBrackets, BM_SETCHECK, m_astyleOption->shouldBreakClosingHeaderBrackets, 0 );
+	SendDlgItemMessage( IDC_CHK_BreakOneLineHeaders, BM_SETCHECK, m_astyleOption->shouldBreakOneLineHeaders, 0 );
 	//SendDlgItemMessage( IDC_CHK_ConvertTabs, BM_SETCHECK, m_astyleOption->shouldConvertTabs, 0 )
 	SendDlgItemMessage( IDC_CHK_CloseTemplates, BM_SETCHECK, m_astyleOption->shouldCloseTemplates, 0 );
 	SendDlgItemMessage( IDC_CHK_StripCommentPrefix, BM_SETCHECK, m_astyleOption->shouldStripCommentPrefix, 0 );
 	//size_t maxCodeLength;
 	SendDlgItemMessage( IDC_CHK_BreakLineAfterLogical, BM_SETCHECK, m_astyleOption->shouldBreakLineAfterLogical, 0 );
 	// Objective-C Options
-	SendDlgItemMessage( IDC_CHK_AlignMethodColon, BM_SETCHECK, m_astyleOption->shouldAlignMethodColon, 0 );
-	SendDlgItemMessage( IDC_CHK_PadMethodPrefix, BM_SETCHECK, m_astyleOption->shouldPadMethodPrefix, 0 );
-	SendDlgItemMessage( IDC_CHK_UnPadMethodPrefix, BM_SETCHECK, m_astyleOption->shouldUnPadMethodPrefix, 0 );
+	SendDlgItemMessage( IDC_CHK_ObjC_AlignMethodColon, BM_SETCHECK, m_astyleOption->shouldAlignMethodColon, 0 );
+	SendDlgItemMessage( IDC_CHK_ObjC_PadMethodPrefix, BM_SETCHECK, m_astyleOption->shouldPadMethodPrefix, 0 );
+	SendDlgItemMessage( IDC_CHK_ObjC_UnPadMethodPrefix, BM_SETCHECK, m_astyleOption->shouldUnPadMethodPrefix, 0 );
+	SendDlgItemMessage( IDC_CHK_ObjC_PadReturnType, BM_SETCHECK, m_astyleOption->shouldPadReturnType, 0 );
+	SendDlgItemMessage( IDC_CHK_ObjC_UnPadReturnType, BM_SETCHECK, m_astyleOption->shouldUnPadReturnType, 0 );
+	SendDlgItemMessage( IDC_CHK_ObjC_PadParamType, BM_SETCHECK, m_astyleOption->shouldPadParamType, 0 );
+	SendDlgItemMessage( IDC_CHK_ObjC_UnPadParamType, BM_SETCHECK, m_astyleOption->shouldUnPadParamType, 0 );
 
-	SendDlgItemMessage( IDC_CBB_MinConditional, CB_SETCURSEL, ( WPARAM ) m_astyleOption->minConditionalOption, 0 );
+	SendDlgItemMessage( IDC_CBB_MinConditionalIndent, CB_SETCURSEL, ( WPARAM ) m_astyleOption->minConditionalOption, 0 );
 	SendDlgItemMessage( IDC_CBB_PtrAlign, CB_SETCURSEL, ( WPARAM ) m_astyleOption->pointerAlignment, 0 );
 	SendDlgItemMessage( IDC_CBB_RefAlign, CB_SETCURSEL, ( WPARAM ) m_astyleOption->referenceAlignment, 0 );
-	SendDlgItemMessage( IDC_CBB_ObjCColonPad, CB_SETCURSEL, ( WPARAM ) m_astyleOption->objCColonPadMode, 0 );
+	SendDlgItemMessage( IDC_CBB_ObjC_ColonPad, CB_SETCURSEL, ( WPARAM ) m_astyleOption->objCColonPadMode, 0 );
 	int index = ( m_astyleOption->maxInStatementIndent - 40 ) / 10;
 	SendDlgItemMessage( IDC_CBB_MaxInStatementIndent, CB_SETCURSEL, ( WPARAM ) index, 0 );
 	index = ( m_astyleOption->maxCodeLength < 50 || m_astyleOption->maxCodeLength > 200 ) ? (int)40 : (int)m_astyleOption->maxCodeLength;
@@ -379,12 +393,13 @@ void NppAStyleOptionDlg::showDlgOptionControl()
 	// Indentation Options
 	isShow = ( indexIndentationOptions == m_indexOptionSet );
 	showDlgControlRange( IDC_GRP_Indentation, IDC_CHK_IndentCol1Comments, isShow, isEnable );
-	showDlgControlRange( IDC_LBL_Min_Conditional_Indent, IDC_CBB_MinConditional, isShow, isEnable );
+	showDlgControlRange( IDC_LBL_ContinuationIndent, IDC_CBB_ContinuationIndent, isShow, isEnable );
+	showDlgControlRange( IDC_LBL_MinConditionalIndent, IDC_CBB_MinConditionalIndent, isShow, isEnable );
 	showDlgControlRange( IDC_LBL_MaxInStatementIndent, IDC_CBB_MaxInStatementIndent, isShow, isEnable );
 
 	// Padding Options
 	isShow = ( indexPaddingOptions == m_indexOptionSet );
-	showDlgControlRange( IDC_GRP_Padding, IDC_CHK_EmptyLineFill, isShow, isEnable );
+	showDlgControlRange( IDC_GRP_Padding, IDC_CHK_PadCommas, isShow, isEnable );
 	showDlgControlRange( IDC_LBL_PtrAlign, IDC_CBB_PtrAlign, isShow, isEnable );
 	showDlgControlRange( IDC_LBL_RefAlign, IDC_CBB_RefAlign, isShow, isEnable );
 
@@ -395,8 +410,8 @@ void NppAStyleOptionDlg::showDlgOptionControl()
 
 	// Objective-C Options
 	isShow = ( indexObjectiveCOptions == m_indexOptionSet );
-	showDlgControlRange( IDC_GRP_Objective_C, IDC_CHK_UnPadMethodPrefix, isShow, isEnable );
-	showDlgControlRange( IDC_LBL_ObjCColonPad, IDC_CBB_ObjCColonPad, isShow, isEnable );
+	showDlgControlRange( IDC_GRP_Objective_C, IDC_CHK_ObjC_UnPadParamType, isShow, isEnable );
+	showDlgControlRange( IDC_LBL_ObjC_ColonPad, IDC_CBB_ObjC_ColonPad, isShow, isEnable );
 }
 
 
@@ -593,6 +608,13 @@ INT_PTR CALLBACK NppAStyleOptionDlg::DlgOptionProc( UINT Message, WPARAM wParam,
 						}
 						break;
 
+					case IDC_CHK_PadCommas:
+						{
+							m_astyleOption->shouldPadCommas = BST_CHECKED == SendDlgItemMessage( IDC_CHK_PadCommas, BM_GETCHECK, 0, 0 );
+							isUpdatePreview = true;
+						}
+						break;
+
 					case IDC_CHK_EmptyLineFill:
 						{
 							m_astyleOption->shouldEmptyLineFill = BST_CHECKED == SendDlgItemMessage( IDC_CHK_EmptyLineFill, BM_GETCHECK, 0, 0 );
@@ -687,24 +709,59 @@ INT_PTR CALLBACK NppAStyleOptionDlg::DlgOptionProc( UINT Message, WPARAM wParam,
 						}
 						break;
 
+					case IDC_CHK_BreakOneLineHeaders:
+						{
+							m_astyleOption->shouldBreakOneLineHeaders = BST_CHECKED == SendDlgItemMessage( IDC_CHK_BreakOneLineHeaders, BM_GETCHECK, 0, 0 );
+							isUpdatePreview = true;
+						}
+						break;
+
 					// Objective-C Options
-					case IDC_CHK_AlignMethodColon:
+					case IDC_CHK_ObjC_AlignMethodColon:
 						{
-							m_astyleOption->shouldAlignMethodColon = BST_CHECKED == SendDlgItemMessage( IDC_CHK_AlignMethodColon, BM_GETCHECK, 0, 0 );
+							m_astyleOption->shouldAlignMethodColon = BST_CHECKED == SendDlgItemMessage( IDC_CHK_ObjC_AlignMethodColon, BM_GETCHECK, 0, 0 );
 							isUpdatePreview = true;
 						}
 						break;
 
-					case IDC_CHK_PadMethodPrefix:
+					case IDC_CHK_ObjC_PadMethodPrefix:
 						{
-							m_astyleOption->shouldPadMethodPrefix = BST_CHECKED == SendDlgItemMessage( IDC_CHK_PadMethodPrefix, BM_GETCHECK, 0, 0 );
+							m_astyleOption->shouldPadMethodPrefix = BST_CHECKED == SendDlgItemMessage( IDC_CHK_ObjC_PadMethodPrefix, BM_GETCHECK, 0, 0 );
 							isUpdatePreview = true;
 						}
 						break;
 
-					case IDC_CHK_UnPadMethodPrefix:
+					case IDC_CHK_ObjC_UnPadMethodPrefix:
 						{
-							m_astyleOption->shouldUnPadMethodPrefix = BST_CHECKED == SendDlgItemMessage( IDC_CHK_UnPadMethodPrefix, BM_GETCHECK, 0, 0 );
+							m_astyleOption->shouldUnPadMethodPrefix = BST_CHECKED == SendDlgItemMessage( IDC_CHK_ObjC_UnPadMethodPrefix, BM_GETCHECK, 0, 0 );
+							isUpdatePreview = true;
+						}
+						break;
+
+					case IDC_CHK_ObjC_PadReturnType:
+						{
+							m_astyleOption->shouldPadReturnType = BST_CHECKED == SendDlgItemMessage( IDC_CHK_ObjC_PadReturnType, BM_GETCHECK, 0, 0 );
+							isUpdatePreview = true;
+						}
+						break;
+
+					case IDC_CHK_ObjC_UnPadReturnType:
+						{
+							m_astyleOption->shouldUnPadReturnType = BST_CHECKED == SendDlgItemMessage( IDC_CHK_ObjC_UnPadReturnType, BM_GETCHECK, 0, 0 );
+							isUpdatePreview = true;
+						}
+						break;
+
+					case IDC_CHK_ObjC_PadParamType:
+						{
+							m_astyleOption->shouldPadParamType = BST_CHECKED == SendDlgItemMessage( IDC_CHK_ObjC_PadParamType, BM_GETCHECK, 0, 0 );
+							isUpdatePreview = true;
+						}
+						break;
+
+					case IDC_CHK_ObjC_UnPadParamType:
+						{
+							m_astyleOption->shouldUnPadParamType = BST_CHECKED == SendDlgItemMessage( IDC_CHK_ObjC_UnPadParamType, BM_GETCHECK, 0, 0 );
 							isUpdatePreview = true;
 						}
 						break;
@@ -742,7 +799,7 @@ INT_PTR CALLBACK NppAStyleOptionDlg::DlgOptionProc( UINT Message, WPARAM wParam,
 						}
 							break;
 
-						case IDC_CBB_MinConditional:
+						case IDC_CBB_MinConditionalIndent:
 						{
 							m_astyleOption->minConditionalOption = ItemIndex;
 							isUpdatePreview = true;
@@ -759,6 +816,12 @@ INT_PTR CALLBACK NppAStyleOptionDlg::DlgOptionProc( UINT Message, WPARAM wParam,
 							isUpdatePreview = true;
 						}
 							break;
+						case IDC_CBB_ContinuationIndent:
+						{
+							m_astyleOption->continuationIndent = ItemIndex;
+							isUpdatePreview = true;
+						}
+							break;
 						case IDC_CBB_PtrAlign:
 						{
 							m_astyleOption->pointerAlignment = ItemIndex;
@@ -771,7 +834,7 @@ INT_PTR CALLBACK NppAStyleOptionDlg::DlgOptionProc( UINT Message, WPARAM wParam,
 							isUpdatePreview = true;
 						}
 							break;
-						case IDC_CBB_ObjCColonPad:
+						case IDC_CBB_ObjC_ColonPad:
 						{
 							m_astyleOption->objCColonPadMode = ItemIndex;
 							isUpdatePreview = true;

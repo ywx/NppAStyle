@@ -4,7 +4,7 @@ An Artistic Style plugin for Notepad++ to Format C, C++, C++/CLI, Objective-C, C
 
 Thanks to developers of Artistic Style, Scintilla and Notepad++.
 
-NOTE: Artistic Style Version 2.05.1
+NOTE: Artistic Style Version 2.06 beta
 For information on Artistic Style, please see http://sourceforge.net/projects/astyle/
 For information on Scintilla, please see http://www.scintilla.org/ or http://sourceforge.net/projects/scintilla/
 For information on Notepad++, please see https://notepad-plus-plus.org/ or https://github.com/notepad-plus-plus/notepad-plus-plus
@@ -83,6 +83,10 @@ Bracket Style Options:
     Google style formatting/indenting.
     Attached brackets, indented class modifiers.
 
+    Mozilla style formatting/indenting.
+    Linux brackets, with broken brackets for structs and enums,
+    and attached brackets for namespaces.
+
     Pico style formatting/indenting.
     Run-in opening brackets and attached closing brackets.
     Uses keep one line blocks and keep one line statements.
@@ -125,6 +129,11 @@ Indentation Options:
     indent namespaces
     Indent the contents of namespace blocks.
 
+    indent continuation #
+    Indent continuation lines an additional # indents.
+    The valid values are 0 thru 4 indents.
+    The default value is 1 indent.
+
     indent labels
     Indent labels so that they appear one indent less than
     the current indentation level, rather than being
@@ -144,7 +153,7 @@ Indentation Options:
     indent col1-comments
     Indent line comments that start in column one.
 
-    min conditional indent
+    min conditional indent #
     Indent a minimal # spaces in a continuous conditional
     belonging to a conditional header.
     The valid values are:
@@ -154,7 +163,7 @@ Indentation Options:
     One Half - indent at least one-half an additional indent.
     The default value is 2, two additional indents.
 
-    max-instatement-indent
+    max instatement indent #
     Indent a maximal # spaces in a continuous statement,
     relative to the previous line.
     The valid values are 40 thru 120.
@@ -167,6 +176,9 @@ Padding Options:
 
     pad operators
     Insert space padding around operators.
+
+    pad comma
+    Insert space padding around commas and semicolons.
 
     pad parenthesis outside
     Insert space padding around parenthesis on the outside only.
@@ -239,7 +251,7 @@ Formatting Options:
     first on the new line. The option break-after-logical will
     cause the logical conditional to be placed last on the previous line.
 
-    max-code-length
+    max-code-length #
     max-code-length=# will break the line if it exceeds more than
     # characters. The valid values are 50 thru 200.
     If the line contains logical conditionals they will be placed
@@ -248,14 +260,26 @@ Formatting Options:
 
 Objective-C Options:
 --------------------
-    align method colon
-    Align the colons in an Objective-C method definition.
-
     pad method prefix
     Insert space padding after the '-' or '+' Objective-C method prefix.
 
     unpad method prefix
     Remove all space padding after the '-' or '+' Objective-C method prefix.
+
+    pad return type
+    Insert space padding after the Objective-C return type.
+
+    unpad return type
+    Remove all space padding after the Objective-C return type.
+
+    pad param type
+    Insert space padding after the Objective-C return type.
+
+    unpad param type
+    Remove all space padding after the Objective-C return type.
+
+    align method colon
+    Align the colons in an Objective-C method definition.
 
     pad method colon : no change, none, all, after, before
     Add or remove space padding before or after the colons in an
