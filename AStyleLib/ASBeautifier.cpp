@@ -896,7 +896,6 @@ string ASBeautifier::beautify(const string& originalLine)
 	lineOpensWithComment = false;
 	lineStartsInComment = isInComment;
 	previousLineProbationTab = false;
-	haveLineContinuationChar = false;
 	lineOpeningBlocksNum = 0;
 	lineClosingBlocksNum = 0;
 	if (isImmediatelyPostObjCMethodDefinition)
@@ -2464,12 +2463,10 @@ string ASBeautifier::getIndentedSpaceEquivalent(const string& line_) const
 	string convertedLine = spaceIndent + line_;
 	for (size_t i = spaceIndent.length(); i < convertedLine.length(); i++)
 	{
-		size_t tabCount_ = 0;
 		if (convertedLine[i] == '\t')
 		{
-			size_t numSpaces = indentLength - ((tabCount_ + i) % indentLength);
+			size_t numSpaces = indentLength - (i % indentLength);
 			convertedLine.replace(i, 1, numSpaces, ' ');
-			++tabCount_;
 			i += indentLength - 1;
 		}
 	}
@@ -2490,6 +2487,12 @@ void ASBeautifier::parseCurrentLine(const string& line)
 	bool previousLineProbation = (probationHeader != NULL);
 	char ch = ' ';
 	int tabIncrementIn = 0;
+	if (isInQuote
+	        && !haveLineContinuationChar
+	        && !isInVerbatimQuote
+	        && !isInAsm)
+		isInQuote = false;				// missing closing quote
+	haveLineContinuationChar = false;
 
 	for (size_t i = 0; i < line.length(); i++)
 	{
@@ -2570,12 +2573,13 @@ void ASBeautifier::parseCurrentLine(const string& line)
 				}
 				else if (isSharpStyle())
 				{
-					if (peekNextChar(line, i) == '"')           // check consecutive quotes
+					if (line.compare(i, 2, "\"\"") == 0)
 						i++;
 					else
 					{
 						isInQuote = false;
 						isInVerbatimQuote = false;
+						continue;
 					}
 				}
 			}

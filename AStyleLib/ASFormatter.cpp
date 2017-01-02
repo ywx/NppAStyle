@@ -1145,17 +1145,14 @@ string ASFormatter::nextLine()
 
 			if (newHeader != NULL)
 			{
-				// recognize closing headers of do..while, if..else, try..catch..finally
-				if ((newHeader == &AS_ELSE && currentHeader == &AS_IF)
-				        || (newHeader == &AS_WHILE && currentHeader == &AS_DO)
-				        || (newHeader == &AS_CATCH && currentHeader == &AS_TRY)
-				        || (newHeader == &AS_CATCH && currentHeader == &AS_CATCH)
-				        || (newHeader == &AS_FINALLY && currentHeader == &AS_TRY)
-				        || (newHeader == &AS_FINALLY && currentHeader == &AS_CATCH)
-				        || (newHeader == &_AS_FINALLY && currentHeader == &_AS_TRY)
-				        || (newHeader == &_AS_EXCEPT && currentHeader == &_AS_TRY)
-				        || (newHeader == &AS_SET && currentHeader == &AS_GET)
-				        || (newHeader == &AS_REMOVE && currentHeader == &AS_ADD))
+				foundClosingHeader = isClosingHeader(newHeader);
+
+				if (!foundClosingHeader
+				        && ((newHeader == &AS_WHILE && currentHeader == &AS_DO)
+				            || (newHeader == &_AS_FINALLY && currentHeader == &_AS_TRY)
+				            || (newHeader == &_AS_EXCEPT && currentHeader == &_AS_TRY)
+				            || (newHeader == &AS_SET && currentHeader == &AS_GET)
+				            || (newHeader == &AS_REMOVE && currentHeader == &AS_ADD)))
 					foundClosingHeader = true;
 
 				const string* previousHeader = currentHeader;
@@ -4596,7 +4593,10 @@ void ASFormatter::formatOpeningBracket(BracketType bracketType)
 				breakLine();
 		}
 		else if (!isBracketType(bracketType, SINGLE_LINE_TYPE))
+		{
+			formattedLine = rtrim(formattedLine);
 			breakLine();
+		}
 		else if ((shouldBreakOneLineBlocks || isBracketType(bracketType, BREAK_BLOCK_TYPE))
 		         && !isBracketType(bracketType, EMPTY_BLOCK_TYPE))
 			breakLine();
@@ -5502,7 +5502,12 @@ void ASFormatter::formatCommentOpener()
 	        && !isImmediatelyPostComment
 	        && !isImmediatelyPostLineComment)
 	{
-		if (bracketFormatMode == NONE_MODE)
+		if (isBracketType(bracketTypeStack->back(), NAMESPACE_TYPE))
+		{
+			// namespace run-in is always broken.
+			isInLineBreak = true;
+		}
+		else if (bracketFormatMode == NONE_MODE)
 		{
 			// should a run-in statement be attached?
 			if (currentLineBeginsWithBracket)
@@ -5776,7 +5781,8 @@ void ASFormatter::formatQuoteBody()
 		}
 		else if (isSharpStyle())
 		{
-			if (peekNextChar() == '"')              // check consecutive quotes
+			if ((int) currentLine.length() > charNum + 1
+			        && currentLine[charNum + 1] == '"')			// check consecutive quotes
 			{
 				appendSequence("\"\"");
 				goForward(1);
@@ -5805,6 +5811,10 @@ void ASFormatter::formatQuoteBody()
 			appendCurrentChar();
 		}
 	}
+	if (charNum + 1 >= (int) currentLine.length()
+	        && currentChar != '\\'
+	        && !isInVerbatimQuote)
+		isInQuote = false;				// missing closing quote
 }
 
 /**

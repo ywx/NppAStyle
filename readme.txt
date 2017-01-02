@@ -4,7 +4,7 @@ An Artistic Style plugin for Notepad++ to Format C, C++, C++/CLI, Objective-C, C
 
 Thanks to developers of Artistic Style, Scintilla and Notepad++.
 
-NOTE: Artistic Style Version 2.06 beta
+NOTE: Artistic Style Version 2.06
 For information on Artistic Style, please see http://sourceforge.net/projects/astyle/
 For information on Scintilla, please see http://www.scintilla.org/ or http://sourceforge.net/projects/scintilla/
 For information on Notepad++, please see https://notepad-plus-plus.org/ or https://github.com/notepad-plus-plus/notepad-plus-plus
@@ -178,7 +178,7 @@ Padding Options:
     Insert space padding around operators.
 
     pad comma
-    Insert space padding around commas and semicolons.
+    Insert space padding after commas.
 
     pad parenthesis outside
     Insert space padding around parenthesis on the outside only.

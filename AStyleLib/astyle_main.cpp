@@ -96,7 +96,7 @@ namespace astyle {
 	jmethodID g_mid;
 #endif
 
-const char* g_version = "2.06 beta";
+const char* g_version = "2.06";
 
 //-----------------------------------------------------------------------------
 // ASStreamIterator class
@@ -1734,7 +1734,7 @@ void ASConsole::printHelp() const
 	cout << "    Insert space padding around operators.\n";
 	cout << endl;
 	cout << "    --pad-comma  OR  -xg\n";
-	cout << "    Insert space padding around commas and semicolons.\n";
+	cout << "    Insert space padding after commas.\n";
 	cout << endl;
 	cout << "    --pad-paren  OR  -P\n";
 	cout << "    Insert space padding around parenthesis on both the outside\n";
