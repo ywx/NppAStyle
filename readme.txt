@@ -1,10 +1,10 @@
-﻿Artistic Style plugin for Notepad++
+Artistic Style plugin for Notepad++
 -----------------------------------
 An Artistic Style plugin for Notepad++ to Format C, C++, C++/CLI, Objective-C, C#, and Java Source Code.
 
 Thanks to developers of Artistic Style, Scintilla and Notepad++.
 
-NOTE: Artistic Style Version 2.06
+NOTE: Artistic Style Version 3.0.1
 For information on Artistic Style, please see http://sourceforge.net/projects/astyle/
 For information on Scintilla, please see http://www.scintilla.org/ or http://sourceforge.net/projects/scintilla/
 For information on Notepad++, please see https://notepad-plus-plus.org/ or https://github.com/notepad-plus-plus/notepad-plus-plus
@@ -42,118 +42,125 @@ How to Use NppAStyle
 3, Run Menu Command : NppAStyle => Options ... , Before First Run Menu Command : NppAStyle => Format Code
 
 
-Bracket Style Options:
-----------------------
+Brace Style Options:
+--------------------
     None style nothing to do.
 
     Allman style formatting/indenting.
-    Broken brackets.
+    Broken braces.
 
     Java style formatting/indenting.
-    Attached brackets.
+    Attached braces.
 
     Kernighan & Ritchie style formatting/indenting.
-    Linux brackets.
+    Linux braces.
 
     Stroustrup style formatting/indenting.
-    Stroustrup brackets.
+    Linux braces.
 
     Whitesmith style formatting/indenting.
-    Broken, indented brackets.
+    Broken, indented braces.
     Indented class blocks and switch blocks.
 
     VTK style formatting/indenting.
-    Broken, indented brackets, except for opening brackets.
+    Broken, indented braces except for the opening braces.
 
     Banner style formatting/indenting.
-    Attached, indented brackets.
+    Attached, indented braces.
 
     GNU style formatting/indenting.
-    Broken brackets, indented blocks.
+    Broken braces, indented blocks.
 
     Linux style formatting/indenting.
-    Linux brackets, minimum conditional indent is one-half indent.
+    Linux braces, minimum conditional indent is one-half indent.
 
     Horstmann style formatting/indenting.
-    Run-in brackets, indented switches.
+    Run-in braces, indented switches.
 
     One True Brace (1TBS) Style formatting/indenting.
-    Linux brackets, add brackets to all conditionals.
+    Linux braces, add braces to all conditionals.
 
     Google style formatting/indenting.
-    Attached brackets, indented class modifiers.
+    Attached braces, indented class modifiers.
 
     Mozilla style formatting/indenting.
-    Linux brackets, with broken brackets for structs and enums,
-    and attached brackets for namespaces.
+    Linux braces, with broken braces for structs and enums,
+    and attached braces for namespaces.
 
     Pico style formatting/indenting.
-    Run-in opening brackets and attached closing brackets.
+    Run-in opening braces and attached closing braces.
     Uses keep one line blocks and keep one line statements.
 
     Lisp style formatting/indenting.
-    Attached opening brackets and attached closing brackets.
+    Attached opening braces and attached closing braces.
     Uses keep one line statements.
 
-Bracket Modify Options:
------------------------
-    attachNamespaces
-    Attach brackets to a namespace statement.
+Brace Modify Options:
+---------------------
+    Attach Namespaces
+    Attach braces to a namespace statement.
 
-    attachClasses
-    Attach brackets to a class statement.
+    Attach Classes
+    Attach braces to a class statement.
 
-    attachInlines
-    Attach brackets to class inline function definitions.
+    Attach Inlines
+    Attach braces to class inline function definitions.
 
-    attachExternC
-    Attach brackets to an extern "C" statement.
+    Attach Extern C
+    Attach braces to an extern "C" statement.
+
+    Attach closing while
+    Attach closing while of do-while to the closing brace.
 
 Indentation Options:
 --------------------
-    indent classes
+    Indent classes blocks
     Indent 'class' blocks so that the entire block is indented.
 
-    indent modifiers
+    Indent access modifiers
     Indent 'class' access modifiers, 'public:', 'protected:' or
     'private:', one half indent. The rest of the class is not indented.
 
-    indent switches
+    Indent switches blocks
     Indent 'switch' blocks, so that the inner 'case XXX:'
     headers are indented in relation to the switch block.
 
-    indent cases
+    Indent case blocks
     Indent case blocks from the 'case XXX:' headers.
     Case statements not enclosed in blocks are NOT indented.
 
-    indent namespaces
+    Indent namespace blocks
     Indent the contents of namespace blocks.
 
-    indent continuation #
+    Indent after parens
+    Indent, instead of align, continuation lines following lines
+    that contain an opening paren '(' or an assignment '='.
+
+    Indent continuation #
     Indent continuation lines an additional # indents.
     The valid values are 0 thru 4 indents.
     The default value is 1 indent.
 
-    indent labels
+    Indent goto labels
     Indent labels so that they appear one indent less than
     the current indentation level, rather than being
     flushed completely to the left (which is the default).
 
-    indent preproc block
-    Indent preprocessor blocks at bracket level 0.
+    Indent preproc blocks
+    Indent preprocessor blocks at brace level 0.
     Without this option the preprocessor block is not indented.
 
-    indent preproc cond
+    Indent preproc conditional
     Indent preprocessor conditional statements #if/#else/#endif
     to the same level as the source code.
 
-    indent preproc define
+    Indent preproc define
     Indent multi-line preprocessor #define statements.
 
-    indent col1-comments
+    Indent comments at 1st column
     Indent line comments that start in column one.
 
-    min conditional indent #
+    Minimum Conditional Indent #
     Indent a minimal # spaces in a continuous conditional
     belonging to a conditional header.
     The valid values are:
@@ -161,126 +168,127 @@ Indentation Options:
     One  - indent at least one additional indent.
     Two  - indent at least two additional indents.
     One Half - indent at least one-half an additional indent.
-    The default value is 2, two additional indents.
+    The default value is Two, two additional indents.
 
-    max instatement indent #
-    Indent a maximal # spaces in a continuous statement,
+    Maximum continuation Indent #
+    Indent a maximal # spaces in a continuation line,
     relative to the previous line.
     The valid values are 40 thru 120.
     The default value is 40.
 
 Padding Options:
 ----------------
-    break blocks
-    Insert empty lines around unrelated blocks, labels, classes, ...
-
-    pad operators
+    Pad operators
     Insert space padding around operators.
 
-    pad comma
+    Pad commas
     Insert space padding after commas.
 
-    pad parenthesis outside
+    Pad parens outside
     Insert space padding around parenthesis on the outside only.
 
-    pad first paren out
+    Pad first paren outside
     Insert space padding around first parenthesis in a series on
     the outside only.
 
-    pad parenthesis outside
+    Pad parens inside
     Insert space padding around parenthesis on the inside only.
 
-    pad header
+    Pad header
     Insert space padding after paren headers (e.g. 'if', 'for'...).
 
-    unpad parenthesis
+    Unpad parens
     Remove unnecessary space padding around parenthesis. This
     can be used in combination with the 'pad' options above.
 
-    delete empty lines
+    Delete empty lines
     Delete empty lines within a function or method.
     It will NOT delete lines added by the break-blocks options.
 
-    fill empty lines
+    Fill empty line
     Fill empty lines with the white space of their previous lines.
 
-    align pointer : type, middle, name
+    Align pointer : None, Type, Middle, Name
     Attach a pointer or reference operator (*, &, or ^) to either
     the operator type (left), middle, or operator name (right).
     To align the reference separately use --align-reference.
 
-    align reference : none, type, middle, name, same as pointer
+    Align reference : None, Type, Middle, Name, Same as Pointer
     Attach a reference operator (&) to either
     the operator type (left), middle, or operator name (right).
     If not set, follow pointer alignment.
 
 Formatting Options:
 -------------------
-    break closing brackets
-    Break brackets before closing headers (e.g. 'else', 'catch', ...).
-    Use with Bracket Style : java, kr, stroustrup linux, or 1tbs.
+    Break blocks
+    Insert empty lines around unrelated blocks, labels, classes, ...
 
-    break elseifs
+    Break closing header blocks
+    Break braces before closing headers (e.g. 'else', 'catch', ...).
+    Use with Brace Style : java, kr, stroustrup, linux, or 1tbs.
+
+    Break else/if statements
     Break 'else if()' statements into two different lines.
 
-    add brackets
-    Add brackets to unbracketed one line conditional statements.
+    Break one line headers
+    Break one line headers (e.g. 'if', 'while', 'else', ...) from a
+    statement residing on the same line.
 
-    add one line brackets
-    Add one line brackets to unbracketed one line conditional statements.
+    Add braces
+    Add braces to unbraced one line conditional statements.
 
-    remove brackets
-    Remove brackets from a bracketed one line conditional statements.
+    Add one line braces
+    Add one line braces to unbraced one line conditional statements.
 
-    keep one line blocks
+    Remove braces
+    Remove braces from a braced one line conditional statements.
+
+    Keep one line blocks
     Don't break blocks residing completely on one line.
 
-    keep one line statements
+    Keep one line statements
     Don't break lines containing multiple statements into
     multiple single-statement lines.
 
-    close templates
+    Close templates
     Close ending angle brackets on template definitions.
 
-    remove comment prefix
+    Strip comment prefix
     Remove the leading '*' prefix on multi-line comments and
     indent the comment text one indent.
 
-    break after logical
-    If the line contains logical conditionals they will be placed
-    first on the new line. The option break-after-logical will
-    cause the logical conditional to be placed last on the previous line.
-
-    max-code-length #
+    Maximum Code Line Width #
     max-code-length=# will break the line if it exceeds more than
     # characters. The valid values are 50 thru 200.
+
+    Break line after logical
     If the line contains logical conditionals they will be placed
     first on the new line. The option break-after-logical will
     cause the logical conditional to be placed last on the previous line.
 
 Objective-C Options:
 --------------------
-    pad method prefix
+    Pad method prefix
     Insert space padding after the '-' or '+' Objective-C method prefix.
 
-    unpad method prefix
+    Unpad method prefix
     Remove all space padding after the '-' or '+' Objective-C method prefix.
 
-    pad return type
+    Pad return type
     Insert space padding after the Objective-C return type.
 
-    unpad return type
+    Unpad return type
     Remove all space padding after the Objective-C return type.
 
-    pad param type
+    Pad param type
     Insert space padding after the Objective-C return type.
 
-    unpad param type
+    Unpad param type
     Remove all space padding after the Objective-C return type.
 
-    align method colon
+    Align method colons
     Align the colons in an Objective-C method definition.
 
-    pad method colon : no change, none, all, after, before
+    Pad method colons : No Change, None, All, After, Before
     Add or remove space padding before or after the colons in an
     Objective-C method call.

@@ -17,7 +17,7 @@ struct NppAStyleOption;
 
 class NppAStyleOptionDlg : public StaticDialog
 {
-	enum enumIndexOptionSet { indexBracketModifyOptions, indexIndentationOptions, indexPaddingOptions, indexFormattingOptions, indexObjectiveCOptions, indexOptionSet_Len };
+	enum enumIndexOptionSet { indexBraceModifyOptions, indexIndentationOptions, indexPaddingOptions, indexFormattingOptions, indexObjectiveCOptions, indexOptionSet_Len };
 
 public:
 	NppAStyleOptionDlg() : StaticDialog(), astyleOption( NULL ), m_astyleOption( NULL ), m_indexOptionSet( 0 ) {};

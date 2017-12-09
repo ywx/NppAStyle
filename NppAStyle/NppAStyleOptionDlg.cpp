@@ -50,16 +50,16 @@ void NppAStyleOptionDlg::initDlgComboList()
 		::SendMessage( hWndComboBox, ( UINT ) CB_ADDSTRING, 0, ( LPARAM ) strLabel );
 	}
 
-	TCHAR *listBracketStyle[] = { TEXT( "None" ), TEXT( "Allman (ANSI)" ), TEXT( "Java" ), TEXT( "Kernighan & Ritchie (K&R)" ), TEXT( "Stroustrup" ), TEXT( "Whitesmith" ), TEXT( "VTK" ), TEXT( "Banner" ), TEXT( "GNU" ), TEXT( "Linux" ), TEXT( "Horstmann" ), TEXT( "One True Brace (1TBS)" ), TEXT( "Google" ), TEXT( "Mozilla" ), TEXT( "Pico" ), TEXT( "Lisp" ), 0 };
-#define FormattingStyleCount sizeof(listBracketStyle)/sizeof(TCHAR *)-1
+	TCHAR *listBraceStyle[] = { TEXT( "None" ), TEXT( "Allman (ANSI)" ), TEXT( "Java" ), TEXT( "Kernighan & Ritchie (K&R)" ), TEXT( "Stroustrup" ), TEXT( "Whitesmith" ), TEXT( "VTK" ), TEXT( "Banner" ), TEXT( "GNU" ), TEXT( "Linux" ), TEXT( "Horstmann" ), TEXT( "One True Brace (1TBS)" ), TEXT( "Google" ), TEXT( "Mozilla" ), TEXT( "Pico" ), TEXT( "Lisp" ), 0 };
+#define FormattingStyleCount sizeof(listBraceStyle)/sizeof(TCHAR *)-1
 	hWndComboBox = GetDlgItem( IDC_CBB_BRACKET_STYLE );
 	for( int i = 0; i < FormattingStyleCount ; ++i )
 	{
-		_tcscpy( strLabel, listBracketStyle[i] );
+		_tcscpy( strLabel, listBraceStyle[i] );
 		::SendMessage( hWndComboBox, ( UINT ) CB_ADDSTRING, 0, ( LPARAM ) strLabel );
 	}
 
-	TCHAR *listOptionSet[] = { TEXT( "Bracket Modify Options" ), TEXT( "Indentation Options" ), TEXT( "Padding Options" ), TEXT( "Formatting Options" ), TEXT( "Objective-C Options" ), 0 };
+	TCHAR *listOptionSet[] = { TEXT( "Brace Modify Options" ), TEXT( "Indentation Options" ), TEXT( "Padding Options" ), TEXT( "Formatting Options" ), TEXT( "Objective-C Options" ), 0 };
 	hWndComboBox = GetDlgItem( IDC_CBB_ASTYLE_OPTION_SET );
 	for( int i = 0; i < 5 ; ++i )
 	{
@@ -108,7 +108,7 @@ void NppAStyleOptionDlg::initDlgComboList()
 		::SendMessage( hWndComboBox, ( UINT ) CB_ADDSTRING, 0, ( LPARAM ) strLabel );
 	}
 
-	hWndComboBox = GetDlgItem( IDC_CBB_MaxInStatementIndent );
+	hWndComboBox = GetDlgItem( IDC_CBB_MaxContinuationIndent );
 	for( int i = 40; i < 121 ; i += 10 )
 	{
 		// wsprintf( strLabel, TEXT("%d"), i );
@@ -305,11 +305,12 @@ void NppAStyleOptionDlg::initDlgControl()
 
 void NppAStyleOptionDlg::initDlgOptionControl()
 {
-	// Bracket Modify Options
+	// Brace Modify Options
 	SendDlgItemMessage( IDC_CHK_AttachNamespace, BM_SETCHECK, m_astyleOption->shouldAttachNamespace, 0 );
 	SendDlgItemMessage( IDC_CHK_AttachClass, BM_SETCHECK, m_astyleOption->shouldAttachClass, 0 );
 	SendDlgItemMessage( IDC_CHK_AttachInline, BM_SETCHECK, m_astyleOption->shouldAttachInline, 0 );
 	SendDlgItemMessage( IDC_CHK_AttachExternC, BM_SETCHECK, m_astyleOption->shouldAttachExternC, 0 );
+	SendDlgItemMessage( IDC_CHK_AttachClosingWhile, BM_SETCHECK, m_astyleOption->shouldAttachClosingWhile, 0 );
 	// Indentation Options
 	SendDlgItemMessage( IDC_CHK_ClassIndent, BM_SETCHECK, m_astyleOption->shouldClassIndent, 0 );
 	SendDlgItemMessage( IDC_CHK_ModifierIndent, BM_SETCHECK, m_astyleOption->shouldModifierIndent, 0 );
@@ -322,7 +323,7 @@ void NppAStyleOptionDlg::initDlgOptionControl()
 	SendDlgItemMessage( IDC_CHK_IndentPreprocConditional, BM_SETCHECK, m_astyleOption->shouldIndentPreprocConditional, 0 );
 	SendDlgItemMessage( IDC_CHK_IndentPreprocDefine, BM_SETCHECK, m_astyleOption->shouldIndentPreprocDefine, 0 );
 	SendDlgItemMessage( IDC_CHK_IndentCol1Comments, BM_SETCHECK, m_astyleOption->shouldIndentCol1Comments, 0 );
-	//int  maxInStatementIndent;
+	SendDlgItemMessage( IDC_CHK_IndentAfterParen, BM_SETCHECK, m_astyleOption->shouldIndentAfterParen, 0 );
 	// Padding Options
 	SendDlgItemMessage( IDC_CHK_PadOperators, BM_SETCHECK, m_astyleOption->shouldPadOperators, 0 );
 	SendDlgItemMessage( IDC_CHK_PadCommas, BM_SETCHECK, m_astyleOption->shouldPadCommas, 0 );
@@ -337,12 +338,12 @@ void NppAStyleOptionDlg::initDlgOptionControl()
 	SendDlgItemMessage( IDC_CHK_BreakBlocks, BM_SETCHECK, m_astyleOption->shouldBreakBlocks, 0 );
 	SendDlgItemMessage( IDC_CHK_BreakClosingHeaderBlocks, BM_SETCHECK, m_astyleOption->shouldBreakClosingHeaderBlocks, 0 );
 	SendDlgItemMessage( IDC_CHK_BreakElseIfs, BM_SETCHECK, m_astyleOption->shouldBreakElseIfs, 0 );
-	SendDlgItemMessage( IDC_CHK_AddBrackets, BM_SETCHECK, m_astyleOption->shouldAddBrackets, 0 );
-	SendDlgItemMessage( IDC_CHK_AddOneLineBrackets, BM_SETCHECK, m_astyleOption->shouldAddOneLineBrackets, 0 );
-	SendDlgItemMessage( IDC_CHK_RemoveBrackets, BM_SETCHECK, m_astyleOption->shouldRemoveBrackets, 0 );
+	SendDlgItemMessage( IDC_CHK_AddBraces, BM_SETCHECK, m_astyleOption->shouldAddBraces, 0 );
+	SendDlgItemMessage( IDC_CHK_AddOneLineBraces, BM_SETCHECK, m_astyleOption->shouldAddOneLineBraces, 0 );
+	SendDlgItemMessage( IDC_CHK_RemoveBraces, BM_SETCHECK, m_astyleOption->shouldRemoveBraces, 0 );
 	SendDlgItemMessage( IDC_CHK_BreakOneLineBlocks, BM_SETCHECK, FALSE == m_astyleOption->shouldBreakOneLineBlocks, 0 );
 	SendDlgItemMessage( IDC_CHK_BreakOneLineStatements, BM_SETCHECK, FALSE == m_astyleOption->shouldBreakOneLineStatements, 0 );
-	SendDlgItemMessage( IDC_CHK_BreakClosingHeaderBrackets, BM_SETCHECK, m_astyleOption->shouldBreakClosingHeaderBrackets, 0 );
+	SendDlgItemMessage( IDC_CHK_BreakClosingHeaderBraces, BM_SETCHECK, m_astyleOption->shouldBreakClosingHeaderBraces, 0 );
 	SendDlgItemMessage( IDC_CHK_BreakOneLineHeaders, BM_SETCHECK, m_astyleOption->shouldBreakOneLineHeaders, 0 );
 	//SendDlgItemMessage( IDC_CHK_ConvertTabs, BM_SETCHECK, m_astyleOption->shouldConvertTabs, 0 )
 	SendDlgItemMessage( IDC_CHK_CloseTemplates, BM_SETCHECK, m_astyleOption->shouldCloseTemplates, 0 );
@@ -362,8 +363,8 @@ void NppAStyleOptionDlg::initDlgOptionControl()
 	SendDlgItemMessage( IDC_CBB_PtrAlign, CB_SETCURSEL, ( WPARAM ) m_astyleOption->pointerAlignment, 0 );
 	SendDlgItemMessage( IDC_CBB_RefAlign, CB_SETCURSEL, ( WPARAM ) m_astyleOption->referenceAlignment, 0 );
 	SendDlgItemMessage( IDC_CBB_ObjC_ColonPad, CB_SETCURSEL, ( WPARAM ) m_astyleOption->objCColonPadMode, 0 );
-	int index = ( m_astyleOption->maxInStatementIndent - 40 ) / 10;
-	SendDlgItemMessage( IDC_CBB_MaxInStatementIndent, CB_SETCURSEL, ( WPARAM ) index, 0 );
+	int index = ( m_astyleOption->maxContinuationIndent - 40 ) / 10;
+	SendDlgItemMessage( IDC_CBB_MaxContinuationIndent, CB_SETCURSEL, ( WPARAM ) index, 0 );
 	index = ( m_astyleOption->maxCodeLength < 50 || m_astyleOption->maxCodeLength > 200 ) ? (int)40 : (int)m_astyleOption->maxCodeLength;
 	index = ( index - 40 ) / 10;
 	SendDlgItemMessage( IDC_CBB_MaxCodeLength, CB_SETCURSEL, ( WPARAM ) index, 0 );
@@ -386,16 +387,16 @@ void NppAStyleOptionDlg::showDlgOptionControl()
 {
 	bool isEnable = m_astyleOption->formattingStyle != 0;
 
-	// Bracket Modify Options
-	bool isShow = ( indexBracketModifyOptions == m_indexOptionSet );
-	showDlgControlRange( IDC_GRP_Bracket_Modify, IDC_CHK_AttachExternC, isShow, isEnable );
+	// Brace Modify Options
+	bool isShow = ( indexBraceModifyOptions == m_indexOptionSet );
+	showDlgControlRange( IDC_GRP_Brace_Modify, IDC_CHK_AttachClosingWhile, isShow, isEnable );
 
 	// Indentation Options
 	isShow = ( indexIndentationOptions == m_indexOptionSet );
-	showDlgControlRange( IDC_GRP_Indentation, IDC_CHK_IndentCol1Comments, isShow, isEnable );
+	showDlgControlRange( IDC_GRP_Indentation, IDC_CHK_IndentAfterParen, isShow, isEnable );
 	showDlgControlRange( IDC_LBL_ContinuationIndent, IDC_CBB_ContinuationIndent, isShow, isEnable );
 	showDlgControlRange( IDC_LBL_MinConditionalIndent, IDC_CBB_MinConditionalIndent, isShow, isEnable );
-	showDlgControlRange( IDC_LBL_MaxInStatementIndent, IDC_CBB_MaxInStatementIndent, isShow, isEnable );
+	showDlgControlRange( IDC_LBL_MaxContinuationIndent, IDC_CBB_MaxContinuationIndent, isShow, isEnable );
 
 	// Padding Options
 	isShow = ( indexPaddingOptions == m_indexOptionSet );
@@ -457,7 +458,7 @@ INT_PTR CALLBACK NppAStyleOptionDlg::DlgOptionProc( UINT Message, WPARAM wParam,
 						}
 						break;
 
-					// Bracket Modify Options
+					// Brace Modify Options
 					case IDC_CHK_AttachNamespace:
 						{
 							m_astyleOption->shouldAttachNamespace = BST_CHECKED == SendDlgItemMessage( IDC_CHK_AttachNamespace, BM_GETCHECK, 0, 0 );
@@ -482,6 +483,13 @@ INT_PTR CALLBACK NppAStyleOptionDlg::DlgOptionProc( UINT Message, WPARAM wParam,
 					case IDC_CHK_AttachExternC:
 						{
 							m_astyleOption->shouldAttachExternC = BST_CHECKED == SendDlgItemMessage( IDC_CHK_AttachExternC, BM_GETCHECK, 0, 0 );
+							isUpdatePreview = true;
+						}
+						break;
+
+					case IDC_CHK_AttachClosingWhile:
+						{
+							m_astyleOption->shouldAttachClosingWhile = BST_CHECKED == SendDlgItemMessage( IDC_CHK_AttachClosingWhile, BM_GETCHECK, 0, 0 );
 							isUpdatePreview = true;
 						}
 						break;
@@ -522,6 +530,13 @@ INT_PTR CALLBACK NppAStyleOptionDlg::DlgOptionProc( UINT Message, WPARAM wParam,
 						}
 						break;
 
+					case IDC_CHK_IndentAfterParen:
+						{
+							m_astyleOption->shouldIndentAfterParen = BST_CHECKED == SendDlgItemMessage( IDC_CHK_IndentAfterParen, BM_GETCHECK, 0, 0 );
+							isUpdatePreview = true;
+						}
+						break;
+
 					case IDC_CHK_LabelIndent:
 						{
 							m_astyleOption->shouldLabelIndent = BST_CHECKED == SendDlgItemMessage( IDC_CHK_LabelIndent, BM_GETCHECK, 0, 0 );
@@ -557,7 +572,7 @@ INT_PTR CALLBACK NppAStyleOptionDlg::DlgOptionProc( UINT Message, WPARAM wParam,
 						}
 						break;
 
-					//int  maxInStatementIndent;
+					//int  maxContinuationIndent;
 					// Padding Options
 					case IDC_CHK_PadOperators:
 						{
@@ -644,23 +659,23 @@ INT_PTR CALLBACK NppAStyleOptionDlg::DlgOptionProc( UINT Message, WPARAM wParam,
 						}
 						break;
 
-					case IDC_CHK_AddBrackets:
+					case IDC_CHK_AddBraces:
 						{
-							m_astyleOption->shouldAddBrackets = BST_CHECKED == SendDlgItemMessage( IDC_CHK_AddBrackets, BM_GETCHECK, 0, 0 );
+							m_astyleOption->shouldAddBraces = BST_CHECKED == SendDlgItemMessage( IDC_CHK_AddBraces, BM_GETCHECK, 0, 0 );
 							isUpdatePreview = true;
 						}
 						break;
 
-					case IDC_CHK_AddOneLineBrackets:
+					case IDC_CHK_AddOneLineBraces:
 						{
-							m_astyleOption->shouldAddOneLineBrackets = BST_CHECKED == SendDlgItemMessage( IDC_CHK_AddOneLineBrackets, BM_GETCHECK, 0, 0 );
+							m_astyleOption->shouldAddOneLineBraces = BST_CHECKED == SendDlgItemMessage( IDC_CHK_AddOneLineBraces, BM_GETCHECK, 0, 0 );
 							isUpdatePreview = true;
 						}
 						break;
 
-					case IDC_CHK_RemoveBrackets:
+					case IDC_CHK_RemoveBraces:
 						{
-							m_astyleOption->shouldRemoveBrackets = BST_CHECKED == SendDlgItemMessage( IDC_CHK_RemoveBrackets, BM_GETCHECK, 0, 0 );
+							m_astyleOption->shouldRemoveBraces = BST_CHECKED == SendDlgItemMessage( IDC_CHK_RemoveBraces, BM_GETCHECK, 0, 0 );
 							isUpdatePreview = true;
 						}
 						break;
@@ -679,9 +694,9 @@ INT_PTR CALLBACK NppAStyleOptionDlg::DlgOptionProc( UINT Message, WPARAM wParam,
 						}
 						break;
 
-					case IDC_CHK_BreakClosingHeaderBrackets:
+					case IDC_CHK_BreakClosingHeaderBraces:
 						{
-							m_astyleOption->shouldBreakClosingHeaderBrackets = BST_CHECKED == SendDlgItemMessage( IDC_CHK_BreakClosingHeaderBrackets, BM_GETCHECK, 0, 0 );
+							m_astyleOption->shouldBreakClosingHeaderBraces = BST_CHECKED == SendDlgItemMessage( IDC_CHK_BreakClosingHeaderBraces, BM_GETCHECK, 0, 0 );
 							isUpdatePreview = true;
 						}
 						break;
@@ -805,9 +820,9 @@ INT_PTR CALLBACK NppAStyleOptionDlg::DlgOptionProc( UINT Message, WPARAM wParam,
 							isUpdatePreview = true;
 						}
 							break;
-						case IDC_CBB_MaxInStatementIndent:
+						case IDC_CBB_MaxContinuationIndent:
 						{
-							m_astyleOption->maxInStatementIndent = 10 * ItemIndex + 40 ;
+							m_astyleOption->maxContinuationIndent = 10 * ItemIndex + 40 ;
 							isUpdatePreview = true;
 						}
 						case IDC_CBB_MaxCodeLength:

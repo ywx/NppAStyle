@@ -77,45 +77,47 @@ END
 // Dialog
 //
 
-IDD_NPPASTYLE_OPTION_DLG DIALOGEX 0, 0, 440, 290
+IDD_NPPASTYLE_OPTION_DLG DIALOGEX 0, 0, 440, 300
 STYLE DS_SETFONT | WS_POPUP | WS_CAPTION | WS_SYSMENU | DS_MODALFRAME
 CAPTION "NppAStyle Options"
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
-    GROUPBOX        "Preview",IDC_GRP_PREVIEW,7,7,298,220
-    CONTROL         "",IDC_TXT_PREVIEW,"Scintilla",WS_CHILD | WS_VISIBLE | WS_BORDER,13,19,286,202
-    GROUPBOX        "Tab Settings",IDC_GRP_TAB_SETTING,7,230,298,30
-    CONTROL         "Same As Npp Current View",IDC_CHK_SameAsNppCurView,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,15,245,100,10
-    CONTROL         "Replace Tab with Spaces",IDC_CHK_UseSpace,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,125,245,95,10
-    LTEXT           "Tab Size:",IDC_LBL_TAB_SIZE,230,245,35,8
-    COMBOBOX        IDC_CBB_TABSIZE,265,243,25,12,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    GROUPBOX        "Preview",IDC_GRP_PREVIEW,7,7,298,230
+    CONTROL         "",IDC_TXT_PREVIEW,"Scintilla",WS_CHILD | WS_VISIBLE | WS_BORDER,13,19,286,212
+    GROUPBOX        "Tab Settings",IDC_GRP_TAB_SETTING,7,240,298,30
+    CONTROL         "Same As Npp Current View",IDC_CHK_SameAsNppCurView,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,15,255,100,10
+    CONTROL         "Replace Tab with Spaces",IDC_CHK_UseSpace,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,125,255,95,10
+    LTEXT           "Tab Size:",IDC_LBL_TAB_SIZE,230,255,35,8
+    COMBOBOX        IDC_CBB_TABSIZE,265,253,25,12,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
 
-    LTEXT           "AStyle Bracket Style :",IDC_LBL_BRACKET_STYLE,318,7,100,8
+    LTEXT           "AStyle Brace Style :",IDC_LBL_BRACKET_STYLE,318,7,100,8
     COMBOBOX        IDC_CBB_BRACKET_STYLE,318,19,100,12,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
     LTEXT           "AStyle Option Set :",IDC_LBL_ASTYLE_OPTION_SET,318,35,100,8
     COMBOBOX        IDC_CBB_ASTYLE_OPTION_SET,318,47,100,12,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
-    GROUPBOX        "Bracket Modify Options",IDC_GRP_Bracket_Modify,313,62,120,65
+    GROUPBOX        "Brace Modify Options",IDC_GRP_Brace_Modify,313,62,120,75
     CONTROL         "Attach namespace",IDC_CHK_AttachNamespace,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,74,75,10
     CONTROL         "Attach class",IDC_CHK_AttachClass,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,86,70,10
     CONTROL         "Attach inline",IDC_CHK_AttachInline,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,98,70,10
     CONTROL         "Attach extern C",IDC_CHK_AttachExternC,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,110,70,10
-    GROUPBOX        "Indentation Options",IDC_GRP_Indentation,313,62,120,198
+    CONTROL         "Attach closing while",IDC_CHK_AttachClosingWhile,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,122,100,10
+    GROUPBOX        "Indentation Options",IDC_GRP_Indentation,313,62,120,210
     CONTROL         "Indent class blocks",IDC_CHK_ClassIndent,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,74,90,10
     CONTROL         "Indent access modifiers",IDC_CHK_ModifierIndent,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,86,100,10
     CONTROL         "Indent switch blocks",IDC_CHK_SwitchIndent,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,98,90,10
     CONTROL         "Indent case blocks",IDC_CHK_CaseIndent,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,110,90,10
     CONTROL         "Indent namespace blocks",IDC_CHK_NamespaceIndent,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,122,100,10
-    LTEXT           "Indent continuation:",IDC_LBL_ContinuationIndent,332,134,65,10
-    COMBOBOX        IDC_CBB_ContinuationIndent,400,134,25,12,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
-    CONTROL         "Indent goto labels",IDC_CHK_LabelIndent,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,146,90,10
-    CONTROL         "Indent preproc blocks",IDC_CHK_IndentPreprocBlock,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,158,90,10
-    CONTROL         "Indent preproc conditional",IDC_CHK_IndentPreprocConditional,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,170,100,10
-    CONTROL         "Indent preproc define",IDC_CHK_IndentPreprocDefine,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,182,90,10
-    CONTROL         "Indent comments at 1st column",IDC_CHK_IndentCol1Comments,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,194,110,10
-    LTEXT           "Minimum Conditional Indent :",IDC_LBL_MinConditionalIndent,320,206,100,10
-    COMBOBOX        IDC_CBB_MinConditionalIndent,320,217,50,12,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
-    LTEXT           "Maximum in-statement Indent :",IDC_LBL_MaxInStatementIndent,320,232,100,10
-    COMBOBOX        IDC_CBB_MaxInStatementIndent,320,243,50,12,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "Indent after parens",IDC_CHK_IndentAfterParen,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,134,80,10
+    LTEXT           "Indent continuation:",IDC_LBL_ContinuationIndent,332,146,65,10
+    COMBOBOX        IDC_CBB_ContinuationIndent,400,146,25,12,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "Indent goto labels",IDC_CHK_LabelIndent,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,158,80,10
+    CONTROL         "Indent preproc blocks",IDC_CHK_IndentPreprocBlock,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,170,90,10
+    CONTROL         "Indent preproc conditional",IDC_CHK_IndentPreprocConditional,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,182,100,10
+    CONTROL         "Indent preproc define",IDC_CHK_IndentPreprocDefine,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,194,90,10
+    CONTROL         "Indent comments at 1st column",IDC_CHK_IndentCol1Comments,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,206,110,10
+    LTEXT           "Minimum Conditional Indent :",IDC_LBL_MinConditionalIndent,320,218,100,10
+    COMBOBOX        IDC_CBB_MinConditionalIndent,320,229,50,12,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Maximum continuation Indent :",IDC_LBL_MaxContinuationIndent,320,244,100,10
+    COMBOBOX        IDC_CBB_MaxContinuationIndent,320,255,50,12,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
     GROUPBOX        "Padding Options",IDC_GRP_Padding,313,62,120,180
     CONTROL         "Pad operators",IDC_CHK_PadOperators,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,74,70,10
     CONTROL         "Pad commas",IDC_CHK_PadCommas,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,86,70,10
@@ -134,12 +136,12 @@ BEGIN
     CONTROL         "Break blocks",IDC_CHK_BreakBlocks,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,74,100,10
     CONTROL         "Break closing header blocks",IDC_CHK_BreakClosingHeaderBlocks,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,86,110,10
     CONTROL         "Break else/if statements",IDC_CHK_BreakElseIfs,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,182,110,10
-    CONTROL         "Add brackets",IDC_CHK_AddBrackets,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,110,100,10
-    CONTROL         "Add one line brackets",IDC_CHK_AddOneLineBrackets,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,122,100,10
-    CONTROL         "Remove brackets",IDC_CHK_RemoveBrackets,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,134,100,10
+    CONTROL         "Add braces",IDC_CHK_AddBraces,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,110,100,10
+    CONTROL         "Add one line braces",IDC_CHK_AddOneLineBraces,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,122,100,10
+    CONTROL         "Remove braces",IDC_CHK_RemoveBraces,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,134,100,10
     CONTROL         "Keep one line blocks",IDC_CHK_BreakOneLineBlocks,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,146,100,10
     CONTROL         "Keep one line statements",IDC_CHK_BreakOneLineStatements,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,158,110,10
-    CONTROL         "Break closing header brackets",IDC_CHK_BreakClosingHeaderBrackets,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,98,110,10
+    CONTROL         "Break closing header braces",IDC_CHK_BreakClosingHeaderBraces,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,98,110,10
     CONTROL         "Break one line headers",IDC_CHK_BreakOneLineHeaders,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,170,110,10
 //    CONTROL         "ConvertTabs",IDC_CHK_ConvertTabs,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,18,100,10
     CONTROL         "Close templates",IDC_CHK_CloseTemplates,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,194,100,10
@@ -158,10 +160,10 @@ BEGIN
     LTEXT           "Pad method colons :",IDC_LBL_ObjC_ColonPad,320,160,70,10
     COMBOBOX        IDC_CBB_ObjC_ColonPad,320,172,70,12,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
 
-    DEFPUSHBUTTON   "OK",IDOK,240,270,50,14
-    PUSHBUTTON      "Cancel",IDCANCEL,310,270,50,14
-    PUSHBUTTON      "Import",IDC_BTN_INI_IMPORT,80,270,50,14
-    PUSHBUTTON      "Export",IDC_BTN_INI_EXPORT,150,270,50,14
+    DEFPUSHBUTTON   "OK",IDOK,240,280,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,310,280,50,14
+    PUSHBUTTON      "Import",IDC_BTN_INI_IMPORT,80,280,50,14
+    PUSHBUTTON      "Export",IDC_BTN_INI_EXPORT,150,280,50,14
 END
 
 IDD_ABOUT_DLG DIALOGEX 0, 0, 200, 120

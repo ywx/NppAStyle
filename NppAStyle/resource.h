@@ -35,12 +35,13 @@
 #define IDC_CBB_ASTYLE_OPTION_SET       (IDD_ASTYLE_PREVIEW_DLG + 11)
 
 #define IDD_ASTYLE_OPTION_DLG           1400
-// Bracket Modify Options
-#define IDC_GRP_Bracket_Modify          (IDD_ASTYLE_OPTION_DLG + 1)
+// Brace Modify Options
+#define IDC_GRP_Brace_Modify          (IDD_ASTYLE_OPTION_DLG + 1)
 #define IDC_CHK_AttachNamespace         (IDD_ASTYLE_OPTION_DLG + 2)
 #define IDC_CHK_AttachClass             (IDD_ASTYLE_OPTION_DLG + 3)
 #define IDC_CHK_AttachInline            (IDD_ASTYLE_OPTION_DLG + 4)
 #define IDC_CHK_AttachExternC           (IDD_ASTYLE_OPTION_DLG + 5)
+#define IDC_CHK_AttachClosingWhile      (IDD_ASTYLE_OPTION_DLG + 6)
 // Indentation Options
 #define IDC_GRP_Indentation             (IDD_ASTYLE_OPTION_DLG + 10)
 #define IDC_CHK_ClassIndent             (IDD_ASTYLE_OPTION_DLG + 11)
@@ -53,12 +54,13 @@
 #define IDC_CHK_IndentPreprocConditional  (IDD_ASTYLE_OPTION_DLG + 18)
 #define IDC_CHK_IndentPreprocDefine     (IDD_ASTYLE_OPTION_DLG + 19)
 #define IDC_CHK_IndentCol1Comments      (IDD_ASTYLE_OPTION_DLG + 20)
+#define IDC_CHK_IndentAfterParen        (IDD_ASTYLE_OPTION_DLG + 21)
 // Min Conditional Indent
 #define IDC_LBL_MinConditionalIndent    (IDD_ASTYLE_OPTION_DLG + 30)
 #define IDC_CBB_MinConditionalIndent    (IDD_ASTYLE_OPTION_DLG + 31)
 // Max in Statement Indent
-#define IDC_LBL_MaxInStatementIndent    (IDD_ASTYLE_OPTION_DLG + 32)
-#define IDC_CBB_MaxInStatementIndent    (IDD_ASTYLE_OPTION_DLG + 33)
+#define IDC_LBL_MaxContinuationIndent   (IDD_ASTYLE_OPTION_DLG + 32)
+#define IDC_CBB_MaxContinuationIndent   (IDD_ASTYLE_OPTION_DLG + 33)
 // Max Code Length
 #define IDC_LBL_MaxCodeLength           (IDD_ASTYLE_OPTION_DLG + 34)
 #define IDC_CBB_MaxCodeLength           (IDD_ASTYLE_OPTION_DLG + 35)
@@ -87,12 +89,12 @@
 #define IDC_CHK_BreakBlocks             (IDD_ASTYLE_OPTION_DLG + 71)
 #define IDC_CHK_BreakClosingHeaderBlocks   (IDD_ASTYLE_OPTION_DLG + 72)
 #define IDC_CHK_BreakElseIfs            (IDD_ASTYLE_OPTION_DLG + 73)
-#define IDC_CHK_AddBrackets             (IDD_ASTYLE_OPTION_DLG + 74)
-#define IDC_CHK_AddOneLineBrackets      (IDD_ASTYLE_OPTION_DLG + 75)
-#define IDC_CHK_RemoveBrackets          (IDD_ASTYLE_OPTION_DLG + 76)
+#define IDC_CHK_AddBraces             (IDD_ASTYLE_OPTION_DLG + 74)
+#define IDC_CHK_AddOneLineBraces      (IDD_ASTYLE_OPTION_DLG + 75)
+#define IDC_CHK_RemoveBraces          (IDD_ASTYLE_OPTION_DLG + 76)
 #define IDC_CHK_BreakOneLineBlocks      (IDD_ASTYLE_OPTION_DLG + 77)
 #define IDC_CHK_BreakOneLineStatements  (IDD_ASTYLE_OPTION_DLG + 78)
-#define IDC_CHK_BreakClosingHeaderBrackets  (IDD_ASTYLE_OPTION_DLG + 79)
+#define IDC_CHK_BreakClosingHeaderBraces  (IDD_ASTYLE_OPTION_DLG + 79)
 #define IDC_CHK_BreakOneLineHeaders     (IDD_ASTYLE_OPTION_DLG + 80)
 //#define IDC_CHK_ConvertTabs             (IDD_ASTYLE_OPTION_DLG + 80)
 #define IDC_CHK_CloseTemplates          (IDD_ASTYLE_OPTION_DLG + 81)

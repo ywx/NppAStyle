@@ -22,15 +22,16 @@ extern TCHAR *initNppAStyleConfigFilePath( bool isInit );
 #define keyUseSpace TEXT( "UseSpace" )
 #define keyTabSize TEXT( "TabSize" )
 
-#define keyCurBracketStyle TEXT( "BracketStyle" )
+#define keyCurBraceStyle TEXT( "BraceStyle" )
 #define keyPointerAlignment TEXT( "PointerAlignment" )
 #define keyReferenceAlignment TEXT( "ReferenceAlignment" )
 #define keyLineEnd TEXT( "LineEnd" )
-// Bracket Modify Options
+// Brace Modify Options
 #define keyAttachNamespace TEXT( "AttachNamespace" )
 #define keyAttachClass TEXT( "AttachClass" )
 #define keyAttachInline TEXT( "AttachInline" )
 #define keyAttachExternC TEXT( "AttachExternC" )
+#define keyAttachClosingWhile TEXT( "AttachClosingWhile" )
 // Indentation Options
 #define keyClassIndent TEXT( "ClassIndent" )
 #define keyModifierIndent TEXT( "ModifierIndent" )
@@ -42,9 +43,10 @@ extern TCHAR *initNppAStyleConfigFilePath( bool isInit );
 #define keyIndentPreprocConditional TEXT( "IndentPreprocConditional" )
 #define keyIndentPreprocDefine TEXT( "IndentPreprocDefine" )
 #define keyIndentCol1Comments TEXT( "IndentCol1Comments" )
+#define keyIndentAfterParen TEXT( "IndentAfterParen" )
 #define keyContinuationIndent TEXT( "ContinuationIndent" )
 #define keyMinConditionalOption TEXT( "MinConditionalOption" )
-#define keyMaxInStatementIndent TEXT( "MaxInStatementIndent" )
+#define keyMaxContinuationIndent TEXT( "MaxContinuationIndent" )
 // Padding Options
 #define keyPadCommas TEXT( "PadCommas" )
 #define keyPadOperators TEXT( "PadOperators" )
@@ -59,12 +61,12 @@ extern TCHAR *initNppAStyleConfigFilePath( bool isInit );
 #define keyBreakBlocks TEXT( "BreakBlocks" )
 #define keyBreakClosingHeaderBlocks TEXT( "BreakClosingHeaderBlocks" )
 #define keyBreakElseIfs TEXT( "BreakElseIfs" )
-#define keyAddBrackets TEXT( "AddBrackets" )
-#define keyAddOneLineBrackets TEXT( "AddOneLineBrackets" )
-#define keyRemoveBrackets TEXT( "RemoveBrackets" )
+#define keyAddBraces TEXT( "AddBraces" )
+#define keyAddOneLineBraces TEXT( "AddOneLineBraces" )
+#define keyRemoveBraces TEXT( "RemoveBraces" )
 #define keyBreakOneLineBlocks TEXT( "BreakOneLineBlocks" )
 #define keyBreakOneLineStatements TEXT( "BreakOneLineStatements" )
-#define keyBreakClosingHeaderBrackets TEXT( "BreakClosingHeaderBrackets" )
+#define keyBreakClosingHeaderBraces TEXT( "BreakClosingHeaderBraces" )
 #define keyBreakOneLineHeaders TEXT( "BreakOneLineHeaders" )
 #define keyConvertTabs TEXT( "ConvertTabs" )
 #define keyCloseTemplates TEXT( "CloseTemplates" )
@@ -94,11 +96,12 @@ void NppAStyleOption::reset()
 	//lineEnd = astyle::LINEEND_DEFAULT;
 	languageMode = 0; // 0 default, 1 C, 2 Java, 3 C#
 
-	// Bracket Modify Options
+	// Brace Modify Options
 	shouldAttachNamespace = false;
 	shouldAttachClass = false;
 	shouldAttachInline = false;
 	shouldAttachExternC = false;
+	shouldAttachClosingWhile = false;
 	// Indentation Options
 	shouldClassIndent = false;
 	shouldModifierIndent = false;
@@ -110,9 +113,10 @@ void NppAStyleOption::reset()
 	shouldIndentPreprocConditional = false;
 	shouldIndentPreprocDefine = false;
 	shouldIndentCol1Comments = false;
+	shouldIndentAfterParen = false;
 	continuationIndent = 1;
 	minConditionalOption = astyle::MINCOND_TWO;
-	maxInStatementIndent = 40;
+	maxContinuationIndent = 40;
 	// Padding Options
 	shouldPadCommas = false;
 	shouldPadOperators = false;
@@ -127,12 +131,12 @@ void NppAStyleOption::reset()
 	shouldBreakBlocks = false;
 	shouldBreakClosingHeaderBlocks = false;
 	shouldBreakElseIfs = false;
-	shouldAddBrackets = false;
-	shouldAddOneLineBrackets = false;
-	shouldRemoveBrackets = false;
+	shouldAddBraces = false;
+	shouldAddOneLineBraces = false;
+	shouldRemoveBraces = false;
 	shouldBreakOneLineBlocks = true;
 	shouldBreakOneLineStatements = true;
-	shouldBreakClosingHeaderBrackets = false;
+	shouldBreakClosingHeaderBraces = false;
 	shouldBreakOneLineHeaders = false;
 	//shouldConvertTabs = false;
 	shouldCloseTemplates = false;
@@ -166,11 +170,12 @@ void NppAStyleOption::setFormatterOption( astyle::ASFormatter &formatter ) const
 	formatter.setReferenceAlignment( astyle::ReferenceAlign( referenceAlignment ) );
 	//formatter.setLineEndFormat( astyle::LineEndFormat( lineEnd ) );
 
-	// Bracket Modify Options
+	// Brace Modify Options
 	formatter.setAttachNamespace( shouldAttachNamespace );
 	formatter.setAttachClass( shouldAttachClass );
 	formatter.setAttachInline( shouldAttachInline );
 	formatter.setAttachExternC( shouldAttachExternC );
+	formatter.setAttachClosingWhile( shouldAttachClosingWhile );
 	// Indentation Options
 	formatter.setClassIndent( shouldClassIndent );
 	formatter.setModifierIndent( shouldModifierIndent );
@@ -182,9 +187,10 @@ void NppAStyleOption::setFormatterOption( astyle::ASFormatter &formatter ) const
 	formatter.setPreprocConditionalIndent( shouldIndentPreprocConditional );
 	formatter.setPreprocDefineIndent( shouldIndentPreprocDefine );
 	formatter.setIndentCol1CommentsMode( shouldIndentCol1Comments );
+	formatter.setAfterParenIndent( shouldIndentAfterParen );
 	formatter.setContinuationIndentation( continuationIndent );
 	formatter.setMinConditionalIndentOption( minConditionalOption );
-	formatter.setMaxInStatementIndentLength( maxInStatementIndent );
+	formatter.setMaxContinuationIndentLength( maxContinuationIndent );
 	// Padding Options
 	formatter.setCommaPaddingMode( shouldPadCommas );
 	formatter.setOperatorPaddingMode( shouldPadOperators );
@@ -199,12 +205,12 @@ void NppAStyleOption::setFormatterOption( astyle::ASFormatter &formatter ) const
 	formatter.setBreakBlocksMode( shouldBreakBlocks );
 	formatter.setBreakClosingHeaderBlocksMode( shouldBreakClosingHeaderBlocks );
 	formatter.setBreakElseIfsMode( shouldBreakElseIfs );
-	formatter.setAddBracketsMode( shouldAddBrackets );
-	formatter.setAddOneLineBracketsMode( shouldAddOneLineBrackets );
-	formatter.setRemoveBracketsMode( shouldRemoveBrackets );
+	formatter.setAddBracesMode( shouldAddBraces );
+	formatter.setAddOneLineBracesMode( shouldAddOneLineBraces );
+	formatter.setRemoveBracesMode( shouldRemoveBraces );
 	formatter.setBreakOneLineBlocksMode( shouldBreakOneLineBlocks );
 	formatter.setBreakOneLineStatementsMode( shouldBreakOneLineStatements );
-	formatter.setBreakClosingHeaderBracketsMode( shouldBreakClosingHeaderBrackets );
+	formatter.setBreakClosingHeaderBracesMode( shouldBreakClosingHeaderBraces );
 	formatter.setBreakOneLineHeadersMode( shouldBreakOneLineHeaders );
 	//formatter.setTabSpaceConversionMode( shouldConvertTabs );
 	formatter.setCloseTemplatesMode( shouldCloseTemplates );
@@ -234,7 +240,7 @@ void NppAStyleOption::loadConfigInfo( const TCHAR strFilePath[] )
 		iniFilePath = strFilePath;
 	}
 
-	formattingStyle = ::GetPrivateProfileInt( keySectionName, keyCurBracketStyle, formattingStyle, iniFilePath );
+	formattingStyle = ::GetPrivateProfileInt( keySectionName, keyCurBraceStyle, formattingStyle, iniFilePath );
 	formattingStyle = ( formattingStyle < astyle::STYLE_NONE || formattingStyle > astyle::STYLE_LISP ) ? astyle::STYLE_NONE : formattingStyle;
 	isSameAsNppCurView = 0 != ::GetPrivateProfileInt( keySectionName, keySameAsNppCurView, isSameAsNppCurView, iniFilePath );
 	isUseSpace = 0 != ::GetPrivateProfileInt( keySectionName, keyUseSpace, isUseSpace, iniFilePath );
@@ -248,11 +254,12 @@ void NppAStyleOption::loadConfigInfo( const TCHAR strFilePath[] )
 	//lineEnd = ::GetPrivateProfileInt( keySectionName, keyLineEnd, lineEnd, iniFilePath );
 	//lineEnd  = ( lineEnd < astyle::LINEEND_DEFAULT || lineEnd > astyle::LINEEND_MACOLD ) ? astyle::LINEEND_DEFAULT : lineEnd;
 
-	// Bracket Modify Options
+	// Brace Modify Options
 	shouldAttachNamespace = 0 != ::GetPrivateProfileInt( keySectionName, keyAttachNamespace, shouldAttachNamespace, iniFilePath );
 	shouldAttachClass = 0 != ::GetPrivateProfileInt( keySectionName, keyAttachClass, shouldAttachClass, iniFilePath );
 	shouldAttachInline = 0 != ::GetPrivateProfileInt( keySectionName, keyAttachInline, shouldAttachInline, iniFilePath );
 	shouldAttachExternC = 0 != ::GetPrivateProfileInt( keySectionName, keyAttachExternC, shouldAttachExternC, iniFilePath );
+	shouldAttachClosingWhile = 0 != ::GetPrivateProfileInt( keySectionName, keyAttachClosingWhile, shouldAttachClosingWhile, iniFilePath );
 	// Indentation Options
 	shouldClassIndent = 0 != ::GetPrivateProfileInt( keySectionName, keyClassIndent, shouldClassIndent, iniFilePath );
 	shouldModifierIndent = 0 != ::GetPrivateProfileInt( keySectionName, keyModifierIndent, shouldModifierIndent, iniFilePath );
@@ -264,12 +271,13 @@ void NppAStyleOption::loadConfigInfo( const TCHAR strFilePath[] )
 	shouldIndentPreprocConditional = 0 != ::GetPrivateProfileInt( keySectionName, keyIndentPreprocConditional, shouldIndentPreprocConditional, iniFilePath );
 	shouldIndentPreprocDefine = 0 != ::GetPrivateProfileInt( keySectionName, keyIndentPreprocDefine, shouldIndentPreprocDefine, iniFilePath );
 	shouldIndentCol1Comments = 0 != ::GetPrivateProfileInt( keySectionName, keyIndentCol1Comments, shouldIndentCol1Comments, iniFilePath );
+	shouldIndentAfterParen = 0 != ::GetPrivateProfileInt( keySectionName, keyIndentAfterParen, shouldIndentAfterParen, iniFilePath );
 	continuationIndent = ::GetPrivateProfileInt( keySectionName, keyContinuationIndent, continuationIndent, iniFilePath );
 	continuationIndent  = ( continuationIndent < 0 || continuationIndent > 4 ) ? 1 : continuationIndent;
 	minConditionalOption = ::GetPrivateProfileInt( keySectionName, keyMinConditionalOption, minConditionalOption, iniFilePath );
 	minConditionalOption  = ( minConditionalOption < astyle::MINCOND_ZERO || minConditionalOption > astyle::MINCOND_ONEHALF ) ? astyle::MINCOND_TWO : minConditionalOption;
-	maxInStatementIndent = ::GetPrivateProfileInt( keySectionName, keyMaxInStatementIndent, maxInStatementIndent, iniFilePath );
-	maxInStatementIndent  = ( maxInStatementIndent < 40 || maxInStatementIndent > 120 ) ? 40 : maxInStatementIndent;
+	maxContinuationIndent = ::GetPrivateProfileInt( keySectionName, keyMaxContinuationIndent, maxContinuationIndent, iniFilePath );
+	maxContinuationIndent  = ( maxContinuationIndent < 40 || maxContinuationIndent > 120 ) ? 40 : maxContinuationIndent;
 	// Padding Options
 	shouldPadCommas = 0 != ::GetPrivateProfileInt( keySectionName, keyPadCommas, shouldPadCommas, iniFilePath );
 	shouldPadOperators = 0 != ::GetPrivateProfileInt( keySectionName, keyPadOperators, shouldPadOperators, iniFilePath );
@@ -284,12 +292,12 @@ void NppAStyleOption::loadConfigInfo( const TCHAR strFilePath[] )
 	shouldBreakBlocks = 0 != ::GetPrivateProfileInt( keySectionName, keyBreakBlocks, shouldBreakBlocks, iniFilePath );
 	shouldBreakClosingHeaderBlocks = 0 != ::GetPrivateProfileInt( keySectionName, keyBreakClosingHeaderBlocks, shouldBreakClosingHeaderBlocks, iniFilePath );
 	shouldBreakElseIfs = 0 != ::GetPrivateProfileInt( keySectionName, keyBreakElseIfs, shouldBreakElseIfs, iniFilePath );
-	shouldAddBrackets = 0 != ::GetPrivateProfileInt( keySectionName, keyAddBrackets, shouldAddBrackets, iniFilePath );
-	shouldAddOneLineBrackets = 0 != ::GetPrivateProfileInt( keySectionName, keyAddOneLineBrackets, shouldAddOneLineBrackets, iniFilePath );
-	shouldRemoveBrackets = 0 != ::GetPrivateProfileInt( keySectionName, keyRemoveBrackets, shouldRemoveBrackets, iniFilePath );
+	shouldAddBraces = 0 != ::GetPrivateProfileInt( keySectionName, keyAddBraces, shouldAddBraces, iniFilePath );
+	shouldAddOneLineBraces = 0 != ::GetPrivateProfileInt( keySectionName, keyAddOneLineBraces, shouldAddOneLineBraces, iniFilePath );
+	shouldRemoveBraces = 0 != ::GetPrivateProfileInt( keySectionName, keyRemoveBraces, shouldRemoveBraces, iniFilePath );
 	shouldBreakOneLineBlocks = 0 != ::GetPrivateProfileInt( keySectionName, keyBreakOneLineBlocks, shouldBreakOneLineBlocks, iniFilePath );
 	shouldBreakOneLineStatements = 0 != ::GetPrivateProfileInt( keySectionName, keyBreakOneLineStatements, shouldBreakOneLineStatements, iniFilePath );
-	shouldBreakClosingHeaderBrackets = 0 != ::GetPrivateProfileInt( keySectionName, keyBreakClosingHeaderBrackets, shouldBreakClosingHeaderBrackets, iniFilePath );
+	shouldBreakClosingHeaderBraces = 0 != ::GetPrivateProfileInt( keySectionName, keyBreakClosingHeaderBraces, shouldBreakClosingHeaderBraces, iniFilePath );
 	shouldBreakOneLineHeaders = 0 != ::GetPrivateProfileInt( keySectionName, keyBreakOneLineHeaders, shouldBreakOneLineHeaders, iniFilePath );
 	//shouldConvertTabs = 0 != ::GetPrivateProfileInt( keySectionName, keyConvertTabs, shouldConvertTabs, iniFilePath );
 	shouldCloseTemplates = 0 != ::GetPrivateProfileInt( keySectionName, keyCloseTemplates, shouldCloseTemplates, iniFilePath );
@@ -324,7 +332,7 @@ void NppAStyleOption::saveConfigInfo( const TCHAR strFilePath[] ) const
 	TCHAR buffer[16];
 
 	_itot( formattingStyle, buffer, 10 );
-	::WritePrivateProfileString( keySectionName, keyCurBracketStyle, buffer, iniFilePath );
+	::WritePrivateProfileString( keySectionName, keyCurBraceStyle, buffer, iniFilePath );
 
 	_itot( iTabSize, buffer, 10 );
 	::WritePrivateProfileString( keySectionName, keyTabSize, buffer, iniFilePath );
@@ -339,11 +347,12 @@ void NppAStyleOption::saveConfigInfo( const TCHAR strFilePath[] ) const
 	//_itot( lineEnd, buffer, 10 );
 	//::WritePrivateProfileString( keySectionName, keyLineEnd, buffer, iniFilePath );
 
-	// Bracket Modify Options
+	// Brace Modify Options
 	::WritePrivateProfileString( keySectionName, keyAttachNamespace, bool2TEXT( shouldAttachNamespace ), iniFilePath );
 	::WritePrivateProfileString( keySectionName, keyAttachClass, bool2TEXT( shouldAttachClass ), iniFilePath );
 	::WritePrivateProfileString( keySectionName, keyAttachInline, bool2TEXT( shouldAttachInline ), iniFilePath );
 	::WritePrivateProfileString( keySectionName, keyAttachExternC, bool2TEXT( shouldAttachExternC ), iniFilePath );
+	::WritePrivateProfileString( keySectionName, keyAttachClosingWhile , bool2TEXT( shouldAttachClosingWhile ), iniFilePath );
 	// Indentation Options
 	::WritePrivateProfileString( keySectionName, keyClassIndent, bool2TEXT( shouldClassIndent ), iniFilePath );
 	::WritePrivateProfileString( keySectionName, keyModifierIndent, bool2TEXT( shouldModifierIndent ), iniFilePath );
@@ -355,12 +364,13 @@ void NppAStyleOption::saveConfigInfo( const TCHAR strFilePath[] ) const
 	::WritePrivateProfileString( keySectionName, keyIndentPreprocConditional, bool2TEXT( shouldIndentPreprocConditional ), iniFilePath );
 	::WritePrivateProfileString( keySectionName, keyIndentPreprocDefine, bool2TEXT( shouldIndentPreprocDefine ), iniFilePath );
 	::WritePrivateProfileString( keySectionName, keyIndentCol1Comments, bool2TEXT( shouldIndentCol1Comments ), iniFilePath );
+	::WritePrivateProfileString( keySectionName, keyIndentAfterParen, bool2TEXT( shouldIndentAfterParen ), iniFilePath );
 	_itot( continuationIndent, buffer, 10 );
 	::WritePrivateProfileString( keySectionName, keyContinuationIndent, buffer, iniFilePath );
 	_itot( minConditionalOption, buffer, 10 );
 	::WritePrivateProfileString( keySectionName, keyMinConditionalOption, buffer, iniFilePath );
-	_itot( maxInStatementIndent, buffer, 10 );
-	::WritePrivateProfileString( keySectionName, keyMaxInStatementIndent, buffer, iniFilePath );
+	_itot( maxContinuationIndent, buffer, 10 );
+	::WritePrivateProfileString( keySectionName, keyMaxContinuationIndent, buffer, iniFilePath );
 	// Padding Options
 	::WritePrivateProfileString( keySectionName, keyPadCommas, bool2TEXT( shouldPadCommas ), iniFilePath );
 	::WritePrivateProfileString( keySectionName, keyPadOperators, bool2TEXT( shouldPadOperators ), iniFilePath );
@@ -375,12 +385,12 @@ void NppAStyleOption::saveConfigInfo( const TCHAR strFilePath[] ) const
 	::WritePrivateProfileString( keySectionName, keyBreakBlocks, bool2TEXT( shouldBreakBlocks ), iniFilePath );
 	::WritePrivateProfileString( keySectionName, keyBreakClosingHeaderBlocks, bool2TEXT( shouldBreakClosingHeaderBlocks ), iniFilePath );
 	::WritePrivateProfileString( keySectionName, keyBreakElseIfs, bool2TEXT( shouldBreakElseIfs ), iniFilePath );
-	::WritePrivateProfileString( keySectionName, keyAddBrackets, bool2TEXT( shouldAddBrackets ), iniFilePath );
-	::WritePrivateProfileString( keySectionName, keyAddOneLineBrackets, bool2TEXT( shouldAddOneLineBrackets ), iniFilePath );
-	::WritePrivateProfileString( keySectionName, keyRemoveBrackets, bool2TEXT( shouldRemoveBrackets ), iniFilePath );
+	::WritePrivateProfileString( keySectionName, keyAddBraces, bool2TEXT( shouldAddBraces ), iniFilePath );
+	::WritePrivateProfileString( keySectionName, keyAddOneLineBraces, bool2TEXT( shouldAddOneLineBraces ), iniFilePath );
+	::WritePrivateProfileString( keySectionName, keyRemoveBraces, bool2TEXT( shouldRemoveBraces ), iniFilePath );
 	::WritePrivateProfileString( keySectionName, keyBreakOneLineBlocks, bool2TEXT( shouldBreakOneLineBlocks ), iniFilePath );
 	::WritePrivateProfileString( keySectionName, keyBreakOneLineStatements, bool2TEXT( shouldBreakOneLineStatements ), iniFilePath );
-	::WritePrivateProfileString( keySectionName, keyBreakClosingHeaderBrackets, bool2TEXT( shouldBreakClosingHeaderBrackets ), iniFilePath );
+	::WritePrivateProfileString( keySectionName, keyBreakClosingHeaderBraces, bool2TEXT( shouldBreakClosingHeaderBraces ), iniFilePath );
 	::WritePrivateProfileString( keySectionName, keyBreakOneLineHeaders, bool2TEXT( shouldBreakOneLineHeaders ), iniFilePath );
 	//::WritePrivateProfileString( keySectionName, keyConvertTabs, bool2TEXT( shouldConvertTabs ), iniFilePath );
 	::WritePrivateProfileString( keySectionName, keyCloseTemplates, bool2TEXT( shouldCloseTemplates ), iniFilePath );

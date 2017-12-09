@@ -39,11 +39,12 @@ struct NppAStyleOption
 	//int lineEnd; // astyle::LineEndFormat
 	int languageMode;
 
-	// Bracket Modify Options
+	// Brace Modify Options
 	bool shouldAttachNamespace;
 	bool shouldAttachClass;
 	bool shouldAttachInline;
 	bool shouldAttachExternC;
+	bool shouldAttachClosingWhile;
 	// Indentation Options
 	bool shouldClassIndent;
 	bool shouldModifierIndent;
@@ -55,9 +56,10 @@ struct NppAStyleOption
 	bool shouldIndentPreprocConditional;
 	bool shouldIndentPreprocDefine;
 	bool shouldIndentCol1Comments;
+	bool shouldIndentAfterParen;
 	int  continuationIndent;
 	int  minConditionalOption;
-	int  maxInStatementIndent;
+	int  maxContinuationIndent;
 	// Padding Options
 	bool shouldPadCommas;
 	bool shouldPadOperators;
@@ -72,12 +74,12 @@ struct NppAStyleOption
 	bool shouldBreakBlocks;
 	bool shouldBreakClosingHeaderBlocks;
 	bool shouldBreakElseIfs;
-	bool shouldAddBrackets;
-	bool shouldAddOneLineBrackets;
-	bool shouldRemoveBrackets;
+	bool shouldAddBraces;
+	bool shouldAddOneLineBraces;
+	bool shouldRemoveBraces;
 	bool shouldBreakOneLineBlocks;
 	bool shouldBreakOneLineStatements;
-	bool shouldBreakClosingHeaderBrackets;
+	bool shouldBreakClosingHeaderBraces;
 	bool shouldBreakOneLineHeaders;
 	//bool shouldConvertTabs;
 	bool shouldCloseTemplates;
