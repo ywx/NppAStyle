@@ -4,7 +4,7 @@ An Artistic Style plugin for Notepad++ to Format C, C++, C++/CLI, Objective-C, C
 
 Thanks to developers of Artistic Style, Scintilla and Notepad++.
 
-NOTE: Artistic Style Version 3.0.1
+NOTE: Artistic Style Version 3.1
 For information on Artistic Style, please see http://sourceforge.net/projects/astyle/
 For information on Scintilla, please see http://www.scintilla.org/ or http://sourceforge.net/projects/scintilla/
 For information on Notepad++, please see https://notepad-plus-plus.org/ or https://github.com/notepad-plus-plus/notepad-plus-plus
@@ -65,7 +65,7 @@ Brace Style Options:
     VTK style formatting/indenting.
     Broken, indented braces except for the opening braces.
 
-    Banner style formatting/indenting.
+    Ratliff style formatting/indenting.
     Attached, indented braces.
 
     GNU style formatting/indenting.
@@ -111,6 +111,13 @@ Brace Modify Options:
 
     Attach closing while
     Attach closing while of do-while to the closing brace.
+
+Function Declaration Options:
+---------------------
+    Break Func Return Type
+    Break Func Return Type Decl
+    Break the return type from the function name. Options are
+    for the function definitions and the function declarations.
 
 Indentation Options:
 --------------------

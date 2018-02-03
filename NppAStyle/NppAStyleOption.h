@@ -45,6 +45,9 @@ struct NppAStyleOption
 	bool shouldAttachInline;
 	bool shouldAttachExternC;
 	bool shouldAttachClosingWhile;
+	// Function Declaration Options
+	bool shouldBreakReturnType;
+	bool shouldBreakReturnTypeDecl;
 	// Indentation Options
 	bool shouldClassIndent;
 	bool shouldModifierIndent;

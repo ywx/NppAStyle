@@ -50,7 +50,7 @@ void NppAStyleOptionDlg::initDlgComboList()
 		::SendMessage( hWndComboBox, ( UINT ) CB_ADDSTRING, 0, ( LPARAM ) strLabel );
 	}
 
-	TCHAR *listBraceStyle[] = { TEXT( "None" ), TEXT( "Allman (ANSI)" ), TEXT( "Java" ), TEXT( "Kernighan & Ritchie (K&R)" ), TEXT( "Stroustrup" ), TEXT( "Whitesmith" ), TEXT( "VTK" ), TEXT( "Banner" ), TEXT( "GNU" ), TEXT( "Linux" ), TEXT( "Horstmann" ), TEXT( "One True Brace (1TBS)" ), TEXT( "Google" ), TEXT( "Mozilla" ), TEXT( "Pico" ), TEXT( "Lisp" ), 0 };
+	TCHAR *listBraceStyle[] = { TEXT( "None" ), TEXT( "Allman (ANSI)" ), TEXT( "Java" ), TEXT( "Kernighan & Ritchie (K&R)" ), TEXT( "Stroustrup" ), TEXT( "Whitesmith" ), TEXT( "VTK" ), TEXT( "Ratliff" ), TEXT( "GNU" ), TEXT( "Linux" ), TEXT( "Horstmann" ), TEXT( "One True Brace (1TBS)" ), TEXT( "Google" ), TEXT( "Mozilla" ), TEXT( "Pico" ), TEXT( "Lisp" ), 0 };
 #define FormattingStyleCount sizeof(listBraceStyle)/sizeof(TCHAR *)-1
 	hWndComboBox = GetDlgItem( IDC_CBB_BRACKET_STYLE );
 	for( int i = 0; i < FormattingStyleCount ; ++i )
@@ -311,6 +311,9 @@ void NppAStyleOptionDlg::initDlgOptionControl()
 	SendDlgItemMessage( IDC_CHK_AttachInline, BM_SETCHECK, m_astyleOption->shouldAttachInline, 0 );
 	SendDlgItemMessage( IDC_CHK_AttachExternC, BM_SETCHECK, m_astyleOption->shouldAttachExternC, 0 );
 	SendDlgItemMessage( IDC_CHK_AttachClosingWhile, BM_SETCHECK, m_astyleOption->shouldAttachClosingWhile, 0 );
+	// Function Declaration Options
+	SendDlgItemMessage( IDC_CHK_BreakReturnType, BM_SETCHECK, m_astyleOption->shouldBreakReturnType, 0 );
+	SendDlgItemMessage( IDC_CHK_BreakReturnTypeDecl, BM_SETCHECK, m_astyleOption->shouldBreakReturnTypeDecl, 0 );
 	// Indentation Options
 	SendDlgItemMessage( IDC_CHK_ClassIndent, BM_SETCHECK, m_astyleOption->shouldClassIndent, 0 );
 	SendDlgItemMessage( IDC_CHK_ModifierIndent, BM_SETCHECK, m_astyleOption->shouldModifierIndent, 0 );
@@ -390,6 +393,7 @@ void NppAStyleOptionDlg::showDlgOptionControl()
 	// Brace Modify Options
 	bool isShow = ( indexBraceModifyOptions == m_indexOptionSet );
 	showDlgControlRange( IDC_GRP_Brace_Modify, IDC_CHK_AttachClosingWhile, isShow, isEnable );
+	showDlgControlRange( IDC_GRP_Function_Declaration, IDC_CHK_BreakReturnTypeDecl, isShow, isEnable );
 
 	// Indentation Options
 	isShow = ( indexIndentationOptions == m_indexOptionSet );
@@ -490,6 +494,21 @@ INT_PTR CALLBACK NppAStyleOptionDlg::DlgOptionProc( UINT Message, WPARAM wParam,
 					case IDC_CHK_AttachClosingWhile:
 						{
 							m_astyleOption->shouldAttachClosingWhile = BST_CHECKED == SendDlgItemMessage( IDC_CHK_AttachClosingWhile, BM_GETCHECK, 0, 0 );
+							isUpdatePreview = true;
+						}
+						break;
+
+					// Function Declaration Options
+					case IDC_CHK_BreakReturnType:
+						{
+							m_astyleOption->shouldBreakReturnType = BST_CHECKED == SendDlgItemMessage( IDC_CHK_BreakReturnType, BM_GETCHECK, 0, 0 );
+							isUpdatePreview = true;
+						}
+						break;
+
+					case IDC_CHK_BreakReturnTypeDecl:
+						{
+							m_astyleOption->shouldBreakReturnTypeDecl = BST_CHECKED == SendDlgItemMessage( IDC_CHK_BreakReturnTypeDecl, BM_GETCHECK, 0, 0 );
 							isUpdatePreview = true;
 						}
 						break;

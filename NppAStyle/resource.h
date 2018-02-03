@@ -42,6 +42,10 @@
 #define IDC_CHK_AttachInline            (IDD_ASTYLE_OPTION_DLG + 4)
 #define IDC_CHK_AttachExternC           (IDD_ASTYLE_OPTION_DLG + 5)
 #define IDC_CHK_AttachClosingWhile      (IDD_ASTYLE_OPTION_DLG + 6)
+// Function Declaration Options
+#define IDC_GRP_Function_Declaration    (IDD_ASTYLE_OPTION_DLG + 100)
+#define IDC_CHK_BreakReturnType         (IDC_GRP_Function_Declaration + 1)
+#define IDC_CHK_BreakReturnTypeDecl     (IDC_GRP_Function_Declaration + 2)
 // Indentation Options
 #define IDC_GRP_Indentation             (IDD_ASTYLE_OPTION_DLG + 10)
 #define IDC_CHK_ClassIndent             (IDD_ASTYLE_OPTION_DLG + 11)
@@ -112,7 +116,7 @@
 #define IDC_LBL_ObjC_ColonPad           (IDD_ASTYLE_OPTION_DLG + 98)
 #define IDC_CBB_ObjC_ColonPad           (IDD_ASTYLE_OPTION_DLG + 99)
 
-#define IDD_NPPASTYLE_OPTION_DLG        1500
+#define IDD_NPPASTYLE_OPTION_DLG        2000
 #define IDC_BTN_INI_IMPORT              (IDD_NPPASTYLE_OPTION_DLG + 1)
 #define IDC_BTN_INI_EXPORT              (IDD_NPPASTYLE_OPTION_DLG + 2)
 

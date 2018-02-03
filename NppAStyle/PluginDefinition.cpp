@@ -220,8 +220,8 @@ void AStyleCode( const char *textBuffer, const NppAStyleOption &m_astyleOption, 
 		}
 	}
 
-	std::istringstream in( textBuffer );
-	astyle::ASStreamIterator<std::istringstream> streamIterator( &in );
+	std::stringstream in( textBuffer );
+	astyle::ASStreamIterator<std::stringstream> streamIterator( &in );
 	std::ostringstream out;
 	formatter.init( &streamIterator );
 

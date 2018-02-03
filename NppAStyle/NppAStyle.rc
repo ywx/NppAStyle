@@ -100,6 +100,9 @@ BEGIN
     CONTROL         "Attach inline",IDC_CHK_AttachInline,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,98,70,10
     CONTROL         "Attach extern C",IDC_CHK_AttachExternC,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,110,70,10
     CONTROL         "Attach closing while",IDC_CHK_AttachClosingWhile,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,122,100,10
+    GROUPBOX        "Function Declaration Options",IDC_GRP_Function_Declaration,313,140,120,40
+    CONTROL         "Break Func Return Type",IDC_CHK_BreakReturnType,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,152,100,10
+    CONTROL         "Break Func Return Type Decl",IDC_CHK_BreakReturnTypeDecl,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,164,110,10
     GROUPBOX        "Indentation Options",IDC_GRP_Indentation,313,62,120,210
     CONTROL         "Indent class blocks",IDC_CHK_ClassIndent,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,74,90,10
     CONTROL         "Indent access modifiers",IDC_CHK_ModifierIndent,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,86,100,10

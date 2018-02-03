@@ -32,6 +32,9 @@ extern TCHAR *initNppAStyleConfigFilePath( bool isInit );
 #define keyAttachInline TEXT( "AttachInline" )
 #define keyAttachExternC TEXT( "AttachExternC" )
 #define keyAttachClosingWhile TEXT( "AttachClosingWhile" )
+// Function Declaration Options
+#define keyBreakReturnType TEXT( "BreakReturnType" )
+#define keyBreakReturnTypeDecl TEXT( "BreakReturnTypeDecl" )
 // Indentation Options
 #define keyClassIndent TEXT( "ClassIndent" )
 #define keyModifierIndent TEXT( "ModifierIndent" )
@@ -102,6 +105,9 @@ void NppAStyleOption::reset()
 	shouldAttachInline = false;
 	shouldAttachExternC = false;
 	shouldAttachClosingWhile = false;
+	// Function Declaration Options
+	shouldBreakReturnType = false;
+	shouldBreakReturnTypeDecl = false;
 	// Indentation Options
 	shouldClassIndent = false;
 	shouldModifierIndent = false;
@@ -176,6 +182,9 @@ void NppAStyleOption::setFormatterOption( astyle::ASFormatter &formatter ) const
 	formatter.setAttachInline( shouldAttachInline );
 	formatter.setAttachExternC( shouldAttachExternC );
 	formatter.setAttachClosingWhile( shouldAttachClosingWhile );
+	// Function Declaration Options
+	formatter.setBreakReturnType( shouldBreakReturnType );
+	formatter.setBreakReturnTypeDecl( shouldBreakReturnTypeDecl );
 	// Indentation Options
 	formatter.setClassIndent( shouldClassIndent );
 	formatter.setModifierIndent( shouldModifierIndent );
@@ -260,6 +269,9 @@ void NppAStyleOption::loadConfigInfo( const TCHAR strFilePath[] )
 	shouldAttachInline = 0 != ::GetPrivateProfileInt( keySectionName, keyAttachInline, shouldAttachInline, iniFilePath );
 	shouldAttachExternC = 0 != ::GetPrivateProfileInt( keySectionName, keyAttachExternC, shouldAttachExternC, iniFilePath );
 	shouldAttachClosingWhile = 0 != ::GetPrivateProfileInt( keySectionName, keyAttachClosingWhile, shouldAttachClosingWhile, iniFilePath );
+	// Function Declaration Options
+	shouldBreakReturnType = 0 != ::GetPrivateProfileInt( keySectionName, keyBreakReturnType, shouldBreakReturnType, iniFilePath );
+	shouldBreakReturnTypeDecl = 0 != ::GetPrivateProfileInt( keySectionName, keyBreakReturnTypeDecl, shouldBreakReturnTypeDecl, iniFilePath );
 	// Indentation Options
 	shouldClassIndent = 0 != ::GetPrivateProfileInt( keySectionName, keyClassIndent, shouldClassIndent, iniFilePath );
 	shouldModifierIndent = 0 != ::GetPrivateProfileInt( keySectionName, keyModifierIndent, shouldModifierIndent, iniFilePath );
@@ -353,6 +365,9 @@ void NppAStyleOption::saveConfigInfo( const TCHAR strFilePath[] ) const
 	::WritePrivateProfileString( keySectionName, keyAttachInline, bool2TEXT( shouldAttachInline ), iniFilePath );
 	::WritePrivateProfileString( keySectionName, keyAttachExternC, bool2TEXT( shouldAttachExternC ), iniFilePath );
 	::WritePrivateProfileString( keySectionName, keyAttachClosingWhile , bool2TEXT( shouldAttachClosingWhile ), iniFilePath );
+	// Function Declaration Options
+	::WritePrivateProfileString( keySectionName, keyBreakReturnType, bool2TEXT( shouldBreakReturnType ), iniFilePath );
+	::WritePrivateProfileString( keySectionName, keyBreakReturnTypeDecl, bool2TEXT( shouldBreakReturnTypeDecl ), iniFilePath );
 	// Indentation Options
 	::WritePrivateProfileString( keySectionName, keyClassIndent, bool2TEXT( shouldClassIndent ), iniFilePath );
 	::WritePrivateProfileString( keySectionName, keyModifierIndent, bool2TEXT( shouldModifierIndent ), iniFilePath );
