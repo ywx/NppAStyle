@@ -13,20 +13,20 @@
 #include "StaticDialog.h"
 #include "PluginInterface.h"
 
-struct NppAStyleOption;
+struct NppAStyleOptionSet;
 
 class NppAStyleOptionDlg : public StaticDialog
 {
 	enum enumIndexOptionSet { indexBraceModifyOptions, indexIndentationOptions, indexPaddingOptions, indexFormattingOptions, indexObjectiveCOptions, indexOptionSet_Len };
 
 public:
-	NppAStyleOptionDlg() : StaticDialog(), astyleOption( NULL ), m_astyleOption( NULL ), m_indexOptionSet( 0 ) {};
+	NppAStyleOptionDlg() : StaticDialog(), astyleOptionSet( NULL ), m_astyleOption( NULL ), m_languageMode( 0 ), m_indexOptionSet( 0 ) {};
 	~NppAStyleOptionDlg();
 
-	void init( HINSTANCE hInst, NppData nppData, NppAStyleOption *pAstyleOption )
+	void init( HINSTANCE hInst, NppData nppData, NppAStyleOptionSet *pAstyleOptionSet )
 	{
 		_nppData = nppData;
-		astyleOption = pAstyleOption;
+		astyleOptionSet = pAstyleOptionSet;
 		m_textPreviewCode = 0;
 		Window::init( hInst, nppData._nppHandle );
 	};
@@ -52,15 +52,18 @@ protected :
 	void initPreviewCtrl();
 	void initDlgControl();
 	void updateDlgTabsetting();
+	void updateDlgLangSetting();
 	void updateDlgPreviewText();
 
 private:
 	/* Handles */
 	NppData _nppData;
 
-	NppAStyleOption *astyleOption;
+	NppAStyleOptionSet *astyleOptionSet;
 	NppAStyleOption *m_astyleOption;
 	const char *m_textPreviewCode;
+
+	int m_languageMode;
 
 	int m_indexOptionSet;
 };

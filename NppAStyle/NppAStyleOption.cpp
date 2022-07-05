@@ -16,7 +16,7 @@ extern TCHAR *initNppAStyleConfigFilePath( bool isInit );
 
 #define bool2TEXT(v) v ? TEXT( "1" ) : TEXT( "0" )
 
-#define keySectionName TEXT( "NppAStyle" )
+// #define keySectionName TEXT( "NppAStyle" )
 // Tab Options
 #define keySameAsNppCurView TEXT( "SameAsNppCurView" )
 #define keyUseSpace TEXT( "UseSpace" )
@@ -97,7 +97,9 @@ void NppAStyleOption::reset()
 	pointerAlignment = astyle::PTR_ALIGN_NONE;
 	referenceAlignment = astyle::REF_SAME_AS_PTR;
 	//lineEnd = astyle::LINEEND_DEFAULT;
-	languageMode = 0; // 0 default, 1 C, 2 Java, 3 C#
+
+	// 0 C, 1 C++, 2 Java, 3 C#, 4 Objective-C
+	languageMode = 0;
 
 	// Brace Modify Options
 	shouldAttachNamespace = false;
@@ -237,7 +239,7 @@ void NppAStyleOption::setFormatterOption( astyle::ASFormatter &formatter ) const
 	formatter.setObjCColonPaddingMode( astyle::ObjCColonPad( objCColonPadMode ) );
 }
 
-void NppAStyleOption::loadConfigInfo( const TCHAR strFilePath[] )
+void NppAStyleOption::loadConfigInfo( const TCHAR * keySectionName, const TCHAR strFilePath[] )
 {
 	const TCHAR *iniFilePath;
 	if( strFilePath == NULL )
@@ -329,7 +331,7 @@ void NppAStyleOption::loadConfigInfo( const TCHAR strFilePath[] )
 	objCColonPadMode = ( objCColonPadMode < astyle::COLON_PAD_NO_CHANGE || objCColonPadMode > astyle::COLON_PAD_BEFORE ) ? astyle::COLON_PAD_NO_CHANGE : objCColonPadMode;
 }
 
-void NppAStyleOption::saveConfigInfo( const TCHAR strFilePath[] ) const
+void NppAStyleOption::saveConfigInfo( const TCHAR * keySectionName, const TCHAR strFilePath[] ) const
 {
 	const TCHAR *iniFilePath;
 	if( strFilePath == NULL )
@@ -424,3 +426,62 @@ void NppAStyleOption::saveConfigInfo( const TCHAR strFilePath[] ) const
 	_itot( objCColonPadMode, buffer, 10 );
 	::WritePrivateProfileString( keySectionName, keyObjCColonPadMode, buffer, iniFilePath );
 }
+
+
+
+#define keySectionNamePrefix TEXT( "NppAStyle" )
+
+// 0 C, 1 C++, 2 Java, 3 C#, 4 Objective-C
+const TCHAR * NppAStyleOptionSet::languageNames[NppAStyleOptionSet::languageCount] = {
+	TEXT( "C" ),
+	TEXT( "C++" ),
+	TEXT( "Java" ),
+	TEXT( "C#" ),
+	TEXT( "Objective-C" )
+};
+
+// 0 C, 1 C++, 2 Java, 3 C#, 4 Objective-C
+const TCHAR * NppAStyleOptionSet::languageSectionNames[NppAStyleOptionSet::languageCount] = {
+	keySectionNamePrefix TEXT( " " ) TEXT( "C" ),
+	keySectionNamePrefix TEXT( " " ) TEXT( "C++" ),
+	keySectionNamePrefix TEXT( " " ) TEXT( "Java" ),
+	keySectionNamePrefix TEXT( " " ) TEXT( "C#" ),
+	keySectionNamePrefix TEXT( " " ) TEXT( "Objective-C" )
+};
+
+void NppAStyleOptionSet::loadConfigInfo( const TCHAR strFilePath[] )
+{
+	const TCHAR *iniFilePath;
+	if( strFilePath == NULL )
+	{
+		iniFilePath = initNppAStyleConfigFilePath( true );
+	}
+	else
+	{
+		iniFilePath = strFilePath;
+	}
+
+	for (int i = 0; i < languageCount; ++i )
+	{
+		languageAStyleOption[i].loadConfigInfo( languageSectionNames[i], iniFilePath);
+	}
+}
+
+void NppAStyleOptionSet::saveConfigInfo( const TCHAR strFilePath[] ) const
+{
+	const TCHAR *iniFilePath;
+	if( strFilePath == NULL )
+	{
+		iniFilePath = initNppAStyleConfigFilePath( false );
+	}
+	else
+	{
+		iniFilePath = strFilePath;
+	}
+
+	for (int i = 0; i < languageCount; ++i )
+	{
+		languageAStyleOption[i].saveConfigInfo( languageSectionNames[i], iniFilePath);
+	}
+}
+

@@ -12,7 +12,7 @@ For information on Notepad++, please see https://notepad-plus-plus.org/ or https
 
 Name:      NppAStyle
 Author:    YWX (wxFortranIndent@163.com)
-Created:   2015-8-2
+Created:   2022-7-5
 Copyright: (c) YWX <wxFortranIndent@163.com>
 License:   GNU General Public License, version 3
 

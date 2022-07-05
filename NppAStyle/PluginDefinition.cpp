@@ -52,7 +52,7 @@ NppAStyleOptionDlg astyleOptionDlg;
 
 // option data
 TCHAR NppAStyleConfigFilePath[MAX_PATH];
-NppAStyleOption astyleOption;
+NppAStyleOptionSet astyleOptionSet;
 
 
 TCHAR *initNppAStyleConfigFilePath( bool isInit )
@@ -113,7 +113,7 @@ void commandMenuInit()
 	//            bool check0nInit                // optional. Make this menu item be checked visually
 	//            );
 
-	astyleOption.loadConfigInfo();
+	astyleOptionSet.loadConfigInfo();
 
 	// Shortcut :
 	// Following code makes the first command
@@ -132,7 +132,7 @@ void commandMenuInit()
 
 	aboutDlg.init( ( HINSTANCE )hModule, nppData );
 	readmeDlg.init( ( HINSTANCE )hModule, nppData );
-	astyleOptionDlg.init( ( HINSTANCE )hModule, nppData, & astyleOption );
+	astyleOptionDlg.init( ( HINSTANCE )hModule, nppData, & astyleOptionSet );
 }
 
 
@@ -173,6 +173,18 @@ HWND getNppCurrentScintilla()
 	return( ( which == 0 ) ? nppData._scintillaMainHandle : nppData._scintillaSecondHandle );
 }
 
+int getNppVersion()
+{
+	return ::SendMessage( nppData._nppHandle, NPPM_GETNPPVERSION, TRUE, 0 );
+}
+
+int getNppCurrentLangId()
+{
+	int langType = 0;
+	::SendMessage( nppData._nppHandle, NPPM_GETCURRENTLANGTYPE, 0, ( LPARAM )&langType );
+	return langType;
+}
+
 static void formatRunProcCallback( const char *in, const char *out, HWND hwin )
 {
 	if( 0 != strcmp( in, out ) )
@@ -185,7 +197,8 @@ void AStyleCode( const char *textBuffer, const NppAStyleOption &m_astyleOption, 
 
 	m_astyleOption.setFormatterOption( formatter );
 
-	if( m_astyleOption.languageMode == 1 )
+	// 0 C, 1 C++, 2 Java, 3 C#, 4 Objective-C
+	if( m_astyleOption.languageMode == 0 || m_astyleOption.languageMode == 1 || m_astyleOption.languageMode == 4 )
 	{
 		formatter.setCStyle();
 		formatter.setModeManuallySet( true );
@@ -247,32 +260,38 @@ void AStyleCode( const char *textBuffer, const NppAStyleOption &m_astyleOption, 
 
 void formatCode()
 {
-	if( astyleOption.formattingStyle == 0 )
-		return;
-
 	int langType;
+	int languageMode = 0;
 	::SendMessage( nppData._nppHandle, NPPM_GETCURRENTLANGTYPE, 0, ( LPARAM )&langType );
 
-	if( langType == L_C || langType == L_CPP )
+	if( langType == L_C )
 	{
-		astyleOption.languageMode = 1;
+		languageMode = 1;
+	}
+	else if( langType == L_CPP )
+	{
+		languageMode = 1;
 	}
 	else if( langType == L_JAVA )
 	{
-		astyleOption.languageMode = 2;
+		languageMode = 2;
 	}
 	else if( langType == L_CS )
 	{
-		astyleOption.languageMode = 3;
+		languageMode = 3;
 	}
 	else if( langType == L_OBJC )
 	{
+		languageMode = 4;
 	}
 	else
 	{
 		::MessageBox( NULL, TEXT( "AStyle only support C, C++, Objective-C, C# and Java" ), TEXT( "NppAStyle Message" ), 0 );
 		return;
 	}
+
+	if( astyleOptionSet.languageAStyleOption[languageMode].formattingStyle == 0 )
+		return;
 
 	HWND curScintilla = getNppCurrentScintilla();
 
@@ -291,13 +310,11 @@ void formatCode()
 	const unsigned int pos_cur = ::SendMessage( curScintilla, SCI_GETCURRENTPOS, 0, 0 );
 	const unsigned int lineNumber_cur = ::SendMessage( curScintilla, SCI_LINEFROMPOSITION, pos_cur, 0 );
 
-	AStyleCode( textBuffer, astyleOption, formatRunProcCallback, curScintilla );
+	AStyleCode( textBuffer, astyleOptionSet.languageAStyleOption[languageMode], formatRunProcCallback, curScintilla );
 
 	::SendMessage( curScintilla, SCI_GOTOLINE, lineNumber_cur, 0 );
 
 	::free( textBuffer );
-
-	astyleOption.languageMode = 0;
 }
 
 void openOptionDlg()

@@ -8,6 +8,7 @@
  **************************************************************/
 
 #include "PluginDefinition.h"
+#include "menuCmdID.h"
 #include <stdio.h>
 #include <CommCtrl.h>
 #include <string>
@@ -49,6 +50,13 @@ void NppAStyleOptionDlg::initDlgComboList()
 		_tcscpy( strLabel, listTabSize[i] );
 		::SendMessage( hWndComboBox, ( UINT ) CB_ADDSTRING, 0, ( LPARAM ) strLabel );
 	}
+
+	hWndComboBox = GetDlgItem( IDC_CBB_ASTYLE_LANG_MODE );
+	for( int i = 0; i < astyleOptionSet->languageCount; ++i )
+	{
+		::SendMessage( hWndComboBox, ( UINT ) CB_ADDSTRING, 0, ( LPARAM ) astyleOptionSet->languageNames[i] );
+	}
+	SendDlgItemMessage( IDC_CBB_ASTYLE_LANG_MODE, CB_SETCURSEL, ( WPARAM ) m_languageMode, 0 );
 
 	TCHAR *listBraceStyle[] = { TEXT( "None" ), TEXT( "Allman (ANSI)" ), TEXT( "Java" ), TEXT( "Kernighan & Ritchie (K&R)" ), TEXT( "Stroustrup" ), TEXT( "Whitesmith" ), TEXT( "VTK" ), TEXT( "Ratliff" ), TEXT( "GNU" ), TEXT( "Linux" ), TEXT( "Horstmann" ), TEXT( "One True Brace (1TBS)" ), TEXT( "Google" ), TEXT( "Mozilla" ), TEXT( "Pico" ), TEXT( "Lisp" ), 0 };
 #define FormattingStyleCount sizeof(listBraceStyle)/sizeof(TCHAR *)-1
@@ -151,31 +159,33 @@ void NppAStyleOptionDlg::updateDlgTabsetting()
 	::EnableWindow( GetDlgItem( IDC_CBB_TABSIZE ), isEnable );
 }
 
-static void previewRunProcCallback( const char *in, const char *out, HWND hwin )
-{
-	::SendMessage( hwin, SCI_SETTEXT, 0, ( LPARAM ) out );
-}
+int getNppCurrentLangId();
 
-void NppAStyleOptionDlg::updateDlgPreviewText()
+void NppAStyleOptionDlg::updateDlgLangSetting()
 {
-	HWND hWndPreviewCtrl = GetDlgItem( IDC_TXT_PREVIEW );
-	::SendMessage( hWndPreviewCtrl, SCI_SETREADONLY, 0, 0 );
-	if( m_astyleOption->formattingStyle == 0 )
+	int langType = getNppCurrentLangId();
+	if( langType == L_C )
 	{
-		::SendMessage( hWndPreviewCtrl, SCI_SETWRAPMODE, SC_WRAP_WORD, 0 );
-		::SendMessage( hWndPreviewCtrl, SCI_SETMARGINWIDTHN, 0, 0 );
-		::SendMessage( hWndPreviewCtrl, SCI_SETTEXT, 0, (LPARAM) "None style nothing to do." );
+		m_languageMode = 0;
 	}
-	else
+	else if( langType == L_CPP )
 	{
-		unsigned int pos = ::SendMessage( hWndPreviewCtrl, SCI_GETCURRENTPOS, 0, 0 );
-		::SendMessage( hWndPreviewCtrl, SCI_SETWRAPMODE, SC_WRAP_NONE, 0 );
-		LPARAM lw = ::SendMessage( hWndPreviewCtrl, SCI_TEXTWIDTH, STYLE_LINENUMBER, (LPARAM) "_999" );
-		::SendMessage( hWndPreviewCtrl, SCI_SETMARGINWIDTHN, 0, lw );
-		AStyleCode( m_textPreviewCode, * m_astyleOption, previewRunProcCallback, hWndPreviewCtrl );
-		::SendMessage( hWndPreviewCtrl, SCI_GOTOPOS, pos, 0 );
+		m_languageMode = 1;
 	}
-	::SendMessage( hWndPreviewCtrl, SCI_SETREADONLY, 1, 0 );
+	else if( langType == L_JAVA )
+	{
+		m_languageMode = 2;
+	}
+	else if( langType == L_CS )
+	{
+		m_languageMode = 3;
+	}
+	else if( langType == L_OBJC )
+	{
+		m_languageMode = 4;
+	}
+
+	SendDlgItemMessage( IDC_CBB_ASTYLE_LANG_MODE, CB_SETCURSEL, ( WPARAM ) m_languageMode, 0 );
 }
 
 #define SCLEX_CPP 3
@@ -208,9 +218,11 @@ void NppAStyleOptionDlg::updateDlgPreviewText()
 #define SCE_C_TASKMARKER 26
 #define SCE_C_ESCAPESEQUENCE 27
 
-void NppAStyleOptionDlg::initPreviewCtrl()
-{
-	const char cppKeyWords[] =
+#define SCFIND_REGEXP_DOTMATCHESNL    0x10000000
+
+int getNppVersion();
+
+	static const char cppKeyWords[] =
 	    "and and_eq asm auto bitand bitor bool break "
 	    "case catch char char16_t char32_t class compl const const_cast constexpr continue "
 	    "default decltype delete do double dynamic_cast else enum explicit export extern "
@@ -221,13 +233,109 @@ void NppAStyleOptionDlg::initPreviewCtrl()
 	    "template this thread_local throw true try typedef typeid typename union unsigned using "
 	    "virtual void volatile wchar_t while xor xor_eq ";
 
-	const char cppTypeWords[] =
+	static const char cppTypeWords[] =
 	    "std string wstring NULL va_list FILE EOF size_t fpos_t jmp_buf clock_t time_t tm _utimbuf "
 	    "_complex _dev_t div_t ldiv_t _exception "
 	    "lconv _off_t ptrdiff_t sig_atomic_t _stat "
 	    "__cdecl __stdcall __fastcall __declspec dllexport dllexport noked noreturn nothrow onvtable "
 	    "__int8 __int16 __int32 __int64 ";
 
+static void stylingFindText( HWND hWndPreviewCtrl, const std::string &strFind, const int searchFlags, const int styleId )
+{
+	long posEnd = ::SendMessage( hWndPreviewCtrl, SCI_GETLENGTH, 0, 0 );
+
+	if( 0 == posEnd )
+	{
+		return;
+	}
+
+	if( strFind.empty() )
+	{
+		return;
+	}
+
+	char *pStrFind = NULL;
+	pStrFind = ( char * ) strFind.c_str();
+
+	long lPos = 0;
+	// init tf
+	Sci_TextToFind tf;
+	tf.chrg.cpMin = 0;
+	tf.chrg.cpMax = posEnd;
+	tf.lpstrText = pStrFind;
+	tf.chrgText.cpMin = 0;
+	tf.chrgText.cpMax = 0;
+
+	lPos = SendMessage( hWndPreviewCtrl, SCI_FINDTEXT, searchFlags, (LPARAM) &tf );
+	if( lPos == -2 )
+	{
+		return; // Invalid regular expression
+	}
+	while( ( lPos != -1 ) && ( tf.chrg.cpMin < tf.chrg.cpMax ) )
+	{
+		::SendMessage( hWndPreviewCtrl, SCI_STARTSTYLING, tf.chrgText.cpMin, 0 );
+		::SendMessage( hWndPreviewCtrl, SCI_SETSTYLING, tf.chrgText.cpMax - tf.chrgText.cpMin, styleId );
+
+		tf.chrg.cpMin = tf.chrgText.cpMax;
+		tf.chrg.cpMax = ::SendMessage( hWndPreviewCtrl, SCI_GETLENGTH, 0, 0 );
+		lPos = SendMessage( hWndPreviewCtrl, SCI_FINDTEXT, searchFlags, (LPARAM) &tf );
+	}
+}
+
+static void previewRunProcCallback( const char *in, const char *out, HWND hwin )
+{
+	::SendMessage( hwin, SCI_SETTEXT, 0, ( LPARAM ) out );
+}
+
+void NppAStyleOptionDlg::updateDlgPreviewText()
+{
+	HWND hWndPreviewCtrl = GetDlgItem( IDC_TXT_PREVIEW );
+	::SendMessage( hWndPreviewCtrl, SCI_SETREADONLY, 0, 0 );
+	if( m_astyleOption->formattingStyle == 0 )
+	{
+		::SendMessage( hWndPreviewCtrl, SCI_SETWRAPMODE, SC_WRAP_WORD, 0 );
+		::SendMessage( hWndPreviewCtrl, SCI_SETMARGINWIDTHN, 0, 0 );
+		::SendMessage( hWndPreviewCtrl, SCI_SETTEXT, 0, (LPARAM) "None style nothing to do." );
+	}
+	else
+	{
+		unsigned int pos = ::SendMessage( hWndPreviewCtrl, SCI_GETCURRENTPOS, 0, 0 );
+		::SendMessage( hWndPreviewCtrl, SCI_SETWRAPMODE, SC_WRAP_NONE, 0 );
+		LPARAM lw = ::SendMessage( hWndPreviewCtrl, SCI_TEXTWIDTH, STYLE_LINENUMBER, (LPARAM) "_999" );
+		::SendMessage( hWndPreviewCtrl, SCI_SETMARGINWIDTHN, 0, lw );
+		AStyleCode( m_textPreviewCode, * m_astyleOption, previewRunProcCallback, hWndPreviewCtrl );
+		::SendMessage( hWndPreviewCtrl, SCI_GOTOPOS, pos, 0 );
+	}
+
+	if (getNppVersion() > ((0x08 << 16) | (330)) )
+	{
+	::SendMessage( hWndPreviewCtrl, SCI_STARTSTYLING, 0, 0 );
+	::SendMessage( hWndPreviewCtrl, SCI_SETSTYLING, ::SendMessage( hWndPreviewCtrl, SCI_GETLENGTH, 0, 0 ), SCE_C_DEFAULT );
+
+	stylingFindText( hWndPreviewCtrl, "\\b\\d+\\b", SCFIND_REGEXP, SCE_C_NUMBER );
+	std::string strKeyWord("\\b(?:");
+	strKeyWord.append(cppKeyWords);
+	char * pStr =(char *) strKeyWord.c_str();
+	strKeyWord.pop_back();
+	while ( ( pStr = strchr( pStr, ' ' ) ) != NULL )
+	{
+		* pStr = '|';
+		++pStr;
+	}
+	strKeyWord.append(")\\b");
+	stylingFindText( hWndPreviewCtrl, strKeyWord, SCFIND_REGEXP | SCFIND_MATCHCASE, SCE_C_WORD );
+	stylingFindText( hWndPreviewCtrl, "'.'", SCFIND_REGEXP, SCE_C_STRING );
+	stylingFindText( hWndPreviewCtrl, "\".+?\"", SCFIND_REGEXP, SCE_C_STRING );
+	stylingFindText( hWndPreviewCtrl, "#\\s*include\\s*[\"<][.A-Z0-9a-z_-]+[\">]", SCFIND_REGEXP | SCFIND_MATCHCASE, SCE_C_PREPROCESSOR );
+	stylingFindText( hWndPreviewCtrl, "/\\*.+?\\*/", SCFIND_REGEXP | SCFIND_REGEXP_DOTMATCHESNL, SCE_C_COMMENT );
+	stylingFindText( hWndPreviewCtrl, "//.+$", SCFIND_REGEXP, SCE_C_COMMENTLINE );
+	}
+
+	::SendMessage( hWndPreviewCtrl, SCI_SETREADONLY, 1, 0 );
+}
+
+void NppAStyleOptionDlg::initPreviewCtrl()
+{
 	HWND hWndPreviewCtrl = GetDlgItem( IDC_TXT_PREVIEW );
 	::SendMessage( hWndPreviewCtrl, SCI_SETCODEPAGE, SC_CP_UTF8, 0 );
 	::SendMessage( hWndPreviewCtrl, SCI_STYLESETSIZE, STYLE_DEFAULT, 9 );
@@ -250,10 +358,10 @@ void NppAStyleOptionDlg::initPreviewCtrl()
 	::SendMessage( hWndPreviewCtrl, SCI_STYLESETFORE, SCE_C_NUMBER, 0x000040FF );
 	::SendMessage( hWndPreviewCtrl, SCI_STYLESETFORE, SCE_C_IDENTIFIER, 0x00000000 );
 	::SendMessage( hWndPreviewCtrl, SCI_STYLESETFORE, SCE_C_WORD, 0x00FF0000 );
-	::SendMessage( hWndPreviewCtrl, SCI_STYLESETBOLD, SCE_C_WORD, TRUE );
+	::SendMessage( hWndPreviewCtrl, SCI_STYLESETBOLD, SCE_C_WORD, true );
 	::SendMessage( hWndPreviewCtrl, SCI_STYLESETFORE, SCE_C_WORD2, 0x00FF0000 );
 	::SendMessage( hWndPreviewCtrl, SCI_STYLESETFORE, SCE_C_OPERATOR, 0x00800000 );
-	::SendMessage( hWndPreviewCtrl, SCI_STYLESETBOLD, SCE_C_OPERATOR, TRUE );
+	::SendMessage( hWndPreviewCtrl, SCI_STYLESETBOLD, SCE_C_OPERATOR, true );
 	::SendMessage( hWndPreviewCtrl, SCI_STYLESETFORE, SCE_C_STRINGEOL, 0x001515A3 );
 	::SendMessage( hWndPreviewCtrl, SCI_STYLESETFORE, SCE_C_STRING, 0x000040B0 );
 	::SendMessage( hWndPreviewCtrl, SCI_STYLESETFORE, SCE_C_CHARACTER, 0x000040B0 );
@@ -425,12 +533,13 @@ void NppAStyleOptionDlg::doDialog()
 	if( !isCreated() )
 	{
 		m_astyleOption = new NppAStyleOption();
-		* m_astyleOption = * astyleOption;
+		* m_astyleOption = astyleOptionSet->languageAStyleOption[m_languageMode];
 		create( IDD_NPPASTYLE_OPTION_DLG );
 	}
 	else
 	{
-		* m_astyleOption = * astyleOption;
+		updateDlgLangSetting();
+		* m_astyleOption = astyleOptionSet->languageAStyleOption[m_languageMode];
 		initDlgControl();
 	}
 
@@ -817,6 +926,16 @@ INT_PTR CALLBACK NppAStyleOptionDlg::DlgOptionProc( UINT Message, WPARAM wParam,
 						}
 							break;
 
+						case IDC_CBB_ASTYLE_LANG_MODE:
+						{
+							m_languageMode = ItemIndex;
+
+							* m_astyleOption = astyleOptionSet->languageAStyleOption[m_languageMode];
+							initDlgControl();
+							return TRUE;
+						}
+							break;
+
 						case IDC_CBB_BRACKET_STYLE:
 						{
 							m_astyleOption->formattingStyle = ItemIndex;
@@ -920,7 +1039,7 @@ void NppAStyleOptionDlg::optionImportExport( bool isImport )
 		// Display the Open dialog box.
 		if( GetOpenFileName( &ofn ) == TRUE )
 		{
-			m_astyleOption->loadConfigInfo( ofn.lpstrFile );
+			m_astyleOption->loadConfigInfo( astyleOptionSet->languageSectionNames[m_languageMode], ofn.lpstrFile ); // Import current Language AStyleOption
 			initDlgControl();
 		}
 	}
@@ -932,7 +1051,7 @@ void NppAStyleOptionDlg::optionImportExport( bool isImport )
 		// Display the Save dialog box.
 		if( GetSaveFileName( &ofn ) == TRUE )
 		{
-			m_astyleOption->saveConfigInfo( ofn.lpstrFile );
+			m_astyleOption->saveConfigInfo( astyleOptionSet->languageSectionNames[m_languageMode], ofn.lpstrFile ); // Export current Language AStyleOption
 		}
 	}
 }
@@ -956,8 +1075,9 @@ INT_PTR CALLBACK NppAStyleOptionDlg::run_dlgProc( UINT Message, WPARAM wParam, L
 			{
 				case IDOK :
 				{
-					* astyleOption = * m_astyleOption;
-					astyleOption->saveConfigInfo();
+					astyleOptionSet->languageAStyleOption[m_languageMode] = * m_astyleOption;
+					// m_astyleOption->saveConfigInfo( astyleOptionSet->languageSectionNames[m_languageMode] ); // Save current Language AStyleOption
+					astyleOptionSet->saveConfigInfo(); // Save All Language AStyleOption
 
 					display( FALSE );
 				}

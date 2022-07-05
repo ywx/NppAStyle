@@ -25,8 +25,8 @@ struct NppAStyleOption
 
 	void reset();
 	void setFormatterOption( astyle::ASFormatter &formatter ) const;
-	void loadConfigInfo( const TCHAR strFilePath[] = NULL );
-	void saveConfigInfo( const TCHAR strFilePath[] = NULL ) const;
+	void loadConfigInfo( const TCHAR * keySectionName = NULL, const TCHAR strFilePath[] = NULL );
+	void saveConfigInfo( const TCHAR * keySectionName = NULL, const TCHAR strFilePath[] = NULL ) const;
 
 	// Tab Options
 	bool isSameAsNppCurView;
@@ -37,6 +37,8 @@ struct NppAStyleOption
 	int pointerAlignment; // astyle::PointerAlign
 	int referenceAlignment; // astyle::ReferenceAlign
 	//int lineEnd; // astyle::LineEndFormat
+
+	// 0 C, 1 C++, 2 Java, 3 C#, 4 Objective-C
 	int languageMode;
 
 	// Brace Modify Options
@@ -98,6 +100,34 @@ struct NppAStyleOption
 	bool shouldPadParamType;
 	bool shouldUnPadParamType;
 	int objCColonPadMode; // astyle::ObjCColonPad
+};
+
+struct NppAStyleOptionSet
+{
+	NppAStyleOptionSet()
+	{
+		for (int i = 0; i < languageCount; ++i )
+		{
+			languageAStyleOption[i].languageMode = i;
+		}
+	}
+
+	~NppAStyleOptionSet() {}
+
+	void loadConfigInfo( const TCHAR strFilePath[] = NULL );
+	void saveConfigInfo( const TCHAR strFilePath[] = NULL ) const;
+
+	// 0 C, 1 C++, 2 Java, 3 C#, 4 Objective-C
+	static const int languageCount = 5;
+
+	// 0 C, 1 C++, 2 Java, 3 C#, 4 Objective-C
+	static const TCHAR * languageNames[languageCount];
+
+	// 0 C, 1 C++, 2 Java, 3 C#, 4 Objective-C
+	static const TCHAR * languageSectionNames[languageCount];
+
+	// 0 C, 1 C++, 2 Java, 3 C#, 4 Objective-C
+	NppAStyleOption languageAStyleOption[languageCount];
 };
 
 #endif // _NPP_ASTYLE_OPTION_H_
