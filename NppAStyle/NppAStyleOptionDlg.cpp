@@ -256,29 +256,30 @@ static void stylingFindText( HWND hWndPreviewCtrl, const std::string &strFind, c
 
 	char *pStrFind = NULL;
 	pStrFind = ( char * ) strFind.c_str();
+	size_t lenStrFind = 0;
+	lenStrFind = strFind.size();
 
 	long lPos = 0;
-	// init tf
-	Sci_TextToFind tf;
-	tf.chrg.cpMin = 0;
-	tf.chrg.cpMax = posEnd;
-	tf.lpstrText = pStrFind;
-	tf.chrgText.cpMin = 0;
-	tf.chrgText.cpMax = 0;
+	long lPosEnd = 0;
 
-	lPos = SendMessage( hWndPreviewCtrl, SCI_FINDTEXT, searchFlags, (LPARAM) &tf );
+	::SendMessage( hWndPreviewCtrl, SCI_SETSEARCHFLAGS, searchFlags, 0 );
+	::SendMessage( hWndPreviewCtrl, SCI_SETTARGETRANGE, 0, posEnd );
+	lPos = ::SendMessage( hWndPreviewCtrl, SCI_SEARCHINTARGET, lenStrFind, (LPARAM) pStrFind );
 	if( lPos == -2 )
 	{
 		return; // Invalid regular expression
 	}
-	while( ( lPos != -1 ) && ( tf.chrg.cpMin < tf.chrg.cpMax ) )
+	while( lPos >= 0 )
 	{
-		::SendMessage( hWndPreviewCtrl, SCI_STARTSTYLING, tf.chrgText.cpMin, 0 );
-		::SendMessage( hWndPreviewCtrl, SCI_SETSTYLING, tf.chrgText.cpMax - tf.chrgText.cpMin, styleId );
+		lPosEnd = ::SendMessage( hWndPreviewCtrl, SCI_GETTARGETEND, 0, 0 );
+		if(lPosEnd > posEnd) break;
+		::SendMessage( hWndPreviewCtrl, SCI_STARTSTYLING, lPos, 0 );
+		::SendMessage( hWndPreviewCtrl, SCI_SETSTYLING, lPosEnd - lPos, styleId );
 
-		tf.chrg.cpMin = tf.chrgText.cpMax;
-		tf.chrg.cpMax = ::SendMessage( hWndPreviewCtrl, SCI_GETLENGTH, 0, 0 );
-		lPos = SendMessage( hWndPreviewCtrl, SCI_FINDTEXT, searchFlags, (LPARAM) &tf );
+		posEnd = ::SendMessage( hWndPreviewCtrl, SCI_GETLENGTH, 0, 0 );
+		if(lPosEnd >= posEnd) break;
+		::SendMessage( hWndPreviewCtrl, SCI_SETTARGETRANGE, lPosEnd, posEnd );
+		lPos = ::SendMessage( hWndPreviewCtrl, SCI_SEARCHINTARGET, lenStrFind, (LPARAM) pStrFind );
 	}
 }
 
@@ -307,7 +308,7 @@ void NppAStyleOptionDlg::updateDlgPreviewText()
 		::SendMessage( hWndPreviewCtrl, SCI_GOTOPOS, pos, 0 );
 	}
 
-	if (getNppVersion() > ((0x08 << 16) | (330)) )
+	if (getNppVersion() > ((0x08 << 16) | (33)) )
 	{
 	::SendMessage( hWndPreviewCtrl, SCI_STARTSTYLING, 0, 0 );
 	::SendMessage( hWndPreviewCtrl, SCI_SETSTYLING, ::SendMessage( hWndPreviewCtrl, SCI_GETLENGTH, 0, 0 ), SCE_C_DEFAULT );
