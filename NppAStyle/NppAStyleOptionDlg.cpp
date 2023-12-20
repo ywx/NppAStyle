@@ -161,7 +161,7 @@ void NppAStyleOptionDlg::updateDlgTabsetting()
 
 int getNppCurrentLangId();
 
-void NppAStyleOptionDlg::updateDlgLangSetting()
+void NppAStyleOptionDlg::updateDlgLangSetting(bool isUpdateGUI)
 {
 	int langType = getNppCurrentLangId();
 	if( langType == L_C )
@@ -185,7 +185,10 @@ void NppAStyleOptionDlg::updateDlgLangSetting()
 		m_languageMode = 4;
 	}
 
-	SendDlgItemMessage( IDC_CBB_ASTYLE_LANG_MODE, CB_SETCURSEL, ( WPARAM ) m_languageMode, 0 );
+	if( isUpdateGUI )
+	{
+		SendDlgItemMessage( IDC_CBB_ASTYLE_LANG_MODE, CB_SETCURSEL, ( WPARAM ) m_languageMode, 0 );
+	}
 }
 
 #define SCLEX_CPP 3
@@ -533,13 +536,14 @@ void NppAStyleOptionDlg::doDialog()
 {
 	if( !isCreated() )
 	{
+		updateDlgLangSetting( false );
 		m_astyleOption = new NppAStyleOption();
 		* m_astyleOption = astyleOptionSet->languageAStyleOption[m_languageMode];
 		create( IDD_NPPASTYLE_OPTION_DLG );
 	}
 	else
 	{
-		updateDlgLangSetting();
+		updateDlgLangSetting( true );
 		* m_astyleOption = astyleOptionSet->languageAStyleOption[m_languageMode];
 		initDlgControl();
 	}

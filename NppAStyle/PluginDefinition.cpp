@@ -266,7 +266,7 @@ void formatCode()
 
 	if( langType == L_C )
 	{
-		languageMode = 1;
+		languageMode = 0;
 	}
 	else if( langType == L_CPP )
 	{

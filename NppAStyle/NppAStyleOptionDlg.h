@@ -52,7 +52,7 @@ protected :
 	void initPreviewCtrl();
 	void initDlgControl();
 	void updateDlgTabsetting();
-	void updateDlgLangSetting();
+	void updateDlgLangSetting( bool isUpdateGUI );
 	void updateDlgPreviewText();
 
 private:
