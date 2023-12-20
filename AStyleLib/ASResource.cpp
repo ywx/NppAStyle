@@ -1,5 +1,5 @@
 // ASResource.cpp
-// Copyright (c) 2018 by Jim Pattee <jimp03@email.com>.
+// Copyright (c) 2023 The Artistic Style Authors.
 // This code is licensed under the MIT License.
 // License.md describes the conditions under which this software may be distributed.
 
@@ -16,153 +16,161 @@
 
 namespace astyle {
 //
-const string ASResource::_AS_EXCEPT = string("__except");
-const string ASResource::_AS_FINALLY = string("__finally");
-const string ASResource::_AS_TRY = string("__try");
-const string ASResource::AS_ADD = string("add");
-const string ASResource::AS_AUTO = string("auto");
-const string ASResource::AS_AUTORELEASEPOOL = string("autoreleasepool");
-const string ASResource::AS_CASE = string("case");
-const string ASResource::AS_CATCH = string("catch");
-const string ASResource::AS_CLASS = string("class");
-const string ASResource::AS_CONST = string("const");
-const string ASResource::AS_CONST_CAST = string("const_cast");
-const string ASResource::AS_DEFAULT = string("default");
-const string ASResource::AS_DELEGATE = string("delegate");
-const string ASResource::AS_DELETE = string("delete");
-const string ASResource::AS_DO = string("do");
-const string ASResource::AS_DYNAMIC_CAST = string("dynamic_cast");
-const string ASResource::AS_ELSE = string("else");
-const string ASResource::AS_END = string("end");
-const string ASResource::AS_ENUM = string("enum");
-const string ASResource::AS_EXTERN = string("extern");
-const string ASResource::AS_FINAL = string("final");
-const string ASResource::AS_FINALLY = string("finally");
-const string ASResource::AS_FIXED = string("fixed");
-const string ASResource::AS_FOR = string("for");
-const string ASResource::AS_FOREACH = string("foreach");
-const string ASResource::AS_FOREVER = string("forever");
-const string ASResource::AS_GET = string("get");
-const string ASResource::AS_IF = string("if");
-const string ASResource::AS_INTERFACE = string("interface");
-const string ASResource::AS_INTERRUPT = string("interrupt");
-const string ASResource::AS_LET = string("let");
-const string ASResource::AS_LOCK = string("lock");
-const string ASResource::AS_MODULE = string("module");	// CORBA IDL module definition
-const string ASResource::AS_NAMESPACE = string("namespace");
-const string ASResource::AS_NEW = string("new");
-const string ASResource::AS_NOEXCEPT = string("noexcept");
-const string ASResource::AS_NS_DURING = string("NS_DURING");
-const string ASResource::AS_NS_HANDLER = string("NS_HANDLER");
-const string ASResource::AS_OPERATOR = string("operator");
-const string ASResource::AS_OVERRIDE = string("override");
-const string ASResource::AS_PRIVATE = string("private");
-const string ASResource::AS_PROTECTED = string("protected");
-const string ASResource::AS_PUBLIC = string("public");
-const string ASResource::AS_QFOREACH = string("Q_FOREACH");
-const string ASResource::AS_QFOREVER = string("Q_FOREVER");
-const string ASResource::AS_REINTERPRET_CAST = string("reinterpret_cast");
-const string ASResource::AS_REMOVE = string("remove");
-const string ASResource::AS_SEALED = string("sealed");
-const string ASResource::AS_SELECTOR = string("selector");
-const string ASResource::AS_SET = string("set");
-const string ASResource::AS_STATIC = string("static");
-const string ASResource::AS_STATIC_CAST = string("static_cast");
-const string ASResource::AS_STRUCT = string("struct");
-const string ASResource::AS_SWITCH = string("switch");
-const string ASResource::AS_SYNCHRONIZED = string("synchronized");
-const string ASResource::AS_TEMPLATE = string("template");
-const string ASResource::AS_THROW = string("throw");
-const string ASResource::AS_THROWS = string("throws");
-const string ASResource::AS_TRY = string("try");
-const string ASResource::AS_UNCHECKED = string("unchecked");
-const string ASResource::AS_UNION = string("union");
-const string ASResource::AS_UNSAFE = string("unsafe");
-const string ASResource::AS_USING = string("using");
-const string ASResource::AS_VOLATILE = string("volatile");
-const string ASResource::AS_WHERE = string("where");
-const string ASResource::AS_WHILE = string("while");
+const std::string ASResource::_AS_EXCEPT = std::string("__except");
+const std::string ASResource::_AS_FINALLY = std::string("__finally");
+const std::string ASResource::_AS_TRY = std::string("__try");
+const std::string ASResource::AS_ADD = std::string("add");
+const std::string ASResource::AS_AUTO = std::string("auto");
+const std::string ASResource::AS_AUTORELEASEPOOL = std::string("autoreleasepool");
+const std::string ASResource::AS_CASE = std::string("case");
+const std::string ASResource::AS_CATCH = std::string("catch");
+const std::string ASResource::AS_CLASS = std::string("class");
+const std::string ASResource::AS_CONST = std::string("const");
+const std::string ASResource::AS_CONST_CAST = std::string("const_cast");
+const std::string ASResource::AS_DEFAULT = std::string("default");
+const std::string ASResource::AS_DELEGATE = std::string("delegate");
+const std::string ASResource::AS_DELETE = std::string("delete");
+const std::string ASResource::AS_DO = std::string("do");
+const std::string ASResource::AS_DYNAMIC_CAST = std::string("dynamic_cast");
+const std::string ASResource::AS_ELSE = std::string("else");
+const std::string ASResource::AS_END = std::string("end");
+const std::string ASResource::AS_ENUM = std::string("enum");
+const std::string ASResource::AS_EXTERN = std::string("extern");
+const std::string ASResource::AS_FINAL = std::string("final");
+const std::string ASResource::AS_FINALLY = std::string("finally");
+const std::string ASResource::AS_FIXED = std::string("fixed");
+const std::string ASResource::AS_FOR = std::string("for");
+const std::string ASResource::AS_FOREACH = std::string("foreach");
+const std::string ASResource::AS_FOREVER = std::string("forever");
+const std::string ASResource::AS_GET = std::string("get");
+const std::string ASResource::AS_IF = std::string("if");
+const std::string ASResource::AS_INTERFACE = std::string("interface");
+const std::string ASResource::AS_INTERRUPT = std::string("interrupt");
+const std::string ASResource::AS_LET = std::string("let");
+const std::string ASResource::AS_LOCK = std::string("lock");
+const std::string ASResource::AS_MODULE = std::string("module");	// CORBA IDL module definition
+const std::string ASResource::AS_NAMESPACE = std::string("namespace");
+const std::string ASResource::AS_NEW = std::string("new");
+const std::string ASResource::AS_NOEXCEPT = std::string("noexcept");
+const std::string ASResource::AS_NS_DURING = std::string("NS_DURING");
+const std::string ASResource::AS_NS_HANDLER = std::string("NS_HANDLER");
+const std::string ASResource::AS_OPERATOR = std::string("operator");
+const std::string ASResource::AS_OVERRIDE = std::string("override");
+const std::string ASResource::AS_PRIVATE = std::string("private");
+const std::string ASResource::AS_PROTECTED = std::string("protected");
+const std::string ASResource::AS_PUBLIC = std::string("public");
+const std::string ASResource::AS_QFOREACH = std::string("Q_FOREACH");
+const std::string ASResource::AS_QFOREVER = std::string("Q_FOREVER");
+const std::string ASResource::AS_REINTERPRET_CAST = std::string("reinterpret_cast");
+const std::string ASResource::AS_REMOVE = std::string("remove");
+const std::string ASResource::AS_SEALED = std::string("sealed");
+const std::string ASResource::AS_SELECTOR = std::string("selector");
+const std::string ASResource::AS_SET = std::string("set");
+const std::string ASResource::AS_STATIC = std::string("static");
+const std::string ASResource::AS_STATIC_CAST = std::string("static_cast");
+const std::string ASResource::AS_STRUCT = std::string("struct");
+const std::string ASResource::AS_TYPEDEF_STRUCT = std::string("typedef struct");
+const std::string ASResource::AS_SWITCH = std::string("switch");
+const std::string ASResource::AS_SYNCHRONIZED = std::string("synchronized");
+const std::string ASResource::AS_TEMPLATE = std::string("template");
+const std::string ASResource::AS_THROW = std::string("throw");
+const std::string ASResource::AS_THROWS = std::string("throws");
+const std::string ASResource::AS_TRY = std::string("try");
+const std::string ASResource::AS_UNCHECKED = std::string("unchecked");
+const std::string ASResource::AS_UNION = std::string("union");
+const std::string ASResource::AS_UNSAFE = std::string("unsafe");
+const std::string ASResource::AS_USING = std::string("using");
+const std::string ASResource::AS_VOLATILE = std::string("volatile");
+const std::string ASResource::AS_WHERE = std::string("where");
+const std::string ASResource::AS_WHILE = std::string("while");
 
-const string ASResource::AS_ASM = string("asm");
-const string ASResource::AS__ASM__ = string("__asm__");
-const string ASResource::AS_MS_ASM = string("_asm");
-const string ASResource::AS_MS__ASM = string("__asm");
+const std::string ASResource::AS_ASM = std::string("asm");
+const std::string ASResource::AS__ASM__ = std::string("__asm__");
+const std::string ASResource::AS_MS_ASM = std::string("_asm");
+const std::string ASResource::AS_MS__ASM = std::string("__asm");
 
-const string ASResource::AS_BAR_DEFINE = string("#define");
-const string ASResource::AS_BAR_INCLUDE = string("#include");
-const string ASResource::AS_BAR_IF = string("#if");
-const string ASResource::AS_BAR_EL = string("#el");
-const string ASResource::AS_BAR_ENDIF = string("#endif");
+const std::string ASResource::AS_BAR_DEFINE = std::string("#define");
+const std::string ASResource::AS_BAR_INCLUDE = std::string("#include");
+const std::string ASResource::AS_BAR_IF = std::string("#if");
+const std::string ASResource::AS_BAR_EL = std::string("#el");
+const std::string ASResource::AS_BAR_ENDIF = std::string("#endif");
 
-const string ASResource::AS_OPEN_BRACE = string("{");
-const string ASResource::AS_CLOSE_BRACE = string("}");
-const string ASResource::AS_OPEN_LINE_COMMENT = string("//");
-const string ASResource::AS_OPEN_COMMENT = string("/*");
-const string ASResource::AS_CLOSE_COMMENT = string("*/");
+const std::string ASResource::AS_OPEN_PAREN = std::string("(");
+const std::string ASResource::AS_CLOSE_PAREN = std::string(")");
+const std::string ASResource::AS_OPEN_BRACE = std::string("{");
+const std::string ASResource::AS_CLOSE_BRACE = std::string("}");
+const std::string ASResource::AS_OPEN_LINE_COMMENT = std::string("//");
+const std::string ASResource::AS_OPEN_COMMENT = std::string("/*");
+const std::string ASResource::AS_CLOSE_COMMENT = std::string("*/");
 
-const string ASResource::AS_ASSIGN = string("=");
-const string ASResource::AS_PLUS_ASSIGN = string("+=");
-const string ASResource::AS_MINUS_ASSIGN = string("-=");
-const string ASResource::AS_MULT_ASSIGN = string("*=");
-const string ASResource::AS_DIV_ASSIGN = string("/=");
-const string ASResource::AS_MOD_ASSIGN = string("%=");
-const string ASResource::AS_OR_ASSIGN = string("|=");
-const string ASResource::AS_AND_ASSIGN = string("&=");
-const string ASResource::AS_XOR_ASSIGN = string("^=");
-const string ASResource::AS_GR_GR_ASSIGN = string(">>=");
-const string ASResource::AS_LS_LS_ASSIGN = string("<<=");
-const string ASResource::AS_GR_GR_GR_ASSIGN = string(">>>=");
-const string ASResource::AS_LS_LS_LS_ASSIGN = string("<<<=");
-const string ASResource::AS_GCC_MIN_ASSIGN = string("<?");
-const string ASResource::AS_GCC_MAX_ASSIGN = string(">?");
+const std::string ASResource::AS_ASSIGN = std::string("=");
+const std::string ASResource::AS_PLUS_ASSIGN = std::string("+=");
+const std::string ASResource::AS_MINUS_ASSIGN = std::string("-=");
+const std::string ASResource::AS_MULT_ASSIGN = std::string("*=");
+const std::string ASResource::AS_DIV_ASSIGN = std::string("/=");
+const std::string ASResource::AS_MOD_ASSIGN = std::string("%=");
+const std::string ASResource::AS_OR_ASSIGN = std::string("|=");
+const std::string ASResource::AS_AND_ASSIGN = std::string("&=");
+const std::string ASResource::AS_XOR_ASSIGN = std::string("^=");
+const std::string ASResource::AS_GR_GR_ASSIGN = std::string(">>=");
+const std::string ASResource::AS_LS_LS_ASSIGN = std::string("<<=");
+const std::string ASResource::AS_GR_GR_GR_ASSIGN = std::string(">>>=");
+const std::string ASResource::AS_LS_LS_LS_ASSIGN = std::string("<<<=");
+const std::string ASResource::AS_GCC_MIN_ASSIGN = std::string("<?");
+const std::string ASResource::AS_GCC_MAX_ASSIGN = std::string(">?");
 
-const string ASResource::AS_RETURN = string("return");
-const string ASResource::AS_CIN = string("cin");
-const string ASResource::AS_COUT = string("cout");
-const string ASResource::AS_CERR = string("cerr");
+const std::string ASResource::AS_RETURN = std::string("return");
+const std::string ASResource::AS_CIN = std::string("cin");
+const std::string ASResource::AS_COUT = std::string("cout");
+const std::string ASResource::AS_CERR = std::string("cerr");
 
-const string ASResource::AS_EQUAL = string("==");
-const string ASResource::AS_PLUS_PLUS = string("++");
-const string ASResource::AS_MINUS_MINUS = string("--");
-const string ASResource::AS_NOT_EQUAL = string("!=");
-const string ASResource::AS_GR_EQUAL = string(">=");
-const string ASResource::AS_GR_GR = string(">>");
-const string ASResource::AS_GR_GR_GR = string(">>>");
-const string ASResource::AS_LS_EQUAL = string("<=");
-const string ASResource::AS_LS_LS = string("<<");
-const string ASResource::AS_LS_LS_LS = string("<<<");
-const string ASResource::AS_QUESTION_QUESTION = string("??");
-const string ASResource::AS_LAMBDA = string("=>");            // C# lambda expression arrow
-const string ASResource::AS_ARROW = string("->");
-const string ASResource::AS_AND = string("&&");
-const string ASResource::AS_OR = string("||");
-const string ASResource::AS_SCOPE_RESOLUTION = string("::");
+const std::string ASResource::AS_EQUAL = std::string("==");
+const std::string ASResource::AS_PLUS_PLUS = std::string("++");
+const std::string ASResource::AS_MINUS_MINUS = std::string("--");
+const std::string ASResource::AS_NOT_EQUAL = std::string("!=");
+const std::string ASResource::AS_GR_EQUAL = std::string(">=");
+const std::string ASResource::AS_GR_GR = std::string(">>");
+const std::string ASResource::AS_GR_GR_GR = std::string(">>>");
+const std::string ASResource::AS_LS_EQUAL = std::string("<=");
+const std::string ASResource::AS_LS_LS = std::string("<<");
+const std::string ASResource::AS_LS_LS_LS = std::string("<<<");
+const std::string ASResource::AS_QUESTION_QUESTION = std::string("??");
+const std::string ASResource::AS_LAMBDA = std::string("=>");            // C# lambda expression arrow
+const std::string ASResource::AS_ARROW = std::string("->");
+const std::string ASResource::AS_AND = std::string("&&");
+const std::string ASResource::AS_OR = std::string("||");
+const std::string ASResource::AS_SCOPE_RESOLUTION = std::string("::");
+const std::string ASResource::AS_SPACESHIP = std::string("<=>");
+const std::string ASResource::AS_EQUAL_JS = std::string("===");
+const std::string ASResource::AS_COALESCE_CS = std::string("?" "?="); // Avoid trigraph
 
-const string ASResource::AS_PLUS = string("+");
-const string ASResource::AS_MINUS = string("-");
-const string ASResource::AS_MULT = string("*");
-const string ASResource::AS_DIV = string("/");
-const string ASResource::AS_MOD = string("%");
-const string ASResource::AS_GR = string(">");
-const string ASResource::AS_LS = string("<");
-const string ASResource::AS_NOT = string("!");
-const string ASResource::AS_BIT_OR = string("|");
-const string ASResource::AS_BIT_AND = string("&");
-const string ASResource::AS_BIT_NOT = string("~");
-const string ASResource::AS_BIT_XOR = string("^");
-const string ASResource::AS_QUESTION = string("?");
-const string ASResource::AS_COLON = string(":");
-const string ASResource::AS_COMMA = string(",");
-const string ASResource::AS_SEMICOLON = string(";");
+const std::string ASResource::AS_PLUS = std::string("+");
+const std::string ASResource::AS_MINUS = std::string("-");
+const std::string ASResource::AS_MULT = std::string("*");
+const std::string ASResource::AS_DIV = std::string("/");
+const std::string ASResource::AS_MOD = std::string("%");
+const std::string ASResource::AS_GR = std::string(">");
+const std::string ASResource::AS_LS = std::string("<");
+const std::string ASResource::AS_NOT = std::string("!");
+const std::string ASResource::AS_BIT_OR = std::string("|");
+const std::string ASResource::AS_BIT_AND = std::string("&");
+const std::string ASResource::AS_BIT_NOT = std::string("~");
+const std::string ASResource::AS_BIT_XOR = std::string("^");
+const std::string ASResource::AS_QUESTION = std::string("?");
+const std::string ASResource::AS_COLON = std::string(":");
+const std::string ASResource::AS_COMMA = std::string(",");
+const std::string ASResource::AS_DOT = std::string(".");
+const std::string ASResource::AS_SEMICOLON = std::string(";");
+
 
 /**
  * Sort comparison function.
  * Compares the length of the value of pointers in the vectors.
- * The LONGEST strings will be first in the vector.
+ * The LONGEST std::strings will be first in the vector.
  *
- * @param a and b, the string pointers to be compared.
+ * @param a and b, the std::string pointers to be compared.
  */
-bool sortOnLength(const string* a, const string* b)
+bool sortOnLength(const std::string* a, const std::string* b)
 {
 	return (*a).length() > (*b).length();
 }
@@ -171,9 +179,9 @@ bool sortOnLength(const string* a, const string* b)
  * Sort comparison function.
  * Compares the value of pointers in the vectors.
  *
- * @param a and b, the string pointers to be compared.
+ * @param a and b, the std::string pointers to be compared.
  */
-bool sortOnName(const string* a, const string* b)
+bool sortOnName(const std::string* a, const std::string* b)
 {
 	return *a < *b;
 }
@@ -184,15 +192,10 @@ bool sortOnName(const string* a, const string* b)
  *
  * @param assignmentOperators   a reference to the vector to be built.
  */
-void ASResource::buildAssignmentOperators(vector<const string*>* assignmentOperators)
+void ASResource::buildAssignmentOperators(std::vector<const std::string*>* assignmentOperators)
 {
 	const size_t elements = 15;
-	static bool reserved = false;
-	if (!reserved)
-	{
-		assignmentOperators->reserve(elements);
-		reserved = true;
-	}
+	assignmentOperators->reserve(elements);
 
 	assignmentOperators->emplace_back(&AS_ASSIGN);
 	assignmentOperators->emplace_back(&AS_PLUS_ASSIGN);
@@ -222,15 +225,10 @@ void ASResource::buildAssignmentOperators(vector<const string*>* assignmentOpera
  *
  * @param castOperators     a reference to the vector to be built.
  */
-void ASResource::buildCastOperators(vector<const string*>* castOperators)
+void ASResource::buildCastOperators(std::vector<const std::string*>* castOperators)
 {
 	const size_t elements = 5;
-	static bool reserved = false;
-	if (!reserved)
-	{
-		castOperators->reserve(elements);
-		reserved = true;
-	}
+	castOperators->reserve(elements);
 
 	castOperators->emplace_back(&AS_CONST_CAST);
 	castOperators->emplace_back(&AS_DYNAMIC_CAST);
@@ -247,15 +245,10 @@ void ASResource::buildCastOperators(vector<const string*>* castOperators)
  *
  * @param headers       a reference to the vector to be built.
  */
-void ASResource::buildHeaders(vector<const string*>* headers, int fileType, bool beautifier)
+void ASResource::buildHeaders(std::vector<const std::string*>* headers, int fileType, bool beautifier)
 {
 	const size_t elements = 25;
-	static bool reserved = false;
-	if (!reserved)
-	{
-		headers->reserve(elements);
-		reserved = true;
-	}
+	headers->reserve(elements);
 
 	headers->emplace_back(&AS_IF);
 	headers->emplace_back(&AS_ELSE);
@@ -272,7 +265,7 @@ void ASResource::buildHeaders(vector<const string*>* headers, int fileType, bool
 	headers->emplace_back(&AS_FOREACH);		// QT & C#
 	headers->emplace_back(&AS_FOREVER);		// Qt & Boost
 
-	if (fileType == C_TYPE)
+	if (fileType == C_TYPE || fileType == OBJC_TYPE)
 	{
 		headers->emplace_back(&_AS_TRY);		// __try
 		headers->emplace_back(&_AS_FINALLY);	// __finally
@@ -298,7 +291,7 @@ void ASResource::buildHeaders(vector<const string*>* headers, int fileType, bool
 
 	if (beautifier)
 	{
-		if (fileType == C_TYPE)
+		if (fileType == C_TYPE || fileType == OBJC_TYPE)
 		{
 			headers->emplace_back(&AS_TEMPLATE);
 		}
@@ -319,11 +312,9 @@ void ASResource::buildHeaders(vector<const string*>* headers, int fileType, bool
  *
  * @param indentableHeaders     a reference to the vector to be built.
  */
-void ASResource::buildIndentableHeaders(vector<const string*>* indentableHeaders)
+void ASResource::buildIndentableHeaders(std::vector<const std::string*>* indentableHeaders)
 {
 	indentableHeaders->emplace_back(&AS_RETURN);
-
-//	sort(indentableHeaders->begin(), indentableHeaders->end(), sortOnName);
 }
 
 /**
@@ -332,18 +323,13 @@ void ASResource::buildIndentableHeaders(vector<const string*>* indentableHeaders
 *
 * @param indentableMacros       a reference to the vector to be built.
 */
-void ASResource::buildIndentableMacros(vector<const pair<const string, const string>* >* indentableMacros)
+void ASResource::buildIndentableMacros(std::vector<const std::pair<const std::string, const std::string>* >* indentableMacros)
 {
 	const size_t elements = 10;
-	static bool reserved = false;
-	if (!reserved)
-	{
-		indentableMacros->reserve(elements);
-		reserved = true;
-	}
+	indentableMacros->reserve(elements);
 
 	// the pairs must be retained in memory because of pair pointers
-	typedef pair<const string, const string> macro_pair;
+	using macro_pair = std::pair<const std::string, const std::string>;
 	static const macro_pair macros[] =
 	{
 		// wxWidgets
@@ -356,9 +342,8 @@ void ASResource::buildIndentableMacros(vector<const pair<const string, const str
 		macro_pair("BEGIN_PROPPAGEIDS",   "END_PROPPAGEIDS"),
 	};
 
-	size_t entries = sizeof(macros) / sizeof(macros[0]);
-	for (size_t i = 0; i < entries; i++)
-		indentableMacros->emplace_back(&macros[i]);
+	for (const macro_pair& macro : macros)
+		indentableMacros->emplace_back(&macro);
 
 	assert(indentableMacros->size() < elements);
 }
@@ -369,15 +354,10 @@ void ASResource::buildIndentableMacros(vector<const pair<const string, const str
  *
  * @param nonAssignmentOperators       a reference to the vector to be built.
  */
-void ASResource::buildNonAssignmentOperators(vector<const string*>* nonAssignmentOperators)
+void ASResource::buildNonAssignmentOperators(std::vector<const std::string*>* nonAssignmentOperators)
 {
-	const size_t elements = 15;
-	static bool reserved = false;
-	if (!reserved)
-	{
-		nonAssignmentOperators->reserve(elements);
-		reserved = true;
-	}
+	const size_t elements = 16;
+	nonAssignmentOperators->reserve(elements);
 
 	nonAssignmentOperators->emplace_back(&AS_EQUAL);
 	nonAssignmentOperators->emplace_back(&AS_PLUS_PLUS);
@@ -393,6 +373,7 @@ void ASResource::buildNonAssignmentOperators(vector<const string*>* nonAssignmen
 	nonAssignmentOperators->emplace_back(&AS_AND);
 	nonAssignmentOperators->emplace_back(&AS_OR);
 	nonAssignmentOperators->emplace_back(&AS_LAMBDA);
+	nonAssignmentOperators->emplace_back(&AS_DOT);
 
 	assert(nonAssignmentOperators->size() < elements);
 	sort(nonAssignmentOperators->begin(), nonAssignmentOperators->end(), sortOnLength);
@@ -403,17 +384,12 @@ void ASResource::buildNonAssignmentOperators(vector<const string*>* nonAssignmen
  * Used by BOTH ASFormatter.cpp and ASBeautifier.cpp.
  * NOTE: Non-paren headers should also be included in the headers vector.
  *
- * @param nonParenHeaders       a reference to the vector to be built.
+ * @param nonParenHeaders       a reference to the std::vector to be built.
  */
-void ASResource::buildNonParenHeaders(vector<const string*>* nonParenHeaders, int fileType, bool beautifier)
+void ASResource::buildNonParenHeaders(std::vector<const std::string*>* nonParenHeaders, int fileType, bool beautifier)
 {
 	const size_t elements = 20;
-	static bool reserved = false;
-	if (!reserved)
-	{
-		nonParenHeaders->reserve(elements);
-		reserved = true;
-	}
+	nonParenHeaders->reserve(elements);
 
 	nonParenHeaders->emplace_back(&AS_ELSE);
 	nonParenHeaders->emplace_back(&AS_DO);
@@ -424,7 +400,7 @@ void ASResource::buildNonParenHeaders(vector<const string*>* nonParenHeaders, in
 	nonParenHeaders->emplace_back(&AS_QFOREVER);	// QT
 	nonParenHeaders->emplace_back(&AS_FOREVER);	// Boost
 
-	if (fileType == C_TYPE)
+	if (fileType == C_TYPE || fileType == OBJC_TYPE)
 	{
 		nonParenHeaders->emplace_back(&_AS_TRY);		// __try
 		nonParenHeaders->emplace_back(&_AS_FINALLY);	// __finally
@@ -465,16 +441,10 @@ void ASResource::buildNonParenHeaders(vector<const string*>* nonParenHeaders, in
  *
  * @param operators             a reference to the vector to be built.
  */
-void ASResource::buildOperators(vector<const string*>* operators, int fileType)
+void ASResource::buildOperators(std::vector<const std::string*>* operators, int fileType)
 {
 	const size_t elements = 50;
-	static bool reserved = false;
-	if (!reserved)
-	{
-		operators->reserve(elements);
-		reserved = true;
-	}
-
+	operators->reserve(elements);
 
 	operators->emplace_back(&AS_PLUS_ASSIGN);
 	operators->emplace_back(&AS_MINUS_ASSIGN);
@@ -523,8 +493,16 @@ void ASResource::buildOperators(vector<const string*>* operators, int fileType)
 	{
 		operators->emplace_back(&AS_GCC_MIN_ASSIGN);
 		operators->emplace_back(&AS_GCC_MAX_ASSIGN);
+		operators->emplace_back(&AS_SPACESHIP);
 	}
-
+	if (fileType == JS_TYPE)
+	{
+		operators->emplace_back(&AS_EQUAL_JS);
+	}
+	if (fileType == SHARP_TYPE)
+    {
+    	operators->emplace_back(&AS_COALESCE_CS);
+    }
 	assert(operators->size() < elements);
 	sort(operators->begin(), operators->end(), sortOnLength);
 }
@@ -536,18 +514,13 @@ void ASResource::buildOperators(vector<const string*>* operators, int fileType)
  *
  * @param preBlockStatements        a reference to the vector to be built.
  */
-void ASResource::buildPreBlockStatements(vector<const string*>* preBlockStatements, int fileType)
+void ASResource::buildPreBlockStatements(std::vector<const std::string*>* preBlockStatements, int fileType)
 {
 	const size_t elements = 10;
-	static bool reserved = false;
-	if (!reserved)
-	{
-		preBlockStatements->reserve(elements);
-		reserved = true;
-	}
+	preBlockStatements->reserve(elements);
 
 	preBlockStatements->emplace_back(&AS_CLASS);
-	if (fileType == C_TYPE)
+	if (fileType == C_TYPE || fileType == OBJC_TYPE)
 	{
 		preBlockStatements->emplace_back(&AS_STRUCT);
 		preBlockStatements->emplace_back(&AS_UNION);
@@ -581,17 +554,12 @@ void ASResource::buildPreBlockStatements(vector<const string*>* preBlockStatemen
  * the closing paren and the opening brace.
  * e.g. in "void foo() const {}", "const" is a preCommandHeader.
  */
-void ASResource::buildPreCommandHeaders(vector<const string*>* preCommandHeaders, int fileType)
+void ASResource::buildPreCommandHeaders(std::vector<const std::string*>* preCommandHeaders, int fileType)
 {
 	const size_t elements = 10;
-	static bool reserved = false;
-	if (!reserved)
-	{
-		preCommandHeaders->reserve(elements);
-		reserved = true;
-	}
+	preCommandHeaders->reserve(elements);
 
-	if (fileType == C_TYPE)
+	if (fileType == C_TYPE || fileType == OBJC_TYPE)
 	{
 		preCommandHeaders->emplace_back(&AS_CONST);
 		preCommandHeaders->emplace_back(&AS_FINAL);
@@ -600,6 +568,10 @@ void ASResource::buildPreCommandHeaders(vector<const string*>* preCommandHeaders
 		preCommandHeaders->emplace_back(&AS_OVERRIDE);
 		preCommandHeaders->emplace_back(&AS_VOLATILE);
 		preCommandHeaders->emplace_back(&AS_SEALED);			// Visual C only
+	}
+
+	if (fileType == OBJC_TYPE)
+	{
 		preCommandHeaders->emplace_back(&AS_AUTORELEASEPOOL);	// Obj-C only
 	}
 
@@ -625,18 +597,13 @@ void ASResource::buildPreCommandHeaders(vector<const string*>* preCommandHeaders
  *
  * @param preDefinitionHeaders      a reference to the vector to be built.
  */
-void ASResource::buildPreDefinitionHeaders(vector<const string*>* preDefinitionHeaders, int fileType)
+void ASResource::buildPreDefinitionHeaders(std::vector<const std::string*>* preDefinitionHeaders, int fileType)
 {
 	const size_t elements = 10;
-	static bool reserved = false;
-	if (!reserved)
-	{
-		preDefinitionHeaders->reserve(elements);
-		reserved = true;
-	}
+	preDefinitionHeaders->reserve(elements);
 
 	preDefinitionHeaders->emplace_back(&AS_CLASS);
-	if (fileType == C_TYPE)
+	if (fileType == C_TYPE || fileType == OBJC_TYPE)
 	{
 		preDefinitionHeaders->emplace_back(&AS_STRUCT);
 		preDefinitionHeaders->emplace_back(&AS_UNION);
@@ -664,15 +631,15 @@ void ASResource::buildPreDefinitionHeaders(vector<const string*>* preDefinitionH
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 // check if a specific line position contains a header.
-const string* ASBase::findHeader(const string& line, int i,
-                                 const vector<const string*>* possibleHeaders) const
+const std::string* ASBase::findHeader(const std::string& line, int i,
+                                      const std::vector<const std::string*>* possibleHeaders) const
 {
 	assert(isCharPotentialHeader(line, i));
 	// check the word
 	size_t maxHeaders = possibleHeaders->size();
 	for (size_t p = 0; p < maxHeaders; p++)
 	{
-		const string* header = (*possibleHeaders)[p];
+		const std::string* header = (*possibleHeaders)[p];
 		const size_t wordEnd = i + header->length();
 		if (wordEnd > line.length())
 			continue;
@@ -693,10 +660,10 @@ const string* ASBase::findHeader(const string& line, int i,
 		// the following accessor definitions are NOT headers
 		// goto default; is NOT a header
 		// default(int) keyword in C# is NOT a header
-		else if ((header == &AS_GET
-		          || header == &AS_SET
-		          || header == &AS_DEFAULT)
-		         && (peekChar == ';' || peekChar == '(' || peekChar == '='))
+		if ((header == &AS_GET
+		        || header == &AS_SET
+		        || header == &AS_DEFAULT)
+		        && (peekChar == '.' || peekChar == ';' || peekChar == '(' || peekChar == '='))
 			break;
 		return header;
 	}
@@ -704,7 +671,7 @@ const string* ASBase::findHeader(const string& line, int i,
 }
 
 // check if a specific line position contains a keyword.
-bool ASBase::findKeyword(const string& line, int i, const string& keyword) const
+bool ASBase::findKeyword(const std::string& line, int i, const std::string& keyword) const
 {
 	assert(isCharPotentialHeader(line, i));
 	// check the word
@@ -716,19 +683,25 @@ bool ASBase::findKeyword(const string& line, int i, const string& keyword) const
 		return false;
 	// check that this is not part of a longer word
 	if (wordEnd == line.length())
+	{
+		//std::cerr << "findKeyword t1 \n";
 		return true;
+	}
+
 	if (isLegalNameChar(line[wordEnd]))
 		return false;
 	// is not a keyword if part of a definition
 	const char peekChar = peekNextChar(line, (int) wordEnd - 1);
 	if (peekChar == ',' || peekChar == ')')
 		return false;
+
+	//std::cerr << "findKeyword t2 \n";
 	return true;
 }
 
 // check if a specific line position contains an operator.
-const string* ASBase::findOperator(const string& line, int i,
-                                   const vector<const string*>* possibleOperators) const
+const std::string* ASBase::findOperator(const std::string& line, int i,
+                                        const std::vector<const std::string*>* possibleOperators) const
 {
 	assert(isCharPotentialOperator(line[i]));
 	// find the operator in the vector
@@ -748,14 +721,16 @@ const string* ASBase::findOperator(const string& line, int i,
 
 // get the current word on a line
 // index must point to the beginning of the word
-string ASBase::getCurrentWord(const string& line, size_t index) const
+std::string ASBase::getCurrentWord(const std::string& line, size_t index) const
 {
-	assert(isCharPotentialHeader(line, index));
+	//assert(isCharPotentialHeader(line, index));
 	size_t lineLength = line.length();
 	size_t i;
 	for (i = index; i < lineLength; i++)
 	{
-		if (!isLegalNameChar(line[i]))
+		if (!isLegalNameChar(line[i])
+			|| ( (isCStyle() || isJavaStyle()) && i > index && line[i]=='.')
+			)
 			break;
 	}
 	return line.substr(index, i - index);
@@ -769,13 +744,14 @@ bool ASBase::isLegalNameChar(char ch) const
 	if ((unsigned char) ch > 127)
 		return false;
 	return (isalnum((unsigned char) ch)
-	        || ch == '.' || ch == '_'
+            || ch == '_'
+            || (!isSharpStyle() && ch == '.' )
 	        || (isJavaStyle() && ch == '$')
 	        || (isSharpStyle() && ch == '@'));  // may be used as a prefix
 }
 
 // check if a specific character can be part of a header
-bool ASBase::isCharPotentialHeader(const string& line, size_t i) const
+bool ASBase::isCharPotentialHeader(const std::string& line, size_t i) const
 {
 	assert(!isWhiteSpace(line[i]));
 	char prevCh = ' ';
@@ -811,7 +787,7 @@ bool ASBase::isDigit(char ch) const
 }
 
 // check if a specific character is a digit separator
-bool ASBase::isDigitSeparator(const string& line, int i) const
+bool ASBase::isDigitSeparator(const std::string& line, int i) const
 {
 	assert(line[i] == '\'');
 	// casting to (unsigned char) eliminates negative characters
@@ -824,11 +800,11 @@ bool ASBase::isDigitSeparator(const string& line, int i) const
 }
 
 // peek at the next unread character.
-char ASBase::peekNextChar(const string& line, int i) const
+char ASBase::peekNextChar(const std::string& line, int i) const
 {
 	char ch = ' ';
 	size_t peekNum = line.find_first_not_of(" \t", i + 1);
-	if (peekNum == string::npos)
+	if (peekNum == std::string::npos)
 		return ch;
 	ch = line[peekNum];
 	return ch;

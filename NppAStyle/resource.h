@@ -60,7 +60,8 @@
 #define IDC_CHK_IndentPreprocConditional  (IDD_ASTYLE_OPTION_DLG + 18)
 #define IDC_CHK_IndentPreprocDefine     (IDD_ASTYLE_OPTION_DLG + 19)
 #define IDC_CHK_IndentCol1Comments      (IDD_ASTYLE_OPTION_DLG + 20)
-#define IDC_CHK_IndentAfterParen        (IDD_ASTYLE_OPTION_DLG + 21)
+#define IDC_CHK_LambdaIndent            (IDD_ASTYLE_OPTION_DLG + 21)
+#define IDC_CHK_IndentAfterParen        (IDD_ASTYLE_OPTION_DLG + 22)
 // Min Conditional Indent
 #define IDC_LBL_MinConditionalIndent    (IDD_ASTYLE_OPTION_DLG + 30)
 #define IDC_CBB_MinConditionalIndent    (IDD_ASTYLE_OPTION_DLG + 31)
@@ -83,10 +84,11 @@
 #define IDC_CHK_UnPadParens             (IDD_ASTYLE_OPTION_DLG + 46)
 #define IDC_CHK_DeleteEmptyLines        (IDD_ASTYLE_OPTION_DLG + 47)
 #define IDC_CHK_EmptyLineFill           (IDD_ASTYLE_OPTION_DLG + 48)
-#define IDC_CHK_PadCommas               (IDD_ASTYLE_OPTION_DLG + 49)
+#define IDC_CHK_PadBrackets             (IDD_ASTYLE_OPTION_DLG + 49)
+#define IDC_CHK_PadCommas               (IDD_ASTYLE_OPTION_DLG + 50)
 // Pointer Align
-#define IDC_LBL_PtrAlign                (IDD_ASTYLE_OPTION_DLG + 50)
-#define IDC_CBB_PtrAlign                (IDD_ASTYLE_OPTION_DLG + 51)
+#define IDC_LBL_PtrAlign                (IDD_ASTYLE_OPTION_DLG + 51)
+#define IDC_CBB_PtrAlign                (IDD_ASTYLE_OPTION_DLG + 52)
 // Reference Align
 #define IDC_LBL_RefAlign                (IDD_ASTYLE_OPTION_DLG + 60)
 #define IDC_CBB_RefAlign                (IDD_ASTYLE_OPTION_DLG + 61)

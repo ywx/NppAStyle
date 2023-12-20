@@ -58,7 +58,7 @@ void NppAStyleOptionDlg::initDlgComboList()
 	}
 	SendDlgItemMessage( IDC_CBB_ASTYLE_LANG_MODE, CB_SETCURSEL, ( WPARAM ) m_languageMode, 0 );
 
-	TCHAR *listBraceStyle[] = { TEXT( "None" ), TEXT( "Allman (ANSI)" ), TEXT( "Java" ), TEXT( "Kernighan & Ritchie (K&R)" ), TEXT( "Stroustrup" ), TEXT( "Whitesmith" ), TEXT( "VTK" ), TEXT( "Ratliff" ), TEXT( "GNU" ), TEXT( "Linux" ), TEXT( "Horstmann" ), TEXT( "One True Brace (1TBS)" ), TEXT( "Google" ), TEXT( "Mozilla" ), TEXT( "Pico" ), TEXT( "Lisp" ), 0 };
+	TCHAR *listBraceStyle[] = { TEXT( "None" ), TEXT( "Allman (ANSI)" ), TEXT( "Java" ), TEXT( "Kernighan & Ritchie (K&R)" ), TEXT( "Stroustrup" ), TEXT( "Whitesmith" ), TEXT( "VTK" ), TEXT( "Ratliff" ), TEXT( "GNU" ), TEXT( "Linux" ), TEXT( "Horstmann" ), TEXT( "One True Brace (1TBS)" ), TEXT( "Google" ), TEXT( "Mozilla" ), TEXT( "Webkit" ), TEXT( "Pico" ), TEXT( "Lisp" ), 0 };
 #define FormattingStyleCount sizeof(listBraceStyle)/sizeof(TCHAR *)-1
 	hWndComboBox = GetDlgItem( IDC_CBB_BRACKET_STYLE );
 	for( int i = 0; i < FormattingStyleCount ; ++i )
@@ -161,7 +161,7 @@ void NppAStyleOptionDlg::updateDlgTabsetting()
 
 int getNppCurrentLangId();
 
-void NppAStyleOptionDlg::updateDlgLangSetting(bool isUpdateGUI)
+void NppAStyleOptionDlg::updateDlgLangSetting( bool isUpdateGUI )
 {
 	int langType = getNppCurrentLangId();
 	if( langType == L_C )
@@ -183,6 +183,10 @@ void NppAStyleOptionDlg::updateDlgLangSetting(bool isUpdateGUI)
 	else if( langType == L_OBJC )
 	{
 		m_languageMode = 4;
+	}
+	else if( langType == L_JAVASCRIPT )
+	{
+		m_languageMode = 5;
 	}
 
 	if( isUpdateGUI )
@@ -438,6 +442,7 @@ void NppAStyleOptionDlg::initDlgOptionControl()
 	SendDlgItemMessage( IDC_CHK_IndentPreprocConditional, BM_SETCHECK, m_astyleOption->shouldIndentPreprocConditional, 0 );
 	SendDlgItemMessage( IDC_CHK_IndentPreprocDefine, BM_SETCHECK, m_astyleOption->shouldIndentPreprocDefine, 0 );
 	SendDlgItemMessage( IDC_CHK_IndentCol1Comments, BM_SETCHECK, m_astyleOption->shouldIndentCol1Comments, 0 );
+	SendDlgItemMessage( IDC_CHK_LambdaIndent, BM_SETCHECK, m_astyleOption->shouldLambdaIndent, 0 );
 	SendDlgItemMessage( IDC_CHK_IndentAfterParen, BM_SETCHECK, m_astyleOption->shouldIndentAfterParen, 0 );
 	// Padding Options
 	SendDlgItemMessage( IDC_CHK_PadOperators, BM_SETCHECK, m_astyleOption->shouldPadOperators, 0 );
@@ -445,6 +450,7 @@ void NppAStyleOptionDlg::initDlgOptionControl()
 	SendDlgItemMessage( IDC_CHK_PadParensOutside, BM_SETCHECK, m_astyleOption->shouldPadParensOutside, 0 );
 	SendDlgItemMessage( IDC_CHK_PadFirstParen, BM_SETCHECK, m_astyleOption->shouldPadFirstParen, 0 );
 	SendDlgItemMessage( IDC_CHK_PadParensInside, BM_SETCHECK, m_astyleOption->shouldPadParensInside, 0 );
+	SendDlgItemMessage( IDC_CHK_PadBrackets, BM_SETCHECK, m_astyleOption->shouldPadBrackets, 0 );
 	SendDlgItemMessage( IDC_CHK_PadHeader, BM_SETCHECK, m_astyleOption->shouldPadHeader, 0 );
 	SendDlgItemMessage( IDC_CHK_UnPadParens, BM_SETCHECK, m_astyleOption->shouldUnPadParens, 0 );
 	SendDlgItemMessage( IDC_CHK_DeleteEmptyLines, BM_SETCHECK, m_astyleOption->shouldDeleteEmptyLines, 0 );
@@ -705,6 +711,13 @@ INT_PTR CALLBACK NppAStyleOptionDlg::DlgOptionProc( UINT Message, WPARAM wParam,
 						}
 						break;
 
+					case IDC_CHK_LambdaIndent:
+						{
+							m_astyleOption->shouldLambdaIndent = BST_CHECKED == SendDlgItemMessage( IDC_CHK_LambdaIndent, BM_GETCHECK, 0, 0 );
+							isUpdatePreview = true;
+						}
+						break;
+
 					//int  maxContinuationIndent;
 					// Padding Options
 					case IDC_CHK_PadOperators:
@@ -752,6 +765,13 @@ INT_PTR CALLBACK NppAStyleOptionDlg::DlgOptionProc( UINT Message, WPARAM wParam,
 					case IDC_CHK_DeleteEmptyLines:
 						{
 							m_astyleOption->shouldDeleteEmptyLines = BST_CHECKED == SendDlgItemMessage( IDC_CHK_DeleteEmptyLines, BM_GETCHECK, 0, 0 );
+							isUpdatePreview = true;
+						}
+						break;
+
+					case IDC_CHK_PadBrackets:
+						{
+							m_astyleOption->shouldPadBrackets = BST_CHECKED == SendDlgItemMessage( IDC_CHK_PadBrackets, BM_GETCHECK, 0, 0 );
 							isUpdatePreview = true;
 						}
 						break;

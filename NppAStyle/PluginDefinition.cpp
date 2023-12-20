@@ -197,8 +197,8 @@ void AStyleCode( const char *textBuffer, const NppAStyleOption &m_astyleOption, 
 
 	m_astyleOption.setFormatterOption( formatter );
 
-	// 0 C, 1 C++, 2 Java, 3 C#, 4 Objective-C
-	if( m_astyleOption.languageMode == 0 || m_astyleOption.languageMode == 1 || m_astyleOption.languageMode == 4 )
+	// 0 C, 1 C++, 2 Java, 3 C#, 4 Objective-C, 5 JavaScript
+	if( m_astyleOption.languageMode == 0 || m_astyleOption.languageMode == 1 )
 	{
 		formatter.setCStyle();
 		formatter.setModeManuallySet( true );
@@ -211,6 +211,16 @@ void AStyleCode( const char *textBuffer, const NppAStyleOption &m_astyleOption, 
 	else if( m_astyleOption.languageMode == 3 )
 	{
 		formatter.setSharpStyle();
+		formatter.setModeManuallySet( true );
+	}
+	else if( m_astyleOption.languageMode == 4 )
+	{
+		formatter.setObjCStyle();
+		formatter.setModeManuallySet( true );
+	}
+	else if( m_astyleOption.languageMode == 5 )
+	{
+		formatter.setJSStyle();
 		formatter.setModeManuallySet( true );
 	}
 
@@ -283,6 +293,10 @@ void formatCode()
 	else if( langType == L_OBJC )
 	{
 		languageMode = 4;
+	}
+	else if( langType == L_JAVASCRIPT )
+	{
+		languageMode = 5;
 	}
 	else
 	{

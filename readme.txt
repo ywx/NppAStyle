@@ -4,15 +4,15 @@ An Artistic Style plugin for Notepad++ to Format C, C++, C++/CLI, Objective-C, C
 
 Thanks to developers of Artistic Style, Scintilla and Notepad++.
 
-NOTE: Artistic Style Version 3.1
-For information on Artistic Style, please see http://sourceforge.net/projects/astyle/
+NOTE: Artistic Style Version 3.4
+For information on Artistic Style, please see http://sourceforge.net/projects/astyle/ or https://gitlab.com/saalen/astyle
 For information on Scintilla, please see http://www.scintilla.org/ or http://sourceforge.net/projects/scintilla/
 For information on Notepad++, please see https://notepad-plus-plus.org/ or https://github.com/notepad-plus-plus/notepad-plus-plus
 
 
 Name:      NppAStyle
 Author:    YWX (wxFortranIndent@163.com)
-Created:   2022-7-5
+Created:   2023-12
 Copyright: (c) YWX <wxFortranIndent@163.com>
 License:   GNU General Public License, version 3
 
@@ -29,7 +29,7 @@ To get the source code, please visit https://github.com/ywx/NppAStyle
 Get a local copy of the Artistic Style Plugin For Notepad++ repository with this command:
 git clone git://github.com/ywx/NppAStyle.git NppAStyle-Code
 
-Download NppAStyle.7z (include NppAStyle.dll) from https://github.com/ywx/NppAStyle/releases
+Download NppAStyle.zip (include NppAStyle.dll) from https://github.com/ywx/NppAStyle/releases
 
 For information on Git，please see http://git-scm.com/ or https://github.com/git/git
 For information on Git for Windows，please see http://msysgit.github.io/
@@ -42,6 +42,10 @@ How to Use NppAStyle
 3, Run Menu Command : NppAStyle => Options ... , Before First Run Menu Command : NppAStyle => Format Code
 
 
+                     Artistic Style 3.4
+                     Maintained by: Andre Simon, Jim Pattee
+                     Original Author: Tal Davidson
+
 Brace Style Options:
 --------------------
     None style nothing to do.
@@ -53,7 +57,7 @@ Brace Style Options:
     Attached braces.
 
     Kernighan & Ritchie style formatting/indenting.
-    Linux braces.
+    Linux braces, with broken closing headers.
 
     Stroustrup style formatting/indenting.
     Linux braces.
@@ -86,6 +90,9 @@ Brace Style Options:
     Mozilla style formatting/indenting.
     Linux braces, with broken braces for structs and enums,
     and attached braces for namespaces.
+
+    WebKit style formatting/indenting.
+    Linux braces, with attached closing headers.
 
     Pico style formatting/indenting.
     Run-in opening braces and attached closing braces.
@@ -167,6 +174,8 @@ Indentation Options:
     Indent comments at 1st column
     Indent line comments that start in column one.
 
+    Indent C++ lambda functions (experimental, broken for complex fct bodies)
+
     Minimum Conditional Indent #
     Indent a minimal # spaces in a continuous conditional
     belonging to a conditional header.
@@ -207,6 +216,13 @@ Padding Options:
     Unpad parens
     Remove unnecessary space padding around parenthesis. This
     can be used in combination with the 'pad' options above.
+
+    Pad Brackets
+    Insert space padding around square brackets on both the outside
+    and the inside (experimental).
+
+    Unpad Brackets
+    Remove unnecessary space padding around square brackets (experimental).
 
     Delete empty lines
     Delete empty lines within a function or method.

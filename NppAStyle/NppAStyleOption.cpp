@@ -41,6 +41,7 @@ extern TCHAR *initNppAStyleConfigFilePath( bool isInit );
 #define keySwitchIndent TEXT( "SwitchIndent" )
 #define keyCaseIndent TEXT( "CaseIndent" )
 #define keyNamespaceIndent TEXT( "NamespaceIndent" )
+#define keyLambdaIndent TEXT( "LambdaIndent" )
 #define keyLabelIndent TEXT( "LabelIndent" )
 #define keyIndentPreprocBlock TEXT( "IndentPreprocBlock" )
 #define keyIndentPreprocConditional TEXT( "IndentPreprocConditional" )
@@ -56,6 +57,7 @@ extern TCHAR *initNppAStyleConfigFilePath( bool isInit );
 #define keyPadParensOutside TEXT( "PadParensOutside" )
 #define keyPadFirstParen TEXT( "PadFirstParen" )
 #define keyPadParensInside TEXT( "PadParensInside" )
+#define keyPadBrackets TEXT( "PadBrackets" )
 #define keyPadHeader TEXT( "PadHeader" )
 #define keyUnPadParens TEXT( "UnPadParens" )
 #define keyDeleteEmptyLines TEXT( "DeleteEmptyLines" )
@@ -116,6 +118,7 @@ void NppAStyleOption::reset()
 	shouldSwitchIndent = false;
 	shouldCaseIndent = false;
 	shouldNamespaceIndent = false;
+	shouldLambdaIndent = false;
 	shouldLabelIndent = false;
 	shouldIndentPreprocBlock = false;
 	shouldIndentPreprocConditional = false;
@@ -131,6 +134,7 @@ void NppAStyleOption::reset()
 	shouldPadParensOutside = false;
 	shouldPadFirstParen = false;
 	shouldPadParensInside = false;
+	shouldPadBrackets = false;
 	shouldPadHeader = false;
 	shouldUnPadParens = false;
 	shouldDeleteEmptyLines = false;
@@ -202,12 +206,15 @@ void NppAStyleOption::setFormatterOption( astyle::ASFormatter &formatter ) const
 	formatter.setContinuationIndentation( continuationIndent );
 	formatter.setMinConditionalIndentOption( minConditionalOption );
 	formatter.setMaxContinuationIndentLength( maxContinuationIndent );
+	formatter.setLambdaIndentation( shouldLambdaIndent );
 	// Padding Options
 	formatter.setCommaPaddingMode( shouldPadCommas );
 	formatter.setOperatorPaddingMode( shouldPadOperators );
 	formatter.setParensOutsidePaddingMode( shouldPadParensOutside );
 	formatter.setParensFirstPaddingMode( shouldPadFirstParen );
 	formatter.setParensInsidePaddingMode( shouldPadParensInside );
+	formatter.setBracketsOutsidePaddingMode( shouldPadBrackets );
+	formatter.setBracketsInsidePaddingMode( shouldPadBrackets );
 	formatter.setParensHeaderPaddingMode( shouldPadHeader );
 	formatter.setParensUnPaddingMode( shouldUnPadParens );
 	formatter.setDeleteEmptyLinesMode( shouldDeleteEmptyLines );
@@ -280,6 +287,7 @@ void NppAStyleOption::loadConfigInfo( const TCHAR * keySectionName, const TCHAR 
 	shouldSwitchIndent = 0 != ::GetPrivateProfileInt( keySectionName, keySwitchIndent, shouldSwitchIndent, iniFilePath );
 	shouldCaseIndent = 0 != ::GetPrivateProfileInt( keySectionName, keyCaseIndent, shouldCaseIndent, iniFilePath );
 	shouldNamespaceIndent = 0 != ::GetPrivateProfileInt( keySectionName, keyNamespaceIndent, shouldNamespaceIndent, iniFilePath );
+	shouldLambdaIndent = 0 != ::GetPrivateProfileInt( keySectionName, keyLambdaIndent, shouldLambdaIndent, iniFilePath );
 	shouldLabelIndent = 0 != ::GetPrivateProfileInt( keySectionName, keyLabelIndent, shouldLabelIndent, iniFilePath );
 	shouldIndentPreprocBlock = 0 != ::GetPrivateProfileInt( keySectionName, keyIndentPreprocBlock, shouldIndentPreprocBlock, iniFilePath );
 	shouldIndentPreprocConditional = 0 != ::GetPrivateProfileInt( keySectionName, keyIndentPreprocConditional, shouldIndentPreprocConditional, iniFilePath );
@@ -298,6 +306,7 @@ void NppAStyleOption::loadConfigInfo( const TCHAR * keySectionName, const TCHAR 
 	shouldPadParensOutside = 0 != ::GetPrivateProfileInt( keySectionName, keyPadParensOutside, shouldPadParensOutside, iniFilePath );
 	shouldPadFirstParen = 0 != ::GetPrivateProfileInt( keySectionName, keyPadFirstParen, shouldPadFirstParen, iniFilePath );
 	shouldPadParensInside = 0 != ::GetPrivateProfileInt( keySectionName, keyPadParensInside, shouldPadParensInside, iniFilePath );
+	shouldPadBrackets = 0 != ::GetPrivateProfileInt( keySectionName, keyPadBrackets, shouldPadBrackets, iniFilePath );
 	shouldPadHeader = 0 != ::GetPrivateProfileInt( keySectionName, keyPadHeader, shouldPadHeader, iniFilePath );
 	shouldUnPadParens = 0 != ::GetPrivateProfileInt( keySectionName, keyUnPadParens, shouldUnPadParens, iniFilePath );
 	shouldDeleteEmptyLines = 0 != ::GetPrivateProfileInt( keySectionName, keyDeleteEmptyLines, shouldDeleteEmptyLines, iniFilePath );
@@ -376,6 +385,7 @@ void NppAStyleOption::saveConfigInfo( const TCHAR * keySectionName, const TCHAR 
 	::WritePrivateProfileString( keySectionName, keySwitchIndent, bool2TEXT( shouldSwitchIndent ), iniFilePath );
 	::WritePrivateProfileString( keySectionName, keyCaseIndent, bool2TEXT( shouldCaseIndent ), iniFilePath );
 	::WritePrivateProfileString( keySectionName, keyNamespaceIndent, bool2TEXT( shouldNamespaceIndent ), iniFilePath );
+	::WritePrivateProfileString( keySectionName, keyLambdaIndent, bool2TEXT( shouldLambdaIndent ), iniFilePath );
 	::WritePrivateProfileString( keySectionName, keyLabelIndent, bool2TEXT( shouldLabelIndent ), iniFilePath );
 	::WritePrivateProfileString( keySectionName, keyIndentPreprocBlock, bool2TEXT( shouldIndentPreprocBlock ), iniFilePath );
 	::WritePrivateProfileString( keySectionName, keyIndentPreprocConditional, bool2TEXT( shouldIndentPreprocConditional ), iniFilePath );
@@ -394,6 +404,7 @@ void NppAStyleOption::saveConfigInfo( const TCHAR * keySectionName, const TCHAR 
 	::WritePrivateProfileString( keySectionName, keyPadParensOutside, bool2TEXT( shouldPadParensOutside ), iniFilePath );
 	::WritePrivateProfileString( keySectionName, keyPadFirstParen, bool2TEXT( shouldPadFirstParen ), iniFilePath );
 	::WritePrivateProfileString( keySectionName, keyPadParensInside, bool2TEXT( shouldPadParensInside ), iniFilePath );
+	::WritePrivateProfileString( keySectionName, keyPadBrackets, bool2TEXT( shouldPadBrackets ), iniFilePath );
 	::WritePrivateProfileString( keySectionName, keyPadHeader, bool2TEXT( shouldPadHeader ), iniFilePath );
 	::WritePrivateProfileString( keySectionName, keyUnPadParens, bool2TEXT( shouldUnPadParens ), iniFilePath );
 	::WritePrivateProfileString( keySectionName, keyDeleteEmptyLines, bool2TEXT( shouldDeleteEmptyLines ), iniFilePath );
@@ -437,7 +448,8 @@ const TCHAR * NppAStyleOptionSet::languageNames[NppAStyleOptionSet::languageCoun
 	TEXT( "C++" ),
 	TEXT( "Java" ),
 	TEXT( "C#" ),
-	TEXT( "Objective-C" )
+	TEXT( "Objective-C" ),
+	TEXT( "JavaScript" )
 };
 
 // 0 C, 1 C++, 2 Java, 3 C#, 4 Objective-C
@@ -446,7 +458,8 @@ const TCHAR * NppAStyleOptionSet::languageSectionNames[NppAStyleOptionSet::langu
 	keySectionNamePrefix TEXT( " " ) TEXT( "C++" ),
 	keySectionNamePrefix TEXT( " " ) TEXT( "Java" ),
 	keySectionNamePrefix TEXT( " " ) TEXT( "C#" ),
-	keySectionNamePrefix TEXT( " " ) TEXT( "Objective-C" )
+	keySectionNamePrefix TEXT( " " ) TEXT( "Objective-C" ),
+	keySectionNamePrefix TEXT( " " ) TEXT( "JavaScript" )
 };
 
 void NppAStyleOptionSet::loadConfigInfo( const TCHAR strFilePath[] )

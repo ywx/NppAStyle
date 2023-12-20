@@ -38,7 +38,7 @@ struct NppAStyleOption
 	int referenceAlignment; // astyle::ReferenceAlign
 	//int lineEnd; // astyle::LineEndFormat
 
-	// 0 C, 1 C++, 2 Java, 3 C#, 4 Objective-C
+	// 0 C, 1 C++, 2 Java, 3 C#, 4 Objective-C, 5 JavaScript
 	int languageMode;
 
 	// Brace Modify Options
@@ -62,6 +62,7 @@ struct NppAStyleOption
 	bool shouldIndentPreprocDefine;
 	bool shouldIndentCol1Comments;
 	bool shouldIndentAfterParen;
+	bool shouldLambdaIndent;
 	int  continuationIndent;
 	int  minConditionalOption;
 	int  maxContinuationIndent;
@@ -71,6 +72,7 @@ struct NppAStyleOption
 	bool shouldPadParensOutside;
 	bool shouldPadFirstParen;
 	bool shouldPadParensInside;
+	bool shouldPadBrackets;
 	bool shouldPadHeader;
 	bool shouldUnPadParens;
 	bool shouldDeleteEmptyLines;
@@ -86,7 +88,7 @@ struct NppAStyleOption
 	bool shouldBreakOneLineStatements;
 	bool shouldBreakClosingHeaderBraces;
 	bool shouldBreakOneLineHeaders;
-	//bool shouldConvertTabs;
+	// bool shouldConvertTabs;
 	bool shouldCloseTemplates;
 	bool shouldStripCommentPrefix;
 	size_t maxCodeLength;
@@ -117,16 +119,13 @@ struct NppAStyleOptionSet
 	void loadConfigInfo( const TCHAR strFilePath[] = NULL );
 	void saveConfigInfo( const TCHAR strFilePath[] = NULL ) const;
 
-	// 0 C, 1 C++, 2 Java, 3 C#, 4 Objective-C
-	static const int languageCount = 5;
+	// 0 C, 1 C++, 2 Java, 3 C#, 4 Objective-C, 5 JavaScript
+	static const int languageCount = 6;
 
-	// 0 C, 1 C++, 2 Java, 3 C#, 4 Objective-C
 	static const TCHAR * languageNames[languageCount];
 
-	// 0 C, 1 C++, 2 Java, 3 C#, 4 Objective-C
 	static const TCHAR * languageSectionNames[languageCount];
 
-	// 0 C, 1 C++, 2 Java, 3 C#, 4 Objective-C
 	NppAStyleOption languageAStyleOption[languageCount];
 };
 
